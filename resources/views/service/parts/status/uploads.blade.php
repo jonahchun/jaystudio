@@ -1,0 +1,1 @@
+<p>{!! \App\Services\Helper\Status::getUploadsStatus($service) !!}</p>

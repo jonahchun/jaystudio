@@ -1,0 +1,155 @@
+.personal-info {
+    width: 100%;
+    max-width: 1023px;
+
+    @include media('>=desktop') { margin-top: -45px; }
+}
+
+.personal-info__tabs {
+    margin-left: auto;
+}
+
+.personal-info__blocks {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.personal-info__blocks-inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.personal-info__block {
+    width: 100%;
+    max-width: 460px;
+
+    &.full-width {
+        max-width: 100%;
+    }
+
+    @include media('>=widescreen') {
+        margin-bottom: 67px;
+
+        &:nth-child(odd) {
+            margin-right: 103px;
+        }
+        &:last-child {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+.personal-info__block-title {
+    width: 100%;
+    margin-bottom: 38px;
+
+    &.mb-s {
+        margin-bottom: 15px;
+    }
+}
+
+.personal-info__inputs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.personal-info__input-wrap {
+    width: 221px;
+    margin-bottom: 11px;
+
+    &.full-width {
+        width: 100%;
+    }
+
+    .full-width & {
+        @include media('>=phone') {
+            width: calc(50% - 9px);
+        }
+    }
+
+    @include media('>=phone') {
+        margin-right: 9px;
+    }
+}
+
+.user-ava {
+    border-radius: 50%;
+    background-color: #fff;
+    width: 119px;
+    height: 119px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+
+    @include media('>=desktop') {
+        margin: 15px 0 41px 0;
+    }
+}
+
+.user-ava__frame {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.user-ava__input-wrap {
+    position: absolute;
+    top: 3px;
+    right: -8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include size(36px, 36px);
+    background-color: $cr-brand-primary;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color .3s ease;
+
+    .icon {
+        @include size(18px, 17px);
+        fill: $cr-brand-secondary;
+        pointer-events: none;
+        transition: fill .3s ease;
+    }
+
+    @include hover {
+        background: $cr-brand-secondary;
+        transition: background-color .3s ease;
+
+        .icon {
+            fill: $cr-brand-primary;
+            transition: fill .3s ease;
+        }
+    }
+}
+
+.user-ava__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include size(36px, 36px);
+    opacity: 0;
+}
+
+.user-ava__img {
+    &.uploaded,
+    &[src*=".png"],
+    &[src*=".jpg"],
+    &[src*=".jpeg"],
+    &[src*=".gif"] {
+        display: block;
+        @include size(100%, 100%);
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+.user-ava_icon {
+    font-size: 30px;
+    color: rgba($cr-brand-secondary, .5);
+}

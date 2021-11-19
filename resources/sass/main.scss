@@ -1,0 +1,63 @@
+@import "core/variables";
+
+@import "vendor/reset";
+@import "vendor/include-media";
+//@import "vendor/select2.min";
+
+// Bootstrap
+@import 'core/bootstrap-overrides';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+@import '../../node_modules/swiper/src/swiper';
+@import '../../node_modules/swiper/src/components/scrollbar/scrollbar';
+
+@import "core/mixins";
+@import "core/fonts";
+@import "core/icons";
+
+@import "utils/utils";
+@import "utils/classes";
+@import "utils/helpers";
+@import "utils/styleguide";
+
+@import "components/buttons";
+@import "components/links";
+@import "components/typography";
+@import "components/forms";
+@import "components/paging";
+@import "components/filter-nav";
+@import "components/steps-nav";
+@import "components/tabs";
+@import "components/timepicker";
+@import "components/slider";
+@import "components/breadcrumbs";
+@import "components/print";
+@import "components/status";
+@import "components/image-popup";
+//@import "components/loader";
+
+@import "layout/header";
+@import "layout/layout";
+
+@import "pages/page-error";
+@import "pages/general-cms";
+@import "pages/auth";
+
+@import "blocks/aside";
+@import "blocks/info-panels";
+@import "blocks/info-columns";
+@import "blocks/info-blocks";
+@import "blocks/card";
+@import "blocks/service-card";
+@import "blocks/contacts";
+@import "blocks/popup";
+@import "blocks/info-table";
+@import "blocks/request";
+@import "blocks/personal-info";
+@import "blocks/user-details";
+@import "blocks/faq";
+@import "blocks/checklist";
+@import "blocks/song-list";
+@import "blocks/schedule";
+@import "blocks/order-forms";
+@import "blocks/invoices";

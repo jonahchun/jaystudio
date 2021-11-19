@@ -1,0 +1,18 @@
+// Bootstrap overrides
+//
+// Copy variables from `node_modules/scss/bootstrap/_variables.scss` to this file to override default values
+// without modifying source files.
+
+$spacer:                    1rem !default;
+
+$body-bg:                   $bg-color-primary;
+
+$headings-font-weight:      $heading-weight;
+$headings-color:            $heading-cr;
+$headings-margin-bottom:    $spacer * .625 !default;
+
+$card-border-width:         0;
+$card-cap-bg:               $cr-brand-primary;
+
+$breadcrumb-bg:             transparent;
+$breadcrumb-padding-x: 0;

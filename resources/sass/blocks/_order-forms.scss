@@ -1,0 +1,45 @@
+.order-forms {
+    max-width: 1400px;
+}
+
+.order-form__section {
+    width: 100%;
+    margin-bottom: 35px;
+    @include media('>=desktop') { width: 48%; }
+
+    &.full-width {
+        width: 100%;
+    }
+
+    &.flex {
+        display: flex;
+        flex-wrap: wrap;
+
+        .order-form__section-inner {
+           width: 150px;
+
+            &.large {
+                width: 450px;
+            }
+        }
+    }
+}
+
+.order-form__step-title {
+    width: 100%;
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 5px;
+}
+
+.order-form__title {
+    @extend .form-title;
+    line-height: 22px;
+    margin-bottom: 25px;
+}
+
+.order-form__action {
+    width: 100%;
+    max-width: 1400px;
+    text-align: right;
+}

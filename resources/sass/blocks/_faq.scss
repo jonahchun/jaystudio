@@ -1,0 +1,42 @@
+.slider-tabset {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.slider-tabset__control {
+    background-color: #fff;
+    color: rgba($font-cr-primary, .5);
+    display: inline-block;
+    padding: .75em 1em;
+    margin-right: 2px;
+    &.active,
+    &:hover {
+        background-color: $cr-brand-primary;
+        color: rgba($font-cr-primary, .9);
+        text-decoration: none;
+    }
+}
+
+.faq__content {
+    padding-right: $side-gutters;
+}
+
+.faq__answer-title.faq__answer-title {
+    font-weight: 600;
+    margin-bottom: 2rem;
+    .faq__answer:last-child & {
+        margin-bottom: 0;
+    }
+    &:before {
+        content: '+';
+        display: inline-block;
+        width: 14px;
+        margin-right: 4px;
+    }
+    .is-active & {
+        &:before {
+            content: '-';
+        }
+    }
+}

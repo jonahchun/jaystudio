@@ -1,0 +1,138 @@
+$card-bg:       #fff;
+$card-padding:  25px;
+
+.card {
+    border-radius: 5px;
+    background-color: $card-bg;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    .dashboard .col &,
+    .dashboard [class*="col-"] & {
+        height: calc(100% - 20px);
+    }
+}
+
+.card__heading {
+    padding: $card-padding;
+    @include media('>=desktop') {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.card-header {
+    border-radius: $border-radius $border-radius 0 0;
+}
+
+.card-header-title {
+    margin-bottom: 0;
+}
+
+.card__ttl {
+    margin-bottom: 0;
+    @include media('>=desktop') {
+        margin-right: $side-gutters-sm;
+    }
+}
+
+.card__content {
+    padding: $side-gutters-sm $card-padding $card-padding;
+}
+
+.card__content-img {
+    padding: 0;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+}
+
+.card__footer {
+    border-top: 1px solid $bg-color-primary;
+    margin-top: auto;
+    .danger-panel {
+        margin-bottom: 0;
+    }
+}
+
+.card__content-notes {
+    font-size: 14px;
+    margin-top: 32px;
+}
+
+.danger-panel {
+    padding: 9px $card-padding 13px;
+    background-color: #fff;
+    color: $cr-danger;
+    font-size: 14px;
+    display: flex;
+    border-radius: 5px;
+    margin-bottom: 45px;
+    .icon-warning {
+        font-size: 21px;
+        flex: 0 0 21px;
+        margin-right: 16px;
+        margin-top: 3px;
+    }
+    p {
+        margin-bottom: 0;
+    }
+    a {
+        color: currentColor;
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.warning-panel {
+    @extend .danger-panel;
+    color: $cr-warning;
+}
+
+.table-card-info {
+    color: $cr-brand-secondary;
+}
+
+.table-card-info__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.table-card-info__ttl {
+    font-weight: 700;
+    flex: 0 0 140px;
+    min-width: 140px;
+    margin-right: 8px;
+}
+
+.table-card-info__txt {
+    margin-right: 40px;
+}
+
+.label-status {
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 3px;
+    padding: 0 5px 1px;
+    color: #fff;
+    display: inline-block;
+    background-color: $cr-warning;
+}
+
+.table-data__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.table-data__ttl {
+    color: $font-cr-primary;
+    display: flex;
+    align-items: center;
+    .icon {
+        color: $cr-link;
+        margin-right: 13px;
+    }
+}

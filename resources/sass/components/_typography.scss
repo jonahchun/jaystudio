@@ -1,0 +1,135 @@
+html * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &::selection {
+        color: $cr-brand-secondary;
+        opacity: 1;
+        background-color: $cr-brand-primary;
+    }
+}
+
+body {
+    font-family: $font-primary;
+    color: $base-text-color;
+    font-size: $base-font-size;
+    line-height: $line-height-base;
+}
+
+img {
+    max-width: 100%;
+}
+
+button, input, optgroup, select, textarea {
+    font-family: inherit;
+    color: currentColor;
+}
+
+img,
+video,
+iframe {
+    vertical-align: top;
+}
+
+p {
+    margin-top: 0;
+}
+
+.h,
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5 {
+    margin-top: 0;
+    cursor: default;
+}
+h1, .h1 {
+    font-size: 60px;
+}
+h2, .h2 {
+    font-size: 24px;
+}
+h3, .h3 {
+    @include media('<tablet') {
+        font-size: 19px;
+    }
+    @include media('>=tablet') {
+        font-size: 20px;
+    }
+}
+h4, .h4 {
+    font-size: 17px;
+}
+h5, .h5 {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+a {
+    color: $cr-brand-primary;
+    text-decoration: none;
+    @include hover {
+        color: $cr-brand-primary;
+        text-decoration: none;
+    }
+}
+
+strong, b {
+    cursor: default;
+    font-weight: 700;
+}
+
+.title-section {
+    display: block;
+    font-size: 50px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+
+    @include media('<tablet') {
+        font-size: 30px;
+        line-height: 1.4px;
+    }
+
+    .title-accent {
+        font-weight: 700;
+        color: $cr-brand-primary;
+    }
+}
+
+.description {
+    margin-bottom: 40px;
+
+    @include media('<phone') {
+        width: 95%;
+    }
+    @include media('>=phone') {
+        width: 90%;
+    }
+    @include media('>=desktop') {
+        width: 85%;
+    }
+    @include media('>=widescreen') {
+        width: 80%;
+    }
+    @include media('>=largescreen') {
+        width: 85%;
+    }
+    @include media('>=megascreen') {
+        width: 75%;
+    }
+
+    .description-accent {
+        background-color: $cr-brand-primary;
+        color: $font-cr-secondary;
+    }
+}
+
+.form-title {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 14px;
+    color: $cr-brand-secondary;
+    margin-bottom: 15px
+}

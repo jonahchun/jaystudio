@@ -1,0 +1,48 @@
+.song-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .btn-add {
+        flex: 0 0 33.33333333%;
+        max-width: 33.33333333%;
+        margin-bottom: 50px;
+    }
+}
+
+.song-list__title {
+    @extend .form-title;
+}
+
+.song-list__subtitle {
+    &.wide {
+        @include media('>=desktop') { width: calc(70% + 6px);}
+    }
+}
+
+.song-list__item {
+    width: 100%;
+    &:last-of-type {
+        margin-bottom: 30px;
+    }
+}
+
+.song-list__item-inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.song-list__item-title {
+    margin: 0 6px 5px 0;
+
+    @include media('>=desktop') { width: 70%; }
+}
+
+.song-list__item-type {
+    flex: 1;
+    margin: 0 10px 5px 0;
+}
+
+.song-list__item-action {
+    padding-top: 18px;
+}

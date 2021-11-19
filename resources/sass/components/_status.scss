@@ -1,0 +1,48 @@
+.danger-panel,
+.warning-panel {
+    &.awaiting-order-form-submission,
+    &.pending-draft-approval {
+        color: $cr-danger;
+    }
+    &.editing,
+    &.edits-complete,
+    &.on-hold,
+    &.in-edits,
+    &.draft-prototyping,
+    &.draft-edits-processing,
+    &.edit-request-submitted,
+    &.order-form-submitted,
+    &.pending,
+    &.processing {
+        color: $cr-warning;
+    }
+    &.complete,
+    &.order-form-submitted,
+    &.draft-edits-approved {
+        color: $cr-success;
+    }
+}
+
+.label-status {
+    &.awaiting-order-form-submission,
+    &.pending-draft-approval {
+        background-color: $cr-danger;
+    }
+    &.editing,
+    &.edits-complete,
+    &.on-hold,
+    &.in-edits,
+    &.draft-prototyping,
+    &.draft-edits-processing,
+    &.edit-request-submitted,
+    &.order-form-submitted,
+    &.pending,
+    &.processing {
+        background-color: $cr-warning;
+    }
+    &.complete,
+    &.order-form-submitted,
+    &.draft-edits-approved {
+        background-color: $cr-success;
+    }
+}

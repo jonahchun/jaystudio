@@ -1,0 +1,114 @@
+.swiper-container {
+    width: 100%;
+}
+
+.b-image-templates {
+    margin-bottom: 20px;
+
+    .swiper-wrapper {
+        margin-bottom: 79px;
+    }
+    .swiper-scrollbar-drag {
+        height: 4px;
+        background-color: $cr-brand-secondary;
+        margin-top: -1px;
+    }
+    .swiper-scrollbar {
+        height: 2px;
+    }
+}
+
+.b-image-templates__slide {
+    min-width: 285px;
+    //width: 285px;
+    //max-width: 285px;
+    //min-height: 285px;
+    border-radius: 5px;
+    margin-right: 20px;
+    width: auto !important;
+    height: 285px;
+    max-height: 285px;
+
+    &.vertical {
+        min-width: auto;
+    }
+
+    &:not(:last-child) {
+        margin-right: 20px;
+    }
+
+    &.additional-option {
+        min-width: 235px;
+        width: 235px;
+        max-width: 235px;
+        min-height: 235px;
+        height: 235px;
+        max-height: 235px;
+    }
+}
+
+.b-image-templates__img {
+    display: block;
+    //object-fit: cover;
+    //width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.b-image-templates__radio.b-image-templates__radio {
+    position: relative;
+    margin-bottom: 0;
+    margin-right: 0;
+    min-height: 150px;
+    min-width: 150px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+
+    input[type="radio"] + & {
+        &:before {
+            @include xycenter;
+            margin: 0;
+            width: 57px;
+            height: 57px;
+            border: 1px solid rgba(#000, .1);
+            background-color: transparent;
+            box-shadow: none;
+            z-index: 1;
+        }
+        &:after {
+            @include xycenter;
+            content: '';
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(#000, .5);
+        }
+    }
+    input[type="radio"]:checked + & {
+        &:before {
+            border: 1px solid #f2e4d9;
+        }
+        &:after {
+            border-color: transparent;
+            background: #f2e4d9 url(../images/check.svg) no-repeat 50% 50%;
+            background-size: 12px 10px;
+        }
+        .b-image-templates__mask {
+            opacity: 0;
+        }
+    }
+}
+
+.b-image-templates__mask {
+    @include anim;
+    background-color: #fff;
+    opacity: .5;
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
