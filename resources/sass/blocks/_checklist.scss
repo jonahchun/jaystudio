@@ -1,0 +1,131 @@
+form.readonly .checklist-forms {
+    pointer-events: none;
+    position: relative;
+
+    &:before {
+        content: "";
+        font-size: 40px;
+        position: absolute;
+        left: -10px;
+        right: -10px;
+        top: -10px;
+        bottom: -10px;
+        background-color: rgba(#000, 0.1);
+        z-index: 2;
+    }
+}
+
+.checklist-forms {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+}
+
+.checklist-form__options {
+    margin-bottom: 30px;
+
+    @include media('>=phone') {
+        column-count: 2;
+        column-gap: 50px;
+        max-width: 640px;
+    }
+
+    @include media('>=widescreen') { margin-right: 35px; }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+}
+
+.checklist-form__inline-options {
+    @include media('>=phone') {
+        column-count: 3;
+        column-gap: 50px;
+        max-width: 1000px;
+    }
+}
+
+.checklist-form__title {
+    @extend .form-title;
+    margin-bottom: 25px;
+}
+
+.checklist-form__comment {
+    flex: 1;
+    min-width: 400px;
+    margin-bottom: 30px;
+
+    label {
+        &.error {
+            @extend .form-label-error;
+        }
+    }
+
+    textarea {
+        min-height: 150px;
+    }
+}
+
+.checklist-form__action {
+    width: 100%;
+    text-align: right;
+}
+
+.checklist-form__columns {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.checklist-form__column {
+    width: 100%;
+    max-width: 800px;
+
+    @include media('>=largescreen') {
+        width: 47%;
+        margin-bottom: 50px;
+    }
+}
+
+.checklist-form__column-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.checklist-form__column-titles {
+    display: flex;
+    margin-bottom: 20px;
+
+    @include media('>=phablet') {
+        padding-left: 30%;
+        margin-bottom: 10px;
+    }
+
+    &.mobile {
+        @include media('<largescreen') { display: none; }
+    }
+}
+
+.checklist-form__column-title {
+    flex: 1;
+    &:not(:first-child) { padding-left: 8px; }
+}
+
+.checklist-form__column-label {
+    font-weight: bold;
+    color: $cr-brand-secondary;
+
+    @include media('<phablet') { width: 100%; }
+    @include media('>=phablet') { width: 30%; }
+}
+
+.checklist-form__column-input {
+    flex: 1;
+    margin-bottom: 4px;
+    &:not(:last-of-type) {
+        margin-right: 6px;
+    }
+}

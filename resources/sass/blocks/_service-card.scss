@@ -1,0 +1,31 @@
+.service-card {
+    background-color: rgba(#fff, .9);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    @include media('>=phablet') {
+        padding: 40px $spacer;
+        height: calc(100% - 20px);
+    }
+    @include media('>=widescreen') {
+        padding-left: $spacer * 2;
+        padding-right: $spacer * 2;
+    }
+    p {
+        margin-bottom: 20px;
+        @include media('>=tablet') {
+            margin-bottom: 33px;
+        }
+    }
+}
+
+.service-card__icon {
+    font-size: 50px;
+    margin-bottom: 32px;
+    color: $cr-brand-primary;
+}
+
+.service-card__ttl {
+    margin-bottom: 9px;
+    font-size: 20px;
+}

@@ -1,0 +1,43 @@
+.auth {
+    width: 90%;
+    max-width: 535px;
+    margin: 0 auto;
+}
+
+.auth__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .logo {
+        display: block;
+        margin-bottom: 25px;
+    }
+
+    .card {
+        width: 100%;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.085);
+    }
+
+    .card-header {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .card-body {
+        border-radius: 0 0 5px 5px;
+    }
+
+    .form-group-actions {
+        max-width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 15px;
+        margin: 0 auto;
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+}

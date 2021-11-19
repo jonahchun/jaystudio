@@ -1,0 +1,101 @@
+form.readonly .details-forms {
+    pointer-events: none;
+    position: relative;
+
+    &:before {
+        content: "";
+        font-size: 40px;
+        position: absolute;
+        left: -10px;
+        right: -10px;
+        top: -10px;
+        bottom: -10px;
+        background-color: rgba(#000, 0.1);
+        z-index: 2;
+    }
+}
+
+.details-forms {
+    width: 100%;
+    max-width: 1400px;
+    margin-bottom: 2em;
+}
+
+.details-forms__intro {
+    margin-bottom: 2em;
+}
+
+.details-forms__comment {
+    margin-bottom: 10px;
+}
+
+.details-forms__comment-description {
+    margin-bottom: 5px;
+}
+
+.details-forms__comment-label {
+    @extend .form-title;
+}
+
+.details-forms__file {
+    margin-bottom: 50px;
+}
+
+.details-form__label {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    color: $cr-brand-secondary;
+    margin-bottom: 0;
+
+    @include media('>=desktop') { min-height: 70px; }
+    @include media('>=widescreen') { min-height: 52px; }
+}
+
+.details-forms__columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.details-forms__column {
+    @include media('>=desktop') { width: 48%; }
+    @include media('>=widescreen') { width: 49%; }
+
+    .form-group {
+        @include media('>=widescreen') { margin-bottom: 50px; }
+    }
+}
+
+.details-forms__upload {
+    font-size: 12px;
+    color: $cr-brand-secondary;
+    margin: 25px 0;
+}
+
+.details-forms__upload-indicator {
+    position: relative;
+    display: block;
+    @include size(100%, 6px);
+    overflow: hidden;
+    &:not(:last-of-type) {
+        margin-bottom: 5px;
+    }
+}
+
+.details-forms__upload-indicator-bar {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    display: block;
+    @include size(100%, 100%);
+    background-color: $cr-brand-primary;
+    transition: .6s ease;
+}
+
+.schedule-availabilities {
+    label {
+        margin-right: 1em;
+    }
+}

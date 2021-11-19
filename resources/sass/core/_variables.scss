@@ -1,0 +1,121 @@
+// Brand colors
+$cr-brand-primary:          #f3e5da;
+$cr-brand-secondary:        #393939;
+$cr-brand-tertiary:         #faf3ed;
+$cr-danger:                 #fb434c;
+$cr-warning:                #ffc826;
+$cr-success:                #7ae592;
+$cr-info:                   #ff5724;
+$cr-link:                   #e1bd9e;
+
+// background colors
+$bg-color-primary:          #f4f4f4;
+$bg-color-secondary:        #f4f5f9;
+
+// font colors
+$font-cr-primary:           $cr-brand-secondary;
+$font-cr-secondary:         $cr-brand-primary;
+$font-cr-tertiary:          #dcddde;
+
+// link colors
+$link-cr-font:              $cr-brand-primary;
+
+// button colors
+$btn-cr-font:               #fff;
+
+// border colors
+$border-cr:                 rgba(32, 38, 40, 0.1);
+$form-border-color:         rgba(#fff, .2);
+$form-border-focus:         #fff;
+$form-txt-color:            $font-cr-primary;
+
+// Additional
+$accent-color:              #25e6ae;
+
+// Warnings
+$cr-error:                  $cr-danger;
+$warning-cr-success:        $cr-warning;
+
+// Fonts
+$font-primary:              'Apercu Pro', Arial, sans-serif;
+//$font-primary:              'Roboto', Arial, sans-serif;
+
+// Body
+$base-text-color:           rgba($font-cr-primary, .5) !default;
+$base-background-color:     #fff !default;
+$base-font-size:            16px !default;
+$line-height-base:          1.6111 !default; //27px
+
+$heading-weight:            700;
+$heading-cr:                $font-cr-primary;
+$heading-letter-spacing:    4px;
+
+$animation-speed:           .27s !default;
+$animation-speed-slow:      $animation-speed * 2;
+$animation-speed-slow3x:    $animation-speed * 3;
+$animation-type:            cubic-bezier(0.215, 0.61, 0.355, 1) !default;
+
+// Forms
+$form-focus:                #e1bd9e;
+$form-border:               0;
+$form-cr-placeholder:       rgba($cr-brand-secondary, .5);
+$form-hor-padding-sm:       15px;
+$form-hor-padding:          24px;
+
+$header-height-sm:          80px;
+$header-height:             100px;
+
+// Media Queries
+$container-xl:              1920px;
+$container-md:              1470px;
+$container:                 1210px;
+$container-cms:             970px;
+$container-cms-sm:          730px;
+$container-xs:              370px;
+$side-gutters:              20px;
+$side-gutters-sm:           15px;
+$base-min-width:            320px;
+
+$desktop-hover:             1025px;
+$desktop-animation:         1025px;
+
+$screen-xs:                 530px !default;
+$screen-xs-min:             $screen-xs !default;
+$screen-phone:              $screen-xs-min !default;
+
+$screen-ph:                 576px !default;
+
+$screen-sm:                 768px !default;
+$screen-sm-min:             $screen-sm !default;
+$screen-tablet:             $screen-sm-min !default;
+
+$screen-md:                 992px !default;
+$screen-md-min:             $screen-md !default;
+$screen-desktop:            $screen-md-min !default;
+
+$screen-lg:                 1200px !default;
+$screen-lg-min:             $screen-lg !default;
+$screen-lg-desktop:         $screen-lg-min !default;
+
+$screen-xl:                 1440px !default;
+$screen-xxl:                1800px;
+$screen-xxxl:               2100px;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:             ($screen-sm-min - 1) !default;
+$screen-sm-max:             ($screen-md-min - 1) !default;
+$screen-md-max:             ($screen-lg-min - 1) !default;
+
+// media queries breakpoints
+$breakpoints: (
+    'phone': $screen-xs,
+    'phablet': $screen-ph,
+    'tablet': $screen-sm,
+    'desktop': $screen-md,
+    'widescreen': $screen-lg,
+    'largescreen': $screen-xl,
+    'superscreen' : $screen-xxl,
+    'megascreen' : $screen-xxxl,
+    'desktop-anim': $desktop-animation,
+    'desktop-hover': $desktop-hover
+);

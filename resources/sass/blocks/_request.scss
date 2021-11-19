@@ -1,0 +1,42 @@
+.b-request {
+}
+
+.b-request__heading {
+    margin-bottom: 26px;
+}
+
+.b-request__ttl {
+    margin-bottom: 6px;
+}
+
+.b-request__ttl-note {
+    line-height: 1.2;
+    display: inline-block;
+    margin-top: 2px;
+}
+
+.b-request__ttl-link {
+    margin-left: 10px;
+
+    .icon {
+        fill: $cr-brand-secondary;
+        transition: opacity .3s ease;
+    }
+
+    &:hover {
+        .icon {
+            opacity: 0.5;
+            transition: opacity .3s ease;
+        }
+    }
+}
+
+.b-request__footer-btns {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.b-request__footer-btn {
+    margin-left: 20px;
+}

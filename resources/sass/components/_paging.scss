@@ -1,0 +1,46 @@
+.paging {
+    margin-top: 36px;
+    @include media('>=tablet') {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.paging__status {
+    @include media('>=tablet') {
+        margin-right: 30px;
+    }
+}
+
+.paging__list {
+    @extend %listreset;
+    display: flex;
+    align-items: center;
+    @include media('<tablet') {
+        margin-top: 20px;
+    }
+    li {
+        min-width: 36px;
+        height: 36px;
+        line-height: 36px;
+        text-align: center;
+        border-radius: 50%;
+        color: $cr-brand-secondary;
+        transition: background-color .3s ease;
+        &:not(:first-child) {
+            margin-left: 10px;
+        }
+        &:hover,
+        &.is-active {
+            background-color: #fff;
+            transition: background-color .3s ease;
+        }
+    }
+    a {
+        color: currentColor;
+        display: block;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

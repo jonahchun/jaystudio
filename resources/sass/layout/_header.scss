@@ -1,0 +1,77 @@
+.header {
+    background-color: #fff;
+    color: $font-cr-primary;
+    padding: 11px $side-gutters-sm;
+    @include media('>=desktop') {
+        padding-left: 28px;
+    }
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    @include media('<desktop') {
+        line-height: 1.3;
+    }
+    @include media('>=desktop') {
+        padding-right: 34px;
+    }
+}
+
+.header-user__icon {
+    background-color: $cr-brand-tertiary;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon-rings {
+        color: $cr-brand-secondary;
+        font-size: 30px;
+    }
+}
+
+.login {
+    min-width: 130px;
+    height: 60px;
+    margin-top: -11px;
+    margin-bottom: -11px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    @include media('>=tablet') {
+        border-left: 2px solid #f6f7ff;
+    }
+    @include media('>=desktop') {
+        min-width: 196px;
+    }
+}
+
+.login-link {
+    color: $cr-brand-secondary;
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 14px;
+    transition: color .3s ease;
+    @include hover {
+        color: rgba($cr-brand-secondary, .5);
+        text-decoration: none;
+        transition: color .3s ease;
+    }
+    .icon {
+        fill: darken($cr-brand-primary, 10%);
+        margin-right: 10px;
+    }
+}

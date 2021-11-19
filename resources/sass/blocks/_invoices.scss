@@ -1,0 +1,84 @@
+.invoices-detail__title {
+    margin: 0 25px 30px 15px;
+}
+
+.invoices-detail__info {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+}
+
+.invoices-detail__info-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 30px;
+
+    @include media('>=phablet') {
+        width: 50%;
+        margin-bottom: 50px;
+
+        &.j-end {
+            @include media('>=phablet', '<largescreen') {
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    @include media('>=largescreen') {
+        width: calc(25% - 19px);
+        &:not(:last-child) {
+            margin-right: 25px;
+        }
+    }
+}
+
+.invoices-detail__info-logo {
+    max-width: 90px;
+    margin-bottom: 15px;
+}
+
+.invoices-detail__info-due {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFF;
+    width: 170px;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+    @include media('<phablet') { margin-bottom: 25px; }
+}
+
+.invoices-detail__info-due-title {
+    font-weight: 700;
+}
+
+.invoices-detail__info-due-value {
+    font-weight: 700;
+    font-size: 21px;
+    color: $font-cr-primary;
+}
+
+.invoices-detail__info-item {
+    margin: 0;
+    &.highlighted {
+        font-weight: bold;
+        color: $font-cr-primary;
+    }
+}
+
+.invoices-detail__info-item-title {
+    font-weight: 700;
+    color: $font-cr-primary;
+}
+
+.invoices-detail__info-link {
+    text-transform: none;
+    margin-top: 15px;
+}
+
+.invoices-detail__table {
+    width: 100%;
+}

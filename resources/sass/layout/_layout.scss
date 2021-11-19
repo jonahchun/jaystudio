@@ -1,0 +1,137 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+html:not(.is-popup-cf-open) {
+    overflow-y:scroll;
+}
+
+@keyframes page-line-decor {
+    0% {
+        transform: translateX(-50%) scaleY(0);
+    }
+    100% {
+        transform: translateX(-50%) scaleY(1);
+    }
+}
+
+body {
+    position: relative;
+    text-rendering: optimizeLegibility;
+    @include media('>=desktop') {
+        &:before {
+            @include xcenter;
+            position: fixed;
+            z-index: 4;
+            content: '';
+            pointer-events: none;
+            top: 0;
+            height: 100vh;
+            width: 480px;
+            border: solid rgba($font-cr-tertiary, .1);
+            border-width: 0 1px;
+            transform-origin: 50% 0;
+            transform: translateX(-50%) scaleY(0);
+        }
+        &.is-loaded {
+            &:before {
+                animation-name: page-line-decor;
+                animation-duration: $animation-speed * 11;
+                animation-timing-function: ease-out;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+    @include media('>=desktop') {
+        max-width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    &.is-loading,
+    &.is-menu-open,
+    .is-popup-cf-open & {
+        overflow-y: hidden;
+        //height: 100vh;
+    }
+    &.lock-scroll{
+        overflow: hidden;
+    }
+}
+
+.empty-wrapper {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    @include media('>=desktop') {
+        padding-left: 10vw;
+        padding-right: 10vw;
+    }
+}
+
+.wrapper {
+    @include media('>=desktop') {
+        display: flex;
+        min-height: 100vh;
+        padding-left: 265px;
+    }
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: $container;
+    &:not(.container--xl):not(.no-gutters) {
+        padding-left: $side-gutters-sm;
+        padding-right: $side-gutters-sm;
+    }
+    &--xl {
+        @extend .container;
+        max-width: $container-xl;
+    }
+    &--md {
+        @extend .container;
+        max-width: $container-md;
+    }
+    &--cms {
+        @extend .container;
+        max-width: $container-cms;
+    }
+    &--cms-sm {
+        @extend .container;
+        max-width: $container-cms-sm;
+    }
+    &--xs {
+        @extend .container;
+        max-width: $container-xs;
+    }
+    & &,
+    .wrapped {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+.page-ttl {
+    display: none;
+}
+
+.main {
+    width: 100%;
+    @include media('>=desktop') {
+        flex-grow: 1;
+    }
+}
+
+.dashboard {
+    padding: $side-gutters-sm;
+    @include media('>=desktop') {
+        padding: 45px 28px 40px;
+    }
+    @include media('>=widescreen') {
+        padding-right: 54px;
+    }
+}

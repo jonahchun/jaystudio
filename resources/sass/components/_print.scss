@@ -1,0 +1,152 @@
+@media print {
+    .header,
+    .login-link,
+    .login.d-none.d-lg-flex,
+    .sidebar {
+        position: absolute;
+        display: none;
+        @include size(0, 0);
+        opacity: 0;
+    }
+
+    .logo__img {
+        display: none;
+        &.print {
+            display: block;
+        }
+    }
+
+    .empty-wrapper {
+        padding: 50px 0 0 0;
+    }
+
+    .logo {
+        @include size(138px, 138px);
+        margin: -120px 0 30px 0;
+    }
+
+    .user-ava.mb-5 {
+        @include size(120px, 120px);
+        background-color: $cr-brand-primary !important;
+        -webkit-print-color-adjust: exact;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 25px 25px 85px 15px;
+
+        img {
+            display: block;
+            @include size(100%, 100%);
+            object-fit: cover;
+        }
+    }
+
+    .card-header {
+        background-color: $cr-brand-primary !important;
+        -webkit-print-color-adjust: exact;
+        z-index: 1;
+        margin-bottom: -2px;
+    }
+
+    .card-body {
+        padding: 0;
+
+        table {
+            width: calc(100% - 2px);
+            border: 1px solid $border-cr;
+            margin-left: 1px;
+        }
+
+        table tr td {
+            page-break-inside: avoid !important;
+        }
+
+        table tr th {
+            page-break-inside: avoid !important;
+        }
+
+        table thead {
+            display: table-row-group;
+        }
+
+        table thead th {
+            border-bottom: 0;
+        }
+    }
+
+    .card-details {
+        margin: -155px 0 50px 165px;
+    }
+
+    .card-detail {
+        display: block;
+    }
+
+    .card-comment {
+        border: 1px solid $border-cr;
+        padding: 1.25rem;
+    }
+
+    .invoices-detail {
+        .btn-primary.print {
+            display: none;
+        }
+
+        .invoices-detail__info-due {
+            background-color: $cr-brand-primary !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .invoices-detail__info-link {
+            color: $font-cr-primary;
+            text-decoration: none;
+            background-color: transparent !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .info-table {
+            thead td {
+                background-color: $cr-brand-primary !important;
+                -webkit-print-color-adjust: exact;
+            }
+
+            tbody td {
+               border-bottom: 1px solid #dee2e6;
+                &:first-child {
+                    border-left: 1px solid #dee2e6;
+                }
+                &:last-child {
+                    border-right: 1px solid #dee2e6;
+                }
+            }
+
+            tfoot tr {
+                &:first-child {
+                    td {
+                        border-top: 1px solid #dee2e6;
+                    }
+                }
+                &.highlighted {
+                    td {
+                        &:not(:empty) {
+                            background-color: $cr-brand-primary !important;
+                            -webkit-print-color-adjust: exact;
+                        }
+                    }
+                }
+            }
+
+            tfoot td {
+                border-bottom: 1px solid #dee2e6;
+                &:first-child {
+                    border-left: 1px solid #dee2e6;
+                }
+                &:last-child {
+                    border-right: 1px solid #dee2e6;
+                }
+                &.title {
+                    border-left: 1px solid #dee2e6;
+                }
+            }
+        }
+    }
+}

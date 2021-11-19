@@ -1,0 +1,224 @@
+form.readonly .schedule-forms {
+    pointer-events: none;
+    position: relative;
+
+    &:before {
+        content: "";
+        font-size: 40px;
+        position: absolute;
+        left: -10px;
+        right: -10px;
+        top: -10px;
+        bottom: -10px;
+        background-color: rgba(#000, 0.1);
+        z-index: 2;
+    }
+}
+
+.schedule-forms {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1400px;
+}
+
+.schedule-form__section {
+    width: 100%;
+    margin-bottom: 35px;
+    @include media('>=desktop') { width: 48%; }
+
+    &.full-width {
+        width: 100%;
+    }
+
+    &.flex {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .schedule-form__section-inner {
+            @include media('>=desktop') { width: 48%; }
+        }
+
+        .form-control-wrap {
+            @include media('>=phone') {
+                width: calc(50% - 4px);
+                &.full-width {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .schedule-form__section-inner {
+            width: 45%;
+            margin-bottom: 35px;
+        }
+    }
+}
+
+.schedule-form__section-inner {
+    margin-bottom: 45px;
+}
+
+.schedule-form__title {
+    @extend .form-title;
+    line-height: 22px;
+    margin-bottom: 25px;
+}
+
+.schedule-form__options {
+    .form-group {
+        margin-bottom: 5px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.schedule-form__action {
+    width: 100%;
+    max-width: 1400px;
+    text-align: right;
+}
+
+.schedule-form__action-add {
+    width: 100%;
+
+    .btn-add,
+    .btn-note {
+        @include media('<desktop') { width: calc(100% - 30px); }
+        @include media('>=desktop') { width: calc(48% - 30px); }
+    }
+}
+
+.address-form,
+.datepicker-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &.start-end {
+        .form-control-wrap {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .datepicker-group {
+            width: 100%;
+            margin-bottom: 15px;
+
+            &__inner.select {
+                align-self: flex-start;
+                margin-top: 0;
+            }
+
+            @include media('>=tablet', '<desktop') {
+                width: calc(50% - 4px);
+                margin-bottom: 0;
+            }
+
+            @include media('>=1500px') {
+                width: calc(50% - 4px);
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &.ceremony-schedule {
+        .datepicker-group-container {
+            > .form-control-wrap {
+                @include media('>=tablet', '<desktop') {
+                    width: calc(50% - 4px);
+                }
+
+                @include media('>=1500px') {
+                    width: calc(50% - 4px);
+                }
+
+                .datepicker-group {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.ceremony-schedule {
+        > .form-control-wrap {
+            &:first-child {
+                width: 100%;
+
+                .datepicker-group {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .form-control-wrap {
+        @include media('>=phone') { width: calc(50% - 4px); }
+        &.full-width {
+            width: 100%;
+        }
+    }
+}
+
+.address-form {
+    position: relative;
+    padding-right: 30px;
+    .btn-remove {
+        position: absolute;
+        top: 18px;
+        right: 0;
+    }
+}
+
+.schedule-availabilities-lists {
+    @include media('>=desktop') {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -40px 20px 0;
+    }
+}
+
+.schedule-availabilities-list {
+    background: #FFF;
+    border-radius: 5px;
+    padding: 25px 15px 15px 35px;
+
+    @include media('>=phone') { display: flex; }
+
+    @include media('<desktop') {
+        max-width: 500px;
+        margin-bottom: 30px;
+    }
+
+    @include media('>=desktop') {
+        flex: 1;
+        min-width: 400px;
+        max-width: 440px;
+        margin: 0 40px 35px 0;
+    }
+}
+
+.schedule-availabilities {
+    display: flex;
+    flex-direction: column;
+    &:first-child {
+        margin-right: 25px;
+    }
+    @include media('<desktop') {
+        &:first-child {
+            margin-bottom: 15px;
+        }
+    }
+}

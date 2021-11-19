@@ -1,0 +1,186 @@
+.info-table {
+    border-spacing: 0 1px;
+    border-collapse: separate;
+    width: 100%;
+    min-width: 760px;
+    &--rounded {
+        border-spacing: 0 10px;
+    }
+
+    &.info-table--rounded {
+        td, th {
+            &:first-child {
+                border-radius: 5px 0 0 5px !important;
+            }
+            &:last-child {
+                border-radius: 0 5px 5px 0 !important;
+            }
+        }
+    }
+
+    thead {
+        td, th {
+            background-color: #fff;
+            padding-top: 38px;
+            padding-bottom: 28px;
+            padding-left: 15px;
+            font-weight: 700;
+            color: $cr-brand-secondary;
+            text-align: left;
+            border-bottom: 3px solid $bg-color-primary;
+            &:first-child {
+                border-radius: 5px 0 0 8px;
+                padding-left: 28px;
+                @include media('>=widescreen') {
+                    padding-left: 48px;
+                }
+            }
+            &:last-child {
+                border-radius: 0 5px 8px 0;
+            }
+            .services & {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            &:first-child {
+                td:first-child {
+                    border-radius: 5px 0 0 0;
+                }
+                td:last-child {
+                    border-radius: 0 5px 0 0;
+                }
+            }
+            &:last-child {
+                td:first-child {
+                    border-radius: 0 0 0 5px;
+                }
+                td:last-child {
+                    border-radius: 0 0 5px 0;
+                }
+            }
+        }
+        td, th {
+            background-color: #fff;
+            padding-top: 21px;
+            padding-bottom: 21px;
+            padding-left: 15px;
+            color: $cr-brand-secondary;
+            text-align: left;
+            &:first-child {
+                padding-left: 28px;
+                @include media('>=widescreen') {
+                    padding-left: 48px;
+                }
+            }
+            &:last-child {
+                padding-right: 30px;
+            }
+        }
+    }
+
+    .icon {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .icon-cash {
+        width: 36px;
+        height: 21px;
+    }
+
+    .icon-card {
+        width: 36px;
+        height: 29px;
+    }
+    
+    .paid {
+        .icon-cash {
+            color: $cr-link;
+        }
+        .icon-check-circle {
+            display: inline-block;
+            margin-right: 10px;
+            color: $cr-success;
+        }
+    }
+    .label-due {
+        color: $cr-warning;
+    }
+    .label-paid {
+        color: $cr-success;
+    }
+    .label-overdue {
+        color: $cr-danger;
+    }
+
+    .danger-panel {
+        max-width: 240px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 12px;
+        align-items: center;
+    }
+
+    tfoot {
+        &:before {
+            display:block;
+            content: '';
+            opacity: 0;
+            height: 2px;
+        }
+        tr {
+            &:first-child {
+                td:empty + td:not(:empty) {
+                    border-radius: 5px 0 0 0;
+                }
+                td:last-child {
+                    border-radius: 0 5px 0 0;
+                }
+            }
+            &:last-child {
+                td:empty + td:not(:empty) {
+                    border-radius: 0 0 0 5px;
+                }
+                td:last-child {
+                    border-radius: 0 0 5px 0;
+                }
+            }
+            &.highlighted {
+                td {
+                    background-color: $cr-brand-primary;
+                }
+            }
+        }
+        td, th {
+            background-color: #fff;
+            padding-top: 21px;
+            padding-bottom: 21px;
+            padding-left: 15px;
+            color: $cr-brand-secondary;
+            text-align: left;
+            &:first-child {
+                padding-left: 28px;
+                @include media('>=widescreen') {
+                    padding-left: 48px;
+                }
+            }
+            &:last-child {
+                padding-right: 30px;
+            }
+        }
+        td {
+            &:empty {
+                opacity: 0;
+            }
+            &.title {
+                font-weight: 700;
+            }
+        }
+    }
+}

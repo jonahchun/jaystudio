@@ -1,0 +1,154 @@
+.datepicker-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &-container {
+        @include media('>=phone') {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .form-control-wrap {
+            @include media('>=phone') {
+                min-width: 220px;
+            }
+        }
+    }
+
+    &__inner {
+        &-container {
+            @include media('>=phone') {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+        }
+        &.time {
+            flex: 1;
+        }
+        &.select {
+            width: 105px;
+            margin: auto 0 0 4px;
+
+            input[type="text"] {
+                position: absolute;
+                width: 0;
+                height: 0;
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.fa[class*="fa-"] {
+    display: inline-block;
+    //vertical-align: middle;
+    border: solid transparent;
+    height: 0;
+    width: 0;
+    margin: 0;
+    border-radius: 0;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.fa.fa-arrow-up {
+    border-bottom-color: $cr-brand-primary;
+    border-width: 0 8px 8px;
+}
+
+.fa.fa-arrow-down {
+    border-top-color: $cr-brand-primary;
+    border-width: 8px 8px 0;
+}
+
+.fa.fa-chevron-left {
+    border-right-color: $cr-brand-primary;
+    border-width: 8px 8px 8px 0;
+}
+
+.fa.fa-chevron-right {
+    border-left-color: $cr-brand-primary;
+    border-width: 8px 0 8px 8px;
+}
+
+.bootstrap-datetimepicker-widget {
+    &.usetwentyfour {
+        table {
+            width: 100%;
+        }
+    }
+    &.dropdown-menu {
+        width: 100%;
+        border: 0;
+        padding: 12px 19px;
+        margin-top: 3px;
+        &:after,
+        &:before {
+            display: none;
+        }
+    }
+    table {
+        width: auto;
+        thead {
+            tr {
+                &:first-child {
+                    th:hover {
+                        background-color: $cr-brand-secondary;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        th {
+            border: 0;
+            font-weight: 400;
+            &.dow {
+                color: rgba($cr-brand-secondary, .5);
+                text-transform: uppercase;
+            }
+        }
+        td {
+            border: 0;
+            height: auto;
+            line-height: 1;
+            &.separator {
+                width: 18px;
+            }
+            &.active,
+            &.active:hover {
+                background-color: transparent;
+                color: currentColor;
+
+                &.today {
+                    &::before {
+                        display: none;
+                    }
+                    &::after {
+                        content: '';
+                        width: 29px;
+                        height: 29px;
+                        background-color: $cr-brand-primary;
+                        border-radius: 50%;
+                        @include xycenter;
+                        z-index: -1;
+                    }
+                }
+            }
+        }
+    }
+    .timepicker-hour,
+    .timepicker-minute,
+    .timepicker-second {
+        width: 50px;
+        height: 50px;
+        line-height: 48px;
+        border: 1px solid rgba($cr-brand-secondary, .3);
+        font-size: 1em;
+        font-weight: 400;
+    }
+}
