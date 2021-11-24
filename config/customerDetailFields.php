@@ -114,7 +114,7 @@ return [
     ],
     NewlywedType::FIRST . '_newlywed'  => getNewlywedFields(NewlywedType::FIRST),
     NewlywedType::SECOND . '_newlywed' => getNewlywedFields(NewlywedType::SECOND),
-    'billing_address'                  => getAddressFields(),
+    // 'billing_address'                  => getAddressFields(),
     'details_about_you' => [
         'question_answers' => [
             'type'  => 'newlywed_details',
