@@ -15,7 +15,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         $this->addField('general', 'id', 'ID', 'hidden', ['required' => false]);
         $this->addField('general', 'customer_id', 'Customer ID', 'hidden', ['required' => true]);
         
-        $this->addField('general', 'type', 'Type', 'select', [
+        $this->addField('general', 'type', 'Type', 'multiselect', [
             'required' => true,
             'source'   => Type::class,
             'readonly' => $this->getInstance()->id

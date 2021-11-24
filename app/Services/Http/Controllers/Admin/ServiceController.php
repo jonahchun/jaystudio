@@ -184,14 +184,14 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         return parent::_prepareData($data);
     }
 
-    protected function _afterSave(Request $request)
+    protected function _afterSave($request)
     {
         if($this->entity->detail) {
-            $this->entity->detail->fill($request->all())->save();
+            $this->entity->detail->fill($request)->save();
         }
 
         if(!$this->entity->detail && in_array($this->entity->type, [ServiceType::PHOTO, ServiceType::VIDEO])) {
-            $this->entity->detail()->create($request->all());
+            $this->entity->detail()->create($request);
         }
 
         if($this->oldStatus != $this->entity->status) {
@@ -215,6 +215,47 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             'file'   => $uploadLink,
             'status' => \App\Services\Model\Source\Upload\Status::COMPLETED
         ]);
+    }
+
+    public function save(Request $request)
+    {
+        try {
+            $all_data = $request->all();
+
+            foreach ($all_data['type'] as $t_key => $t_value) {
+                $this->arr[$t_key] = $all_data;
+                $this->arr[$t_key]['type'] = $t_value; 
+            }
+
+            foreach ($this->arr as $key => $value) {
+                if($value['id']) {
+                    $this->entity = $this->entity->findOrFail($value['id']);
+                }else{
+                    $this->entity = new \App\Services\Model\Service();      
+                }
+
+                $this->validator($value)->validate();
+
+                $data = $this->_prepareData($value);
+                
+                $this->entity->fill($data)->save();
+
+                $this->_afterSave($value);
+            }
+
+            Alert::addSuccess($this->entityTitle . ' has been saved');
+
+        } catch (ValidationException $e) {
+            foreach($e->errors() as $messages) {
+                foreach ($messages as $message) {
+                    Alert::addError($message);
+                }
+            }
+        } catch (\Exception $e) {
+            dd($e);
+            Alert::addError('Something went wrong. Please, try again');
+        }
+        return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);
     }
 
 }
