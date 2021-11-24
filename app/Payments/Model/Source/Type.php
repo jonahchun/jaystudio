@@ -11,8 +11,8 @@ class Type extends \WFN\Admin\Model\Source\AbstractSource
     protected function _getOptions()
     {
         return [
-            self::PAYPAL  => 'Paypal',
             self::OFFLINE => 'Offline',
+            self::PAYPAL  => 'Paypal',
         ];
     }
 
