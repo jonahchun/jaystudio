@@ -15,14 +15,15 @@ class Service extends Model
     public function getAttribute($key)
     {
         if($key != 'detail'){
-            // dd($key);
             $value = parent::getAttribute($key);
+            // var_dump($key);
+            // var_dump($value);
             if($key == 'type') {
                 $values = [
-                    'videography',
-                    'thank_you_card'
+                    'photo_album',
+                    'videography'
                 ];
-
+                // dd($values);
                 return $values;
             }else{
                 if(!$value) {
@@ -31,11 +32,14 @@ class Service extends Model
                 return $value;
             }
         }
-        // $value = parent::getAttribute($key);
-        // if(!$value) {
-        //     $value = !empty($this->type) && !empty($this->detail) ? $this->detail->$key : null;
+        // }else{
+            // $value = parent::getAttribute($key);
+            // if(!$value) {
+            //     $value = !empty($this->type) && !empty($this->detail) ? $this->detail->$key : null;
+            // }
+            // return $value;
         // }
-        // return $value;
+        
     }
 
     public function getAttributeUrl($key)
