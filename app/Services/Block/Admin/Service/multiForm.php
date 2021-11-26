@@ -37,4 +37,8 @@ class multiForm extends \WFN\Admin\Block\Widget\AbstractForm
         /* Add Form Buttons */
         $this->addButton('Back to Customer', route('admin.customer.edit', ['id' => optional($this->instance->customer)->id]), 'admin.customer.edit', 'back');
     }
+    public function getTitle()
+    {
+        return ($this->getInstance()->id ? 'Edit Item' : 'Manage Service Item');
+    }
 }

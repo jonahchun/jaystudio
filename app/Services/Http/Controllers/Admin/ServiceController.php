@@ -282,11 +282,8 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             dd($e);
             Alert::addError('Something went wrong. Please, try again');
         }
-        return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);
+        
+        return redirect()->route('admin.customer.edit', ['id' => $request->customer_id]);
 
-    }
-    public function getAttribute($key)
-    {
-        d($key);
     }
 }

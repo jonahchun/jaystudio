@@ -10,7 +10,7 @@
                 ])     
                 @includeIf('admin::widget.button', [
                     'jsaction' => 'setLocation("' . route('admin.customer.service.servicecreate', ['customer' => $form->getInstance()->id]) . '")', 
-                    'label'    => 'Add New Service',
+                    'label'    => 'Manage Service',
                     'route'    => 'admin.customer.service.servicecreate'
                 ])      
             </div>
