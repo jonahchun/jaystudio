@@ -279,10 +279,9 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 }
             }
         } catch (\Exception $e) {
-            dd($e);
             Alert::addError('Something went wrong. Please, try again');
         }
-        
+
         return redirect()->route('admin.customer.edit', ['id' => $request->customer_id]);
 
     }
