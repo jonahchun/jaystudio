@@ -52,7 +52,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         if($this->getInstance()->customer_id) {
             $this->addButton('Back to Customer', route('admin.customer.edit', ['id' => optional($this->instance->customer)->id]), 'admin.customer.edit', 'back');
         }
-
+        $this->buttons[] = [
+            'label'    => 'Save & New',
+            'type'     => 'save',
+            'class'    => 'success',
+            'route'    => $this->adminRoute . '.save',
+        ];
         if($this->getInstance()->paypal_invoice_id) {
             $this->buttons[] = [
                 'label'    => 'View in PayPal',
