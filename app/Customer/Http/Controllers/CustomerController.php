@@ -5,6 +5,7 @@ namespace App\Customer\Http\Controllers;
 use WFN\Customer\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Http\Request;
 use App\Customer\Model\Customer\InviteToken;
+use App\Customer\Model\TempCustomer;
 
 class CustomerController extends ResetPasswordController
 {
@@ -50,6 +51,19 @@ class CustomerController extends ResetPasswordController
             'token'    => 'required',
             'password' => 'required|confirmed|min:8',
         ];
+    }
+
+    public function autoSave(Request $request){
+        $all_data = $request->all();
+
+        $temp_customer_data = TempCustomer::where('customer_id',$all_data['customer_id'])->first();
+        
+        $temp_customer = TempCustomer::findOrNew($temp_customer_data['id']);
+        $temp_customer->customer_id = $all_data['customer_id'];
+        $temp_customer->json = json_encode($all_data['form_data']);
+        $temp_customer->save();
+
+        return response()->json(['success'=>true]);
     }
 
 }

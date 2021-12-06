@@ -10,6 +10,7 @@ Route::post('register', function() {
 Route::get('dashboard', '\\' . App\Customer\Http\Controllers\IndexController::class . '@dashboard')->name('customer.account');
 
 Route::prefix('customer')->group(function() {
+    Route::post('auto-save','\\' . App\Customer\Http\Controllers\CustomerController::class . '@autoSave')->name('customer.autosave');
     Route::get('complete-profile/{token}', '\\' . App\Customer\Http\Controllers\CustomerController::class . '@completeProfile')->name('customer.complete.profile');
     Route::post('complete-profile/save', '\\' . App\Customer\Http\Controllers\CustomerController::class . '@completeProfileSave')->name('customer.complete.profile.save');
 
