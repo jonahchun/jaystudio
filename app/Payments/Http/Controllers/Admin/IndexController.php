@@ -62,11 +62,14 @@ class IndexController extends \WFN\Admin\Http\Controllers\Crud\Controller
 
     public function save(Request $request)
     {
-        // dd($request->all());
         try {
             if($request->input('id')) {
                 $this->entity = $this->entity->findOrFail($request->input('id'));
             }
+
+            $request->merge([
+                'amount' => str_replace(',','', $request->amount)
+            ]);
 
             $this->validator($request->all())->validate();
 
