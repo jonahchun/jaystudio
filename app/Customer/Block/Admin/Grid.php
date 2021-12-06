@@ -35,24 +35,27 @@ class Grid extends \WFN\Customer\Block\Admin\Grid
             });
         }
 
-        if(isset($this->request['newlywed_names'])) {
-            $names = explode(' ', $this->request['newlywed_names']);
-            $firstPart = array_shift($names);
-            $query->whereHas('first_newlywed', function($_query) use ($firstPart, $names) {
-                $_query->where('first_name', 'like', '%' . $firstPart . '%')
-                    ->orWhere('last_name', 'like', '%' . $firstPart . '%');
-                foreach($names as $part) {
-                    $_query->orWhere('first_name', 'like', '%' . $part . '%')
-                        ->orWhere('last_name', 'like', '%' . $part . '%');
-                }
-            })->orWhereHas('second_newlywed', function($_query) use ($firstPart, $names) {
-                $_query->where('first_name', 'like', '%' . $firstPart . '%')
-                    ->orWhere('last_name', 'like', '%' . $firstPart . '%');
-                foreach($names as $part) {
-                    $_query->orWhere('first_name', 'like', '%' . $part . '%')
-                        ->orWhere('last_name', 'like', '%' . $part . '%');
-                }
-            });
+        if(!empty($this->request['newlywed_names'])){
+            if(isset($this->request['newlywed_names'])) {
+                $names = explode(' ', $this->request['newlywed_names']);
+                $firstPart = array_shift($names);
+                $query->whereHas('first_newlywed', function($_query) use ($firstPart, $names) {
+                    $_query->where('first_name', 'like', '%' . $firstPart . '%')
+                        ->orWhere('last_name', 'like', '%' . $firstPart . '%');
+                    foreach($names as $part) {
+                        $_query->orWhere('first_name', 'like', '%' . $part . '%')
+                            ->orWhere('last_name', 'like', '%' . $part . '%');
+                    }
+                })->orWhereHas('second_newlywed', function($_query) use ($firstPart, $names) {
+                    $_query->where('first_name', 'like', '%' . $firstPart . '%')
+                        ->orWhere('last_name', 'like', '%' . $firstPart . '%');
+                    foreach($names as $part) {
+                        $_query->orWhere('first_name', 'like', '%' . $part . '%')
+                            ->orWhere('last_name', 'like', '%' . $part . '%');
+                    }
+                });
+            }
+            
         }
 
         $query->orderBy($this->getOrderBy(), $this->getDirection());
