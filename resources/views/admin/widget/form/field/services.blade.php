@@ -7,7 +7,12 @@
                     'jsaction' => 'setLocation("' . route('admin.customer.service.create', ['customer' => $form->getInstance()->id]) . '")', 
                     'label'    => 'Add new',
                     'route'    => 'admin.customer.service.create'
-                ])        
+                ])     
+                @includeIf('admin::widget.button', [
+                    'jsaction' => 'setLocation("' . route('admin.customer.service.servicecreate', ['customer' => $form->getInstance()->id]) . '")', 
+                    'label'    => 'Manage Service',
+                    'route'    => 'admin.customer.service.servicecreate'
+                ])      
             </div>
             <div class="card-body">
                 <table class="table table-hover">

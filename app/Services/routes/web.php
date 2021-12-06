@@ -1,6 +1,12 @@
 <?php
 
 Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
+    Route::prefix('multi-service')->group(function() {
+        Route::get('new-service/{customer}', '\App\Services\Http\Controllers\Admin\ServiceController@serviceCreate')->name('admin.customer.service.servicecreate');
+        Route::get('/', '\App\Services\Http\Controllers\Admin\ServiceController@serviceIndex')->name('admin.customer.multi-service');
+        Route::post('save', '\App\Services\Http\Controllers\Admin\ServiceController@serviceSave')->name('admin.customer.multi-service.save');
+    });
+
     Route::prefix('service')->group(function() {
         Route::get('/', '\App\Services\Http\Controllers\Admin\ServiceController@index')->name('admin.customer.service');
         Route::get('new', '\App\Services\Http\Controllers\Admin\ServiceController@new')->name('admin.customer.service.new');

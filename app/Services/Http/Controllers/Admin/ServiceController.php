@@ -16,6 +16,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
     {
         $this->gridBlock   = new \App\Services\Block\Admin\Service\Grid($request);
         $this->formBlock   = new \App\Services\Block\Admin\Service\Form();
+        $this->formMultiBlock   = new \App\Services\Block\Admin\Service\multiForm();
         $this->entity      = new \App\Services\Model\Service();
         $this->entityTitle = 'Services';
         $this->adminRoute  = 'admin.customer.service';
@@ -43,7 +44,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         $this->entity->customer_id = $customer->id;
         return $this->formBlock->setInstance($this->entity)->render();
     }
-
+    
     public function delete($id)
     {
         $customerId = $this->entity->findOrFail($id)->customer->id;
@@ -217,4 +218,71 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         ]);
     }
 
+    public function serviceIndex(Request $request)
+    {
+        return null;
+    }
+    public function serviceCreate(\Customer $customer, Request $request){
+
+        $this->entity->customer_id = $customer->id;
+        return $this->formMultiBlock->setInstance($this->entity)->render();
+        // dd($customer);
+    }
+
+    public function serviceSave(Request $request){
+        try {
+            $all_data = $request->all();
+            $service_data = $this->entity->where('customer_id',$all_data['customer_id'])->get();
+
+            $old_type_arr = [];
+
+            foreach ($service_data as $key => $value) {
+                $old_type_arr[] = $value['type'];
+            }
+
+            $new_type_arr = $all_data['type'];
+
+            $delete_arr = array_diff($old_type_arr,$new_type_arr);
+            foreach ($delete_arr as $key => $value) {
+                $this->entity->where('customer_id',$all_data['customer_id'])->where('type',$value)->delete();
+            }
+
+            $new_arr_type = array_diff($new_type_arr,$old_type_arr);
+            if(!empty($new_arr_type)){
+                foreach ($new_arr_type as $t_key => $t_value) {
+                    $this->arr[$t_key] = $all_data;
+                    $this->arr[$t_key]['type'] = $t_value; 
+                }
+
+                foreach ($this->arr as $key => $value) {
+                    if($value['id']) {
+                        $this->entity = $this->entity->findOrFail($value['id']);
+                    }else{
+                        $this->entity = new \App\Services\Model\Service();      
+                    }
+
+                    $this->validator($value)->validate();
+
+                    $data = $this->_prepareData($value);
+                    // dd($data);
+                    $this->entity->fill($data)->save();
+                }
+                
+            }
+
+            Alert::addSuccess($this->entityTitle . ' has been saved');
+
+        } catch (ValidationException $e) {
+            foreach($e->errors() as $messages) {
+                foreach ($messages as $message) {
+                    Alert::addError($message);
+                }
+            }
+        } catch (\Exception $e) {
+            Alert::addError('Something went wrong. Please, try again');
+        }
+
+        return redirect()->route('admin.customer.edit', ['id' => $request->customer_id]);
+
+    }
 }
