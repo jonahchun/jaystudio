@@ -37,7 +37,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         $this->addField('general', 'due_date', 'Due Date', 'date', ['required' => true]);
         $this->addField('general', 'item_description', 'Item Description', 'text', ['required' => true]);
         $this->addField('general', 'amount', 'Amount', 'text', ['required' => true]);
-        $this->addField('general', 'tax_amount', 'Tax Amount', 'text', ['required' => true]);
+        // $this->addField('general', 'tax_amount', 'Tax Amount', 'text', ['required' => true]);
 
         if($this->getInstance()->status != Status::PAID && $this->getInstance()->type == Type::OFFLINE) {
             $this->buttons[] = [
