@@ -94,9 +94,9 @@
                 <tr>
                     <td></td><td></td><td class="title">{{ __('Subtotal:') }}</td><td>${{ $invoice->amount }}</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td></td><td></td><td class="title">{{ __('Tax:') }}</td><td>${{ $invoice->tax_amount }}</td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td></td><td></td><td class="title">{{ __('Total:') }}</td><td>${{ $invoice->total }}</td>
                 </tr>
