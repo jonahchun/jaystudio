@@ -8,7 +8,7 @@
         <div class="personal-info__tabs">
             <ul class="tabs justify-content-lg-end js-tabset">
                 <li class="tabs__item active"><a class="tabs__link" href="#user-details">User Details</a></li>
-                <li class="tabs__item"><a class="tabs__link" href="#billing-address">Billing address</a></li>
+                <!-- <li class="tabs__item"><a class="tabs__link" href="#billing-address">Billing address</a></li> -->
             </ul>
         </div>
     </header>
@@ -103,7 +103,7 @@
         </div>
     </section>
 
-    <section class="personal-info" id="billing-address">
+    <!-- <section class="personal-info" id="billing-address">
         <div class="personal-info__block full-width">
             <h2 class="personal-info__block-title">Billing Address</h2>
             <div class="personal-info__inputs">
@@ -154,7 +154,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     
     <div class="personal-info__form-submit">
         <button class="btn-primary wide lowercase" type="submit">{{ __('Save') }}</button>

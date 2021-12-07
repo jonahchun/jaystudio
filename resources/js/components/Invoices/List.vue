@@ -18,7 +18,7 @@
                         <svg v-show="invoice.type == 2" class="icon icon-cash"><use xlink:href="#icon-cash"></use></svg>
                     </td>
                     <td>{{ invoice.due_date_formated }}</td>
-                    <td>${{ invoice.tax_amount }}</td>
+                    <!-- <td>${{ invoice.tax_amount }}</td> -->
                     <td><b>${{ invoice.amount }}</b></td>
                     <td>
                         <span :class="'label-' + invoice.status_label.toLowerCase()">{{ invoice.status_label }}</span>
@@ -44,7 +44,6 @@ export default {
                 {label: 'Number', width: '24'},
                 {label: 'Type', width: '12'},
                 {label: 'Due Date', width: '15'},
-                {label: 'Tax', width: '12'},
                 {label: 'Total', width: '12'},
                 {label: 'Status', width: '13'},
                 {label: '', width: ''},
@@ -53,6 +52,7 @@ export default {
         };
     },
     beforeMount() {
+        console.log(this.detail_url)
         this.invoices = this.initial_invoices;
     },
     methods: {
