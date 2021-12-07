@@ -112,7 +112,7 @@ return [
                 'required' => true,
             ],
         ],
-        'disable_update' => [
+        'is_disable_update' => [
             'type'     => 'select',
             'label'    => 'Disable Update',
             'options'  => [

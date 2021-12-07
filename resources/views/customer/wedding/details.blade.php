@@ -8,7 +8,7 @@
         :urls="{{ json_encode(['save' => route('customer.details.save')]) }}"
         :content="{{ json_encode(['title' => 'Details About You', 'description' => \Settings::getConfigValue('wedding_info/newlywed_details_form_description') ]) }}"
         :steps="{{ json_encode(['Your History', 'What You Like In Each Other', 'Your Wedding', 'Comments']) }}"
-        :readonly="{{ Auth::user()->wedding_date->subWeek()->lt(Illuminate\Support\Carbon::now()) ? 'true' : 'false' }}"
+        :readonly="{{ (Auth::user()->wedding_date->subWeek()->lt(Illuminate\Support\Carbon::now()) || Auth::user()->is_disable_update == 'No') ? 'true' : 'false' }}"
     ></newlywed-details-form>
 
 @endsection

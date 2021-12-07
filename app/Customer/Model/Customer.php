@@ -17,7 +17,7 @@ class Customer extends \WFN\Customer\Model\Customer
 {
 
     protected $fillable = [
-        'id', 'email', 'password', 'api_token', 'account_id','disable_update'
+        'id', 'email', 'password', 'api_token', 'account_id','is_disable_update'
     ];
 
     public static function getAvailableRelations()
