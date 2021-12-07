@@ -2,6 +2,7 @@
 
 use App\Customer\Model\Source\NewlywedPosition;
 use App\Customer\Model\Source\NewlywedType;
+use App\Customer\Model\Source\IsBlock;
 
 function getNewlywedFields($newlywedPosition) {
     return [
@@ -110,6 +111,14 @@ return [
             'options'  => [
                 'required' => true,
             ],
+        ],
+        'disable_update' => [
+            'type'     => 'select',
+            'label'    => 'Disable Update',
+            'options'  => [
+                'required' => true,
+                'source'   => IsBlock::class,
+            ]
         ],
     ],
     NewlywedType::FIRST . '_newlywed'  => getNewlywedFields(NewlywedType::FIRST),
