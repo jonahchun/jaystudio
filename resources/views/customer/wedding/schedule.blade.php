@@ -1,6 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+    <?php
+        $before_date = date("Y-m-d H:i:s", strtotime ( '-4 month' , strtotime (Auth::user()->wedding_date) )) ;
+        
+        $readonly_flag = 'false';
+        if(Auth::user()->is_disable_update == 'Yes'){
+            $readonly_flag = 'true';
+        }else{
+            if(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
+                $readonly_flag = 'true';
+            }else{
+                
+                if(Auth::user()->wedding_date->subWeek()->lt(Illuminate\Support\Carbon::now())){
+                    $readonly_flag = 'true';
+                }else{
+                    $readonly_flag = 'false';
+                }
+            }
+
+        }
+    ?>
     <wedding-schedule-form 
         :wedding_schedule="{{ Auth::user()->wedding_schedule }}"
         :urls="{{ json_encode(['save' => route('customer.wedding.schedule.save')]) }}"
@@ -15,7 +35,7 @@
         :ceremony_traditions="{{ \App\WeddingSchedule\Model\Ceremony\Tradition::orderBy('sort_order', 'asc')->get() }}"
         :contacts="{{ \App\Customer\Model\Contact::where('customer_id', Auth::user()->id)->get() }}"
         :newlywed_types="{{ json_encode([Auth::user()->first_newlywed->bridegroom, Auth::user()->second_newlywed->bridegroom]) }}"
-        :readonly="{{ Auth::user()->wedding_date->subWeek()->lt(Illuminate\Support\Carbon::now()) ? 'true' : 'false' }}"
+        :readonly="{{ $readonly_flag }}"
     ></wedding-schedule-form>
 
 @endsection
