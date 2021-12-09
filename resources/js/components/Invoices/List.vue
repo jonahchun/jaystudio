@@ -41,11 +41,11 @@ export default {
     data() {
         return {
             columns: [
-                {label: 'Number', width: '24'},
-                {label: 'Type', width: '12'},
-                {label: 'Due Date', width: '15'},
-                {label: 'Total', width: '12'},
-                {label: 'Status', width: '13'},
+                {label: 'Number', width: '28'},
+                {label: 'Type', width: '17'},
+                {label: 'Due Date', width: '20'},
+                {label: 'Total', width: '17'},
+                {label: 'Status', width: '18'},
                 {label: '', width: ''},
             ],
             invoices : this.invoices
