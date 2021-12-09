@@ -71,6 +71,10 @@ class IndexController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 'amount' => str_replace(',','', $request->amount)
             ]);
 
+            $request->merge([
+                'due_date' => date('Y-m-d',strtotime($request->due_date))
+            ]);
+
             $this->validator($request->all())->validate();
 
             $data = $this->_prepareData($request->all());
