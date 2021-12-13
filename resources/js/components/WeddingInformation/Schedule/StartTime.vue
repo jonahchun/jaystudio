@@ -1,6 +1,6 @@
 <template>
     <div class="form-control-wrap">
-        <label>{{ `${fieldLabel} start time` }}</label>
+        <label>{{ `${fieldLabel} finish time` }}</label>
         <div class="datepicker-group">
             <div class="datepicker-group__inner time">
                 <input

@@ -69,7 +69,7 @@
                         :relation="getCurrentRelation()"
                         :relationName="getCurrentRelationName()"
                         :fieldName="`preparation`"
-                        :fieldLabel="`Preparation`"
+                        :fieldLabel="`Hair & make up`"
                     ></wedding-schedule-form-start-time>
 
                     <!-- Transportation -->
