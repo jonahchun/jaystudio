@@ -14,11 +14,21 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
     protected function _beforeRender()
     {
         $this->addField('general', 'id', 'ID', 'hidden', ['required' => false]);
+
+        if(\Auth::guard('admin')->user()->role->id == config('common.role.superadmin')){
+            $this->addField('general', 'status', 'Status', 'select', [
+                'readonly' => false,
+                'source'   => Status::class,
+            ]);
+
+        }else{
+            $this->addField('general', 'status', 'Status', 'select', [
+                'readonly' => true,
+                'source'   => Status::class,
+            ]);
+
+        }
         
-        $this->addField('general', 'status', 'Status', 'select', [
-            'readonly' => true,
-            'source'   => Status::class,
-        ]);
         $this->addField('general', 'customer_id', 'Customer', 'select', [
             'required' => true,
             'source'   => \App\Customer\Model\Source\Customers::class,
