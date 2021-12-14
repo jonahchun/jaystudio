@@ -291,6 +291,13 @@
                         :required="true"
                     ></wedding-schedule-form-start-end-time>
 
+                     <wedding-schedule-form-time
+                        :relation="getCurrentRelation()"
+                        :relationName="getCurrentRelationName()"
+                        :fieldName="`cake_cutting`"
+                        :fieldLabel="`Cake cutting`"
+                    ></wedding-schedule-form-time> 
+
                     <!-- Viennese -->
                     <!--<wedding-schedule-form-start-end-time
                         :relation="getCurrentRelation()"

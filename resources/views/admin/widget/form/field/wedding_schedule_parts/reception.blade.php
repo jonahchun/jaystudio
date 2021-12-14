@@ -56,6 +56,14 @@
             @endif
         </td>
     </tr>
+    <tr>
+        <td style="white-space:normal;width:50%;"><strong>{{ __('Cake Cutting Time') }}</strong></td>
+        <td style="white-space:normal;width:50%;">
+            @if($time = $weddingSchedule->reception->cake_cutting_time)
+                {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}
+            @endif
+        </td>
+    </tr>
     <!-- <tr>
         <td style="white-space:normal;width:50%;"><strong>{{ __('Viennese Start Time') }}</strong></td>
         <td style="white-space:normal;width:50%;">
