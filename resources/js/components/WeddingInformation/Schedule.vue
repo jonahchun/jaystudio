@@ -301,14 +301,14 @@
                 </div>
 
                 <!-- Party Start & End Time -->
-                <wedding-schedule-form-start-time
+                <!--<wedding-schedule-form-start-time
                     :relation="getCurrentRelation()"
                     :relationName="getCurrentRelationName()"
                     :fieldName="`afterparty`"
                     :fieldLabel="`Afterparty`"
-                ></wedding-schedule-form-start-time>
+                ></wedding-schedule-form-start-time>-->
 
-                <div class="form-control-wrap js-input-wrap">
+                <!--<div class="form-control-wrap js-input-wrap">
                     <label :for="getCurrentRelationName() + '[number_of_toasts]'">
                         # of Speeches/Toasts
                     </label>
@@ -317,7 +317,7 @@
                            :name="getCurrentRelationName() + '[number_of_toasts]'"
                            :value="getCurrentRelation().number_of_toasts"
                     >
-                </div>
+                </div>-->
                 <div class="form-control-wrap js-input-wrap full-width">
                     <label :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().toast_givers}"
                         :for="getCurrentRelationName() + '[toast_givers]'"

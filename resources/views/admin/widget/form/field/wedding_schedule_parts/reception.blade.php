@@ -56,7 +56,7 @@
             @endif
         </td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td style="white-space:normal;width:50%;"><strong>{{ __('Viennese Start Time') }}</strong></td>
         <td style="white-space:normal;width:50%;">
             @if($time = $weddingSchedule->reception->viennese_start_time)
@@ -83,7 +83,7 @@
     <tr>
         <td style="white-space:normal;width:50%;"><strong>{{ __('# of Speeches/Toasts') }}</strong></td>
         <td style="white-space:normal;width:50%;">{{ $weddingSchedule->reception->number_of_toasts }}</td>
-    </tr>
+    </tr> -->
     <tr>
         <td style="white-space:normal;width:50%;"><strong>{{ __('Who Will Give Speech/Toast') }}</strong></td>
         <td style="white-space:normal;width:50%;">{{ $weddingSchedule->reception->toast_givers }}</td>
