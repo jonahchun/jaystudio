@@ -292,12 +292,12 @@
                     ></wedding-schedule-form-start-end-time>
 
                     <!-- Viennese -->
-                    <wedding-schedule-form-start-end-time
+                    <!--<wedding-schedule-form-start-end-time
                         :relation="getCurrentRelation()"
                         :relationName="getCurrentRelationName()"
                         :fieldName="`viennese`"
                         :fieldLabel="`Viennese`"
-                    ></wedding-schedule-form-start-end-time>
+                    ></wedding-schedule-form-start-end-time>-->
                 </div>
 
                 <!-- Party Start & End Time -->
