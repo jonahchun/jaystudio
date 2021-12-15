@@ -63,6 +63,8 @@
             </div>
             <div class="schedule-form__section">
                 <h3 class="schedule-form__title">Preparation Schedule & Contact:</h3>
+                Starting time of our Team will be determined during your phone meeting with our scheduling coordinator.
+                <div class="mt-3"></div>
                 <div class="datepicker-form">
                     <!-- - Preparation -->
                     <wedding-schedule-form-start-time
