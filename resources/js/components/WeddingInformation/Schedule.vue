@@ -276,6 +276,45 @@
                         :address="getRelationAddress()"
                     ></wedding-schedule-form-address>
                 </div>
+
+                <div class="schedule-form__section-inner">
+                    <h3 class="schedule-form__title">Venue Information:</h3>
+                    <div class="address-form">
+                        <div class="form-control-wrap js-input-wrap">
+                            <label :for="getCurrentRelationName() + '[venue_coordinator_name]'" :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().venue_coordinator_name}">
+                                Venue Coordinator Name
+                            </label>
+                            <input class="form-control js-form-input"
+                                type="text"
+                                :name="getCurrentRelationName() + '[venue_coordinator_name]'"
+                                :value="getCurrentRelation().venue_coordinator_name"
+                                required
+                            />
+                        </div>
+                        <div class="form-control-wrap js-input-wrap">
+                            <label :for="getCurrentRelationName() + '[venue_coordinator_email]'" :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().venue_coordinator_email}">
+                                Venue Coordinator Email
+                            </label>
+                            <input class="form-control js-form-input"
+                                type="text"
+                                :name="getCurrentRelationName() + '[venue_coordinator_email]'"
+                                :value="getCurrentRelation().venue_coordinator_email"
+                                required
+                            />
+                        </div>
+                        <div class="form-control-wrap js-input-wrap">
+                            <label :for="getCurrentRelationName() + '[venue_coordinator_phone]'" :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().venue_coordinator_phone}">
+                                Venue Coordinator Phone
+                            </label>
+                            <input class="form-control js-form-input"
+                                type="text"
+                                :name="getCurrentRelationName() + '[venue_coordinator_phone]'"
+                                :value="getCurrentRelation().venue_coordinator_phone"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="schedule-form__section flex">
