@@ -384,6 +384,10 @@
                     >
                 </div>
             </div>
+            <div class="details-forms">
+                <p class="details-forms__comment-description">Please submit your reception timeline provided by the venue or DJ.</p>
+                <file-uploader name="reception[timeline_file]" :value="getCurrentRelation().timeline_file"></file-uploader>
+            </div>
             
         </div>
 
@@ -587,6 +591,7 @@
             };
         },
         mounted() {
+            // console.log(this.relations)
             this.form = $('#wedding-schedule-form');
             this.formValidator = this.form.validate();
             if(!this.schedule.portrait_session.portrait_session_locations.length) {

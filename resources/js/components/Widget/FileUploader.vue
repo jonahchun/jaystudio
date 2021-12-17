@@ -4,11 +4,11 @@
             <input type="hidden" :name="name" ref="fileValue" :value="files.join('|')"/>
             <input type="file" class="custom-file-input" :id="`choose-file-${name}`" ref="file" @change="uploadFile" multiple />
             <label class="form-control-label" :for="`choose-file-${name}`">
-                <span v-if="!value && !files.length">Choose file...</span>
-                <span v-else-if="value && !files.length">{{ getUploadedFileName(value) }}</span>
-                <span v-else v-for="file in files" :key="file">
+                <span v-if="!files.length">Choose file...</span>
+                <!--<span v-else-if="value && !files.length">{{ getUploadedFileName(value) }}</span>-->
+                <span v-else v-for="(file,index) in files" :key="file">
                 {{ getUploadedFileName(file) }}
-                <span type="button" class="btn-remove" @click="removeFile(file)">
+                <span type="button" class="btn-remove" @click="removeFile(index)">
                     <svg class="icon icon-trash"><use xlink:href="#icon-trash"></use></svg>
                 </span>
             </span>
@@ -30,6 +30,33 @@ export default {
         return {
             files: [],
             uploadPercentage: 0,
+        }
+    },
+    watch: {
+        value(){
+            this.files = [];
+            if(this.value){
+                // console.log('file value',this.value)
+                if(this.value.includes('|')){
+                    let values = this.value.split('|');
+                    values.forEach(v=>this.files.push(v))
+                }else{
+                    this.files.push(this.value);
+                }
+            }
+
+        }
+    },
+    mounted(){
+        this.files = [];
+        if(this.value){
+            // console.log('file value',this.value)
+            if(this.value.includes('|')){
+                let values = this.value.split('|');
+                values.forEach(v=>this.files.push(v))
+            }else{
+                this.files.push(this.value);
+            }
         }
     },
     methods: {
@@ -55,6 +82,7 @@ export default {
                         }
                     ).then(({data}) => {
                         if (data.success) {
+                            console.log(data.file)
                             this.files.push(data.file);
                         }
                     });
@@ -62,11 +90,13 @@ export default {
             }
         },
         getUploadedFileName(fileName) {
+            // console.log(fileName)
             fileName = fileName.split('/');
             return fileName[fileName.length - 1];
         },
-        removeFile(file) {
-            this.files.splice(this.files.indexOf(file), 1);
+        removeFile(index) {
+            this.files.splice(index, 1);
+            console.log('files',this.files);
         },
     }
 }
