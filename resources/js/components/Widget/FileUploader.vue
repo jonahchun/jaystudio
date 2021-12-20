@@ -2,7 +2,7 @@
     <div class="details-forms__file form-control-wrap file-upload">
         <div class="file-upload-container">
             <input type="hidden" :name="name" ref="fileValue" :value="files.join('|')"/>
-            <input type="file" class="custom-file-input" :id="`choose-file-${name}`" ref="file" @change="uploadFile" multiple />
+            <input type="file" class="custom-file-input" :id="`choose-file-${name}`" ref="file" @change="uploadFile" accept="image/*,application/pdf,.docx,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple />
             <label class="form-control-label" :for="`choose-file-${name}`">
                 <span v-if="!files.length">Choose file...</span>
                 <!--<span v-else-if="value && !files.length">{{ getUploadedFileName(value) }}</span>-->

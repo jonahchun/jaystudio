@@ -1,9 +1,10 @@
 <?php
 namespace App\Customer\Http\Controllers\Admin;
 
-use Alert;
+use Alert,Storage;
 use Illuminate\Support\Str;
 use App\Customer\Model\Customer\InviteToken;
+use App\Customer\Model\Wedding\Schedule\Reception;
 
 class CustomerController extends \WFN\Admin\Http\Controllers\Controller
 {
@@ -32,5 +33,21 @@ class CustomerController extends \WFN\Admin\Http\Controllers\Controller
 
         return redirect()->route('admin.customer.edit', ['id' => $customer->id]);
     }
+    public function downloadFile($index,$id){
+        $wedding_reception = Reception::find($id);
+        // dd($wedding_reception);
+        $all_files = explode('|',$wedding_reception->timeline_file);
+        $file = $all_files[$index];
+        
+        $files = explode('/',$file); 
+        $file_name = array_pop($files);
+        if($files[0] == 'tmp'){
+            $file_url = storage_path().'/app/public/'.$file;
+        }else{
+            $file_url = storage_path().'/app/public/customer-wedding-reception/'.$file;
 
+        }
+        return \Response::download($file_url);
+
+    }
 }

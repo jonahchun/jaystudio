@@ -96,5 +96,29 @@
         <td style="white-space:normal;width:50%;"><strong>{{ __('Who Will Give Speech/Toast') }}</strong></td>
         <td style="white-space:normal;width:50%;">{{ $weddingSchedule->reception->toast_givers }}</td>
     </tr>
+    <tr>
+        <td style="white-space:normal;width:50%;"><strong>{{ __('Reception Timeline') }}</strong></td>
+        <td style="white-space:normal;width:50%;">
+            @if(!empty($weddingSchedule->reception->timeline_file))
+            <?php $all_files = explode('|',$weddingSchedule->reception->timeline_file);?>
+                @foreach($all_files as $key=>$file)
+                    <?php 
+                        // dd(MEDIA_PATH);
+                        $files = explode('/',$file); 
+                        $file_name = array_pop($files);
+                        if($files[0] == 'tmp'){
+                            $file_url = Storage::url('app/public/').$file;
+                        }else{
+                            $file_url = Storage::url('app/public/customer-wedding-reception/').$file;
+
+                        }
+                    ?>
+                    <a href="{{route('admin.downloadfile',['key'=>$key,'id'=>$weddingSchedule->reception->id])}}">{{$file_name}}</a>
+                    <br>
+                @endforeach
+            @endif
+
+        </td>
+    </tr>
 </table>
 @endif
