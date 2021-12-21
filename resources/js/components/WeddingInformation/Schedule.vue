@@ -42,7 +42,7 @@
                                :name="getCurrentRelationName() + '[hair_makeup]'"
                                v-model="getCurrentRelation().hair_makeup"
                                value="1"
-                               id="hairmakeup-yes"
+                               id="hairmakeup-yes" v-on:change="onChangeValue($event)"
                         />
                         <label for="hairmakeup-yes">Yes</label>
                     </div>
@@ -51,7 +51,7 @@
                                :name="getCurrentRelationName() + '[hair_makeup]'"
                                v-model="getCurrentRelation().hair_makeup"
                                value="0"
-                               id="hairmakeup-no"
+                               id="hairmakeup-no" v-on:change="onChangeValue($event)"
                         />
                         <label for="hairmakeup-no">No</label>
                     </div>
@@ -63,6 +63,12 @@
                     :address="getRelationAddress()"
                     name="Name of Venue / Hotel (if applicable)"
                 ></wedding-schedule-form-address>
+
+                <h3 class="schedule-form__title" v-if="getCurrentRelation().hair_makeup == 0">Hair & Makeup Address:</h3>
+                <wedding-schedule-form-hair-makeup-address
+                    :address="getRelationAddress()"
+                    name="Name of Venue / Hotel (if applicable)" 
+                 v-if="getCurrentRelation().hair_makeup == 0"></wedding-schedule-form-hair-makeup-address>
             </div>
             <div class="schedule-form__section">
                 <h3 class="schedule-form__title">Preparation Schedule & Contact:</h3>
@@ -657,7 +663,19 @@
                     address = {};
                 }
                 address.type = this.getCurrentRelationName();
+                console.log(address);
                 return address;
+            },
+            onChangeValue:function($event){
+                let currentRelation = this.schedule[this.getCurrentRelationName(this.current_step)];
+                if(currentRelation.hair_makeup == "1"){
+                    currentRelation.address.hair_makeup_name = null;
+                    currentRelation.address.hair_makeup_state = null;
+                    currentRelation.address.hair_makeup_zip = null;
+                    currentRelation.address.hair_makeup_city = null;
+                    currentRelation.address.hair_makeup_address_line_2 = null;
+                    currentRelation.address.hair_makeup_address_line_1 = null;
+                }
             }
         },
     }

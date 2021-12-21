@@ -36,6 +36,7 @@ Vue.component('repeater-address', require('./components/WeddingInformation/Repea
 Vue.component('wedding-checklist-form', require('./components/WeddingInformation/Checklist.vue').default);
 Vue.component('wedding-schedule-form', require('./components/WeddingInformation/Schedule.vue').default);
 Vue.component('wedding-schedule-form-address', require('./components/WeddingInformation/Schedule/Address.vue').default);
+Vue.component('wedding-schedule-form-hair-makeup-address', require('./components/WeddingInformation/Schedule/HairMakeupAddress.vue').default);
 Vue.component('wedding-schedule-form-start-end-time', require('./components/WeddingInformation/Schedule/StartEndTime.vue').default);
 Vue.component('wedding-schedule-form-start-time', require('./components/WeddingInformation/Schedule/StartTime.vue').default);
 Vue.component('wedding-schedule-form-time', require('./components/WeddingInformation/Schedule/Time.vue').default);
