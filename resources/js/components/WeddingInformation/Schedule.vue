@@ -64,7 +64,7 @@
                     name="Name of Venue / Hotel (if applicable)"
                 ></wedding-schedule-form-address>
 
-                <h3 class="schedule-form__title" v-if="getCurrentRelation().hair_makeup == 0">Hair & Makeup Address:</h3>
+                <h3 class="schedule-form__title" v-if="getCurrentRelation().hair_makeup == 0">Hair/Makeup Address:</h3>
                 <wedding-schedule-form-hair-makeup-address
                     :address="getRelationAddress()"
                     name="Name of Venue / Hotel (if applicable)" 

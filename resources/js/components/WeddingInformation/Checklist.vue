@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div v-show="music != 3" class="song-list">
+            <div v-show="music == 2" class="song-list">
                 <h3 class="song-list__title">Songs List:</h3>
                 <p class="song-list__subtitle wide">Song Name & Artist</p>
                 <p class="song-list__subtitle narrow">Type</p>
