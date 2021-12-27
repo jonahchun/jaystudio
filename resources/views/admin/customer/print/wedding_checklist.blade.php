@@ -22,7 +22,8 @@
         </div>
     </div>
 </div>
-<hr>
+<div class="row"><hr class="w-100"></div>
+
 <div class="row py-2 mt-3">
    @foreach(NewlywedType::getInstance()->getOptions() as $type => $label)
    <?php 
@@ -62,14 +63,33 @@
          </div> 
       </div>
    </div>
+   <div class="col-6">
+      <div class="row align-items-center form-group">
+         <div class="col-4">
+            <div class="d-flex flex-wrap">
+               <div class="d-flex align-items-center">
+                  <label for="Bride" class="m-0"> Service :</label>
+               </div>
+            </div>
+         </div>
+         <div class="col-8">
+            @foreach($services as $service)
+               <input type="checkbox" id="{{$service['type']}}" name="{{$service['type']}}" value="{{$service['type']}}" checked>
+               <label for="{{$service['type']}}" class="m-0 pr-3"> {{$service['type']}} </label>
+            @endforeach
+         </div> 
+      </div>
+   </div>
 </div>
 
-<hr>
+<div class="row"><hr class="w-100"></div>
 @foreach(\App\WeddingChecklist\Model\Source\Steps::getInstance()->getOptions() as $_value => $label)
    @if($_value == \App\WeddingChecklist\Model\Source\Steps::CINEMATOGRAPHY)
       <div class="row">
           <div class="col-12">
-            <h5> Cinematography</h5> 
+            <div class="row">
+               <h5> Cinematography</h5> 
+            </div>
           </div>
           <div class="col-6">
             <p>I want to have music picked by:</p>
@@ -122,25 +142,26 @@
         </div>
    @elseif($_value !== \App\WeddingChecklist\Model\Source\Steps::VENDORS)
       <div class="row">
-        <div class="col-12">
-          <h5> {{ $label }}</h5> 
+         <div class="row">
+           <div class="col-12">
+             <h5> {{ $label }}</h5> 
+           </div>
         </div>
-         
-         <div class="col-4">
+         <div class="row align-items-center py-1">
             @foreach($entities[$_value] as $entity)
-               <div class="row align-items-center py-1">
-                  <div class="col-12 pr-0">
-                    <input type="checkbox" id="Monday" name="Monday" value="ceremony" @if(!empty($value[$_value][$entity->id]['value'])) checked @endif>
+               <div class="col-md-4 d-flex align-items-baseline">
+                  <input type="checkbox" id="Monday" name="Monday" value="ceremony" @if(!empty($value[$_value][$entity->id]['value'])) checked @endif>
                   <label for="Monday" class="m-0 pl-2"> {{ $entity->title }} </label>
-                  </div> 
                </div>
-            @endforeach
+            @endforeach  
          </div>
       </div>
    @else
       <div class="row">
        <div class="col-12">
-         <h5> {{ $label }}</h5>
+         <div class="row">
+            <h5> {{ $label }}</h5>
+         </div>
        </div>
       </div>
       @foreach($entities['vendors'] as $vendor)
@@ -157,9 +178,8 @@
          </div>
       @endforeach
    @endif
-<hr>
+<div class="row"><hr class="w-100"></div>
 @endforeach
-<hr>
 
 
 <p class="mt-5">*Please remember to save all written information before submitting. Once completed, please send via email as an attachment to support@jaylimstudio.com</p>

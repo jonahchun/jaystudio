@@ -2,6 +2,7 @@
 namespace App\Customer\Http\Controllers\Admin;
 
 use Customer;
+use App\Services\Model\Service;
 
 class PrintController extends \WFN\Admin\Http\Controllers\Controller
 {
@@ -13,7 +14,9 @@ class PrintController extends \WFN\Admin\Http\Controllers\Controller
 
     public function printWeddingChecklist(Customer $customer)
     {
-        return view('admin.customer.print.wedding_checklist', compact('customer'));
+        $services = Service::select('type')->where('customer_id',$customer->id)->get()->toArray();
+
+        return view('admin.customer.print.wedding_checklist', compact('customer','services'));
     }
 
     public function printWeddingSchedule(Customer $customer)
