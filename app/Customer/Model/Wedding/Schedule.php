@@ -17,7 +17,7 @@ class Schedule extends Model
     protected $fillable = ['availability', 'comment', 'file', 'current_step', 'first_week', 'first_time', 'second_week', 'second_time', 'third_week', 'third_time' ];
 
     protected $_relations = ['first_newlywed_preparation', 'second_newlywed_preparation',
-        'ceremony', 'reception', 'portrait_session',
+        'ceremony', 'reception', 'portrait_session','first_newlywed_address','second_newlywed_address'
     ];
 
     protected $mediaFields = ['file'];
@@ -65,6 +65,17 @@ class Schedule extends Model
     {
         return $this->hasOne(\App\Customer\Model\Wedding\Schedule\Preparation::class, 'schedule_id', 'id')
             ->where('type', \App\Customer\Model\Source\NewlywedType::FIRST);
+    }
+
+    public function first_newlywed_address()
+    {
+        return $this->hasOne(\App\Customer\Model\Wedding\Schedule\Address::class, 'schedule_id', 'id')
+            ->where('type', \App\Customer\Model\Source\Schedule\AddressType::FIRST_NEWLYWED_PREPARATION);
+    }
+    public function second_newlywed_address()
+    {
+        return $this->hasOne(\App\Customer\Model\Wedding\Schedule\Address::class, 'schedule_id', 'id')
+            ->where('type', \App\Customer\Model\Source\Schedule\AddressType::SECOND_NEWLYWED_PREPARATION);
     }
 
     public function second_newlywed_preparation()
