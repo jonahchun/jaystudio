@@ -16,8 +16,11 @@
                 </li>
             </ol>
         </nav>
-
         <div v-if="current_step < 2 || !current_step" class="schedule-forms">
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="submit" type="submit">Next</button>
+            </div>
             <div class="schedule-form__section full-width">
                 <h3 class="schedule-form__title">General Details:</h3>
                 <div class="form-select-wrap">
@@ -39,7 +42,7 @@
                                :name="getCurrentRelationName() + '[hair_makeup]'"
                                v-model="getCurrentRelation().hair_makeup"
                                value="1"
-                               id="hairmakeup-yes"
+                               id="hairmakeup-yes" v-on:change="onChangeValue($event)"
                         />
                         <label for="hairmakeup-yes">Yes</label>
                     </div>
@@ -48,7 +51,7 @@
                                :name="getCurrentRelationName() + '[hair_makeup]'"
                                v-model="getCurrentRelation().hair_makeup"
                                value="0"
-                               id="hairmakeup-no"
+                               id="hairmakeup-no" v-on:change="onChangeValue($event)"
                         />
                         <label for="hairmakeup-no">No</label>
                     </div>
@@ -60,16 +63,24 @@
                     :address="getRelationAddress()"
                     name="Name of Venue / Hotel (if applicable)"
                 ></wedding-schedule-form-address>
+
+                <h3 class="schedule-form__title" v-if="getCurrentRelation().hair_makeup == 0">Hair/Makeup Address:</h3>
+                <wedding-schedule-form-hair-makeup-address
+                    :address="getRelationAddress()"
+                    name="Name of Venue / Hotel (if applicable)" 
+                 v-if="getCurrentRelation().hair_makeup == 0"></wedding-schedule-form-hair-makeup-address>
             </div>
             <div class="schedule-form__section">
                 <h3 class="schedule-form__title">Preparation Schedule & Contact:</h3>
+                Starting time of our Team will be determined during your phone meeting with our scheduling coordinator.
+                <div class="mt-3"></div>
                 <div class="datepicker-form">
                     <!-- - Preparation -->
                     <wedding-schedule-form-start-time
                         :relation="getCurrentRelation()"
                         :relationName="getCurrentRelationName()"
                         :fieldName="`preparation`"
-                        :fieldLabel="`Preparation`"
+                        :fieldLabel="`Hair & make up`"
                     ></wedding-schedule-form-start-time>
 
                     <!-- Transportation -->
@@ -121,13 +132,14 @@
                     />
                 </div>
             </div>
-            <div class="schedule-form__action" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
-            </div>
+            
         </div>
 
         <div v-if="current_step == 2" class="schedule-forms">
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="submit" type="submit">Next</button>
+            </div>
             <div class="schedule-form__section">
                 <div class="schedule-form__section-inner">
                     <div class="form-control-wrap">
@@ -246,13 +258,14 @@
                     </div>
                 </div>
             </div>
-            <div class="schedule-form__action" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
-            </div>
+            
         </div>
 
         <div v-if="current_step == 3" class="schedule-forms">
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="submit" type="submit">Next</button>
+            </div>
             <div class="schedule-form__section">
                 <div class="schedule-form__section-inner">
                     <label class="schedule-form__title" for="getCurrentRelationName() + '[name_of_reception]'">Name of Reception Location:</label>
@@ -268,6 +281,45 @@
                     <wedding-schedule-form-address
                         :address="getRelationAddress()"
                     ></wedding-schedule-form-address>
+                </div>
+
+                <div class="schedule-form__section-inner">
+                    <h3 class="schedule-form__title">Venue Information:</h3>
+                    <div class="address-form">
+                        <div class="form-control-wrap js-input-wrap">
+                            <label :for="getCurrentRelationName() + '[venue_coordinator_name]'" :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().venue_coordinator_name}">
+                                Venue Coordinator Name
+                            </label>
+                            <input class="form-control js-form-input"
+                                type="text"
+                                :name="getCurrentRelationName() + '[venue_coordinator_name]'"
+                                :value="getCurrentRelation().venue_coordinator_name"
+                                required
+                            />
+                        </div>
+                        <div class="form-control-wrap js-input-wrap">
+                            <label :for="getCurrentRelationName() + '[venue_coordinator_email]'" :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().venue_coordinator_email}">
+                                Venue Coordinator Email
+                            </label>
+                            <input class="form-control js-form-input"
+                                type="text"
+                                :name="getCurrentRelationName() + '[venue_coordinator_email]'"
+                                :value="getCurrentRelation().venue_coordinator_email"
+                                required
+                            />
+                        </div>
+                        <div class="form-control-wrap js-input-wrap">
+                            <label :for="getCurrentRelationName() + '[venue_coordinator_phone]'" :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().venue_coordinator_phone}">
+                                Venue Coordinator Phone
+                            </label>
+                            <input class="form-control js-form-input"
+                                type="text"
+                                :name="getCurrentRelationName() + '[venue_coordinator_phone]'"
+                                :value="getCurrentRelation().venue_coordinator_phone"
+                                required
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -291,24 +343,31 @@
                         :required="true"
                     ></wedding-schedule-form-start-end-time>
 
+                     <wedding-schedule-form-time
+                        :relation="getCurrentRelation()"
+                        :relationName="getCurrentRelationName()"
+                        :fieldName="`cake_cutting`"
+                        :fieldLabel="`Cake cutting`"
+                    ></wedding-schedule-form-time> 
+
                     <!-- Viennese -->
-                    <wedding-schedule-form-start-end-time
+                    <!--<wedding-schedule-form-start-end-time
                         :relation="getCurrentRelation()"
                         :relationName="getCurrentRelationName()"
                         :fieldName="`viennese`"
                         :fieldLabel="`Viennese`"
-                    ></wedding-schedule-form-start-end-time>
+                    ></wedding-schedule-form-start-end-time>-->
                 </div>
 
                 <!-- Party Start & End Time -->
-                <wedding-schedule-form-start-time
+                <!--<wedding-schedule-form-start-time
                     :relation="getCurrentRelation()"
                     :relationName="getCurrentRelationName()"
                     :fieldName="`afterparty`"
                     :fieldLabel="`Afterparty`"
-                ></wedding-schedule-form-start-time>
+                ></wedding-schedule-form-start-time>-->
 
-                <div class="form-control-wrap js-input-wrap">
+                <!--<div class="form-control-wrap js-input-wrap">
                     <label :for="getCurrentRelationName() + '[number_of_toasts]'">
                         # of Speeches/Toasts
                     </label>
@@ -317,7 +376,7 @@
                            :name="getCurrentRelationName() + '[number_of_toasts]'"
                            :value="getCurrentRelation().number_of_toasts"
                     >
-                </div>
+                </div>-->
                 <div class="form-control-wrap js-input-wrap full-width">
                     <label :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().toast_givers}"
                         :for="getCurrentRelationName() + '[toast_givers]'"
@@ -331,15 +390,20 @@
                     >
                 </div>
             </div>
-            <div class="schedule-form__action" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
+            <div class="details-forms">
+                <p class="details-forms__comment-description">Please submit your reception timeline provided by the venue or DJ.</p>
+                <file-uploader name="reception[timeline_file]" :value="getCurrentRelation().timeline_file"></file-uploader>
             </div>
+            
         </div>
 
         <div v-if="current_step == 4" class="schedule-forms">
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="submit" type="submit">Next</button>
+            </div>
             <div class="schedule-form__section full-width radio-group">
-                <h3>When do you want to take portrait session? </h3>
+                <h3>When is your first look and portrait session with your family and bridal party? </h3>
                 <div class="schedule-form__options" style="padding-top:10px;">
                     <div class="form-group">
                         <input type="radio"
@@ -396,13 +460,14 @@
                     <p class="btn-note">Please click "Next" if you are unsure</p>
                 </div>
             </div>
-            <div class="schedule-form__action" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
-            </div>
+            
         </div>
 
         <div v-if="current_step == 5" class="schedule-forms">
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="submit" type="submit">Submit</button>
+            </div>
             <p class="h3 mb-4">Now that you filled all information, please share with us your availabilities to connect to our scheduling coordinator to confirm your wedding details:</p>
             <wedding-schedule-availabilities :wedding_schedule="schedule"></wedding-schedule-availabilities>
             <div class="details-forms">
@@ -420,10 +485,7 @@
                 <p class="details-forms__comment-description">Please attach files if you would like to share planner timeline, notes, etc.</p>
                 <file-uploader name="file" :value="schedule.file"></file-uploader>
             </div>
-            <div class="schedule-form__action" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Submit</button>
-            </div>
+            
         </div>
     </form>
 </template>
@@ -535,6 +597,7 @@
             };
         },
         mounted() {
+            // console.log(this.relations)
             this.form = $('#wedding-schedule-form');
             this.formValidator = this.form.validate();
             if(!this.schedule.portrait_session.portrait_session_locations.length) {
@@ -600,7 +663,19 @@
                     address = {};
                 }
                 address.type = this.getCurrentRelationName();
+                console.log(address);
                 return address;
+            },
+            onChangeValue:function($event){
+                let currentRelation = this.schedule[this.getCurrentRelationName(this.current_step)];
+                if(currentRelation.hair_makeup == "1"){
+                    currentRelation.address.hair_makeup_name = null;
+                    currentRelation.address.hair_makeup_state = null;
+                    currentRelation.address.hair_makeup_zip = null;
+                    currentRelation.address.hair_makeup_city = null;
+                    currentRelation.address.hair_makeup_address_line_2 = null;
+                    currentRelation.address.hair_makeup_address_line_1 = null;
+                }
             }
         },
     }

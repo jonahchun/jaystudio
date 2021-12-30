@@ -33,6 +33,7 @@ Route::prefix('customer')->group(function() {
         Route::prefix('schedule')->group(function() {
             Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\ScheduleController::class . '@index')->name('customer.wedding.schedule');
             Route::post('save', '\\' . App\Customer\Http\Controllers\Wedding\ScheduleController::class . '@save')->name('customer.wedding.schedule.save');
+            
         });
 
         Route::prefix('details')->group(function() {
@@ -43,6 +44,7 @@ Route::prefix('customer')->group(function() {
 });
 
 Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
+    Route::get('downloadfile/{key}/{id}', '\App\Customer\Http\Controllers\Admin\CustomerController@downloadFile')->name('admin.downloadfile');
     Route::prefix('customer')->group(function() {
         Route::prefix('contact')->group(function() {
             Route::get('/', '\App\Customer\Http\Controllers\Admin\ContactController@index')->name('admin.customer.contact');
