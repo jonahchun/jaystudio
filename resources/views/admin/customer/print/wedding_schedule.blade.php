@@ -319,6 +319,7 @@
 <hr>
 <?php 
     $reception_address = optional($weddingSchedule->reception->address)->address_line_1.(!empty($weddingSchedule->reception->address->address_line_2) ? ",".optional($weddingSchedule->reception->address)->address_line_2 : '').",".optional($weddingSchedule->reception->address)->state.",".optional($weddingSchedule->reception->address)->city."-".optional($weddingSchedule->reception->address)->zip;
+    // dd($weddingSchedule->reception);
     ?>
 <div class="row">
   <div class="col-6">
@@ -330,7 +331,7 @@
         <label for="Bride" class="m-0"> Venue Coordinator:</label>
       </div>
       <div class="col-8">
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_name}}">
       </div> 
     </div>
     <div class="row align-items-center py-1">
@@ -338,7 +339,7 @@
         <label for="Bride" class="m-0"> Email:</label>
       </div>
       <div class="col-8">
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_email}}">
       </div> 
     </div>
     <div class="row align-items-center py-1">
@@ -346,7 +347,7 @@
         <label for="Bride" class="m-0"> Phone #:</label>
       </div>
       <div class="col-8">
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_phone}}">
       </div> 
     </div>
   </div>
