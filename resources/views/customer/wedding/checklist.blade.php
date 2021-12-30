@@ -12,9 +12,13 @@
         if(Auth::user()->is_disable_update == 'Yes'){
             $readonly_flag = 'true';
         }else{
-            if(Auth::user()->wedding_date->subWeek()->lt(Illuminate\Support\Carbon::now())){
-                $readonly_flag = 'true';
-            }elseif(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
+            // if(Auth::user()->wedding_date->subWeek()->lt(Illuminate\Support\Carbon::now())){
+            //     $readonly_flag = 'true';
+            // }elseif(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
+            //     $readonly_flag = 'true';
+
+            // }
+            if(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
                 $readonly_flag = 'true';
 
             }
