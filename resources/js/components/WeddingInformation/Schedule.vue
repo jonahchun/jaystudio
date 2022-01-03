@@ -42,7 +42,7 @@
                                :name="getCurrentRelationName() + '[hair_makeup]'"
                                v-model="getCurrentRelation().hair_makeup"
                                value="1"
-                               id="hairmakeup-yes" v-on:change="onChangeValue($event)" required/>
+                               id="hairmakeup-yes" v-on:change="onChangeValue($event)" required/><br>
                         <label for="hairmakeup-yes">Yes</label>
                     </div>
                     <div class="form-group">
