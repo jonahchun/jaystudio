@@ -44,7 +44,7 @@
     <div class="col-6">
         <div class="row align-items-center form-group">
           <div class="col-4">
-            <label for="Bride" class="m-0"> Wedding Date :</label>
+            <label for="wedding_date" class="m-0"> Wedding Date :</label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="(MM/DD/YYYY)" value="{{date('m/d/Y',strtotime($customer->wedding_date))}}">
@@ -55,7 +55,7 @@
     <div class="col-6">
         <div class="row align-items-center">
           <div class="col-4">
-            <label for="Bride" class="m-0"> # of Groomsman :</label>
+            <label for="Groomsman" class="m-0"> # of Groomsman :</label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ring Boys, Jr. Groomsman, etc.">
@@ -65,7 +65,7 @@
     <div class="col-6">
         <div class="row align-items-center">
           <div class="col-4">
-            <label for="Bride" class="m-0"> # of Bridesmaids :</label>
+            <label for="Bridesmaids" class="m-0"> # of Bridesmaids :</label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Flower Girls, Jr. Bridesmaids, etc.">
