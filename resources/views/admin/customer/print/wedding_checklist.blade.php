@@ -73,10 +73,14 @@
             </div>
          </div>
          <div class="col-8">
-            @foreach($services as $service)
-               <input type="checkbox" id="{{$service['type']}}" name="{{$service['type']}}" value="{{$service['type']}}" checked>
-               <label for="{{$service['type']}}" class="m-0 pr-3"> {{$service['type']}} </label>
-            @endforeach
+            <div class="row align-items-center py-1">
+              @foreach($services as $service)
+                <div class="col-md-6 d-flex align-items-baseline">
+                  <input type="checkbox" id="{{$service['type']}}" name="{{$service['type']}}" value="{{$service['type']}}" checked class="mr-2">
+                  <label for="{{$service['type']}}" class="m-0 pr-3"> {{$service['type']}} </label>
+                </div>
+              @endforeach
+            </div>
          </div> 
       </div>
    </div>

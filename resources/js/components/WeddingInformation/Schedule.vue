@@ -42,8 +42,7 @@
                                :name="getCurrentRelationName() + '[hair_makeup]'"
                                v-model="getCurrentRelation().hair_makeup"
                                value="1"
-                               id="hairmakeup-yes" v-on:change="onChangeValue($event)"
-                        />
+                               id="hairmakeup-yes" v-on:change="onChangeValue($event)" required/>
                         <label for="hairmakeup-yes">Yes</label>
                     </div>
                     <div class="form-group">
@@ -51,8 +50,7 @@
                                :name="getCurrentRelationName() + '[hair_makeup]'"
                                v-model="getCurrentRelation().hair_makeup"
                                value="0"
-                               id="hairmakeup-no" v-on:change="onChangeValue($event)"
-                        />
+                               id="hairmakeup-no" v-on:change="onChangeValue($event)" required/>
                         <label for="hairmakeup-no">No</label>
                     </div>
                 </div>
