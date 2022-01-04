@@ -118,7 +118,7 @@
         <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3">{{$hair_makeup_address}}</textarea>
         <div class="row align-items-center">
           <div class="col-4">
-            <label for="Bride" class="m-0"> JLS Finish Time:</label>
+            <label for="JLS" class="m-0"> JLS Finish Time:</label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->preparation_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -126,7 +126,7 @@
         </div>
         <div class="row align-items-center">
           <div class="col-4">
-            <label for="Bride" class="m-0"> Transportation Departure Time:</label>
+            <label for="D_Time" class="m-0"> Transportation Departure Time:</label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->transportation_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -134,7 +134,7 @@
         </div>
         <div class="row align-items-center">
           <div class="col-4">
-            <label for="Bride" class="m-0"> Emergency Contact:</label>
+            <label for="Emergency_contact" class="m-0"> Emergency Contact:</label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($preparation_address->contact){{ optional($preparation_address->contact)->first_name }}{{ optional($preparation_address->contact)->last_name }}({{ optional($preparation_address->contact)->telephone }})@else {{ $preparation_address->contact_name }}({{ $preparation_address->contact_phone }})@endif">
@@ -173,7 +173,7 @@
     <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3">{{optional($weddingSchedule->ceremony)->name_of_ceremony}}&#13;&#10;{{$ceremony_address}}</textarea>
     <div class="row align-items-center py-1">
       <div class="col-4">
-        <label for="Bride" class="m-0"> Invitation Start Time:</label>
+        <label for="Invitation" class="m-0"> Invitation Start Time:</label>
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->ceremony->invitation_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -181,7 +181,7 @@
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
-        <label for="Bride" class="m-0"> Ceremony Start Time:</label>
+        <label for="Ceremony" class="m-0"> Ceremony Start Time:</label>
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->ceremony->ceremony_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -189,7 +189,7 @@
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
-        <label for="Bride" class="m-0"> Ceremony End time:</label>
+        <label for="Ceremony_end" class="m-0"> Ceremony End time:</label>
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->ceremony->ceremony_end_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -197,7 +197,7 @@
     </div>
     <div class="row align-items-center">
       <div class="col-4">
-        <label for="Bride" class="m-0"> Rehearsal Start & End Time:</label>
+        <label for="Rehearsal_time" class="m-0"> Rehearsal Start & End Time:</label>
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -328,7 +328,7 @@
     <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3">{{optional($weddingSchedule->ceremony)->name_of_reception}}&#13;&#10;{{$reception_address}}</textarea>
     <div class="row align-items-center py-1">
       <div class="col-4">
-        <label for="Bride" class="m-0"> Venue Coordinator:</label>
+        <label for="Venue" class="m-0"> Venue Coordinator:</label>
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_name}}">
@@ -336,7 +336,7 @@
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
-        <label for="Bride" class="m-0"> Email:</label>
+        <label for="Email" class="m-0"> Email:</label>
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_email}}">
@@ -344,7 +344,7 @@
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
-        <label for="Bride" class="m-0"> Phone #:</label>
+        <label for="Phone" class="m-0"> Phone #:</label>
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_phone}}">
@@ -354,7 +354,7 @@
   <div class="col-6">
     <div class="row align-items-center py-1">
       <div class="col-5">
-      <label for="Catholic" class="m-0"> Cocktail Start & End Time: </label>
+      <label for="Cocktail" class="m-0"> Cocktail Start & End Time: </label>
       </div>
       <div class="col-7">
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->cocktails_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif - @if($time = $weddingSchedule->reception->cocktails_end_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -362,7 +362,7 @@
     </div> 
     <div class="row align-items-center py-1">
       <div class="col-5">
-      <label for="Catholic" class="m-0"> Reception Start & End Time: </label>
+      <label for="Reception_time" class="m-0"> Reception Start & End Time: </label>
       </div>
       <div class="col-7">
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->reception_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif @if($time = $weddingSchedule->reception->reception_end_time) - {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -370,7 +370,7 @@
     </div> 
     <div class="row align-items-center py-1">
       <div class="col-5">
-      <label for="Catholic" class="m-0"> Cake Cutting Time: </label>
+      <label for="cake_cutting_time" class="m-0"> Cake Cutting Time: </label>
       </div>
       <div class="col-7">
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->cake_cutting_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
@@ -391,7 +391,7 @@
         <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3">{{ $location->name_of_ceremony_portrait }}&#13;&#10;{{$portrait_session_address}}</textarea>
         <div class="row align-items-center py-1">
           <div class="col-4">
-            <label for="Bride" class="m-0"> Start & End Time:</label>
+            <label for="Start_end_time" class="m-0"> Start & End Time:</label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $location->portrait_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif @if($time = $location->portrait_end_time) - {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
