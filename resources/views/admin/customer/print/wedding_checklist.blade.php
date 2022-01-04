@@ -54,7 +54,7 @@
          <div class="col-4">
             <div class="d-flex flex-wrap">
                <div class="d-flex align-items-center">
-                  <label for="Bride" class="m-0"> Wedding Date :</label>
+                  <label for="wedding_date" class="m-0"> Wedding Date :</label>
                </div>
             </div>
          </div>
@@ -68,7 +68,7 @@
          <div class="col-4">
             <div class="d-flex flex-wrap">
                <div class="d-flex align-items-center">
-                  <label for="Bride" class="m-0"> Service :</label>
+                  <label for="service" class="m-0"> Service :</label>
                </div>
             </div>
          </div>
@@ -154,8 +154,8 @@
          <div class="row align-items-center py-1">
             @foreach($entities[$_value] as $entity)
                <div class="col-md-4 d-flex align-items-baseline">
-                  <input type="checkbox" id="Monday" name="Monday" value="ceremony" @if(!empty($value[$_value][$entity->id]['value'])) checked @endif>
-                  <label for="Monday" class="m-0 pl-2"> {{ $entity->title }} </label>
+                  <input type="checkbox" id="{{ $entity->title }}" name="{{ $entity->title }}" value="{{ $entity->title }}" @if(!empty($value[$_value][$entity->id]['value'])) checked @endif>
+                  <label for="{{ $entity->title }}" class="m-0 pl-2"> {{ $entity->title }} </label>
                </div>
             @endforeach  
          </div>
@@ -171,7 +171,7 @@
       @foreach($entities['vendors'] as $vendor)
          <div class="row align-items-center py-1">
            <div class="col-4">
-             <label for="Bride" class="m-0"> {{ $vendor->title }}:</label>
+             <label for="{{ $vendor->title }}" class="m-0"> {{ $vendor->title }}:</label>
            </div>
            <div class="col-4">
              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name / Company" value="{{ !empty($value->vendors[$vendor->id]['company']) ? $value->vendors[$vendor->id]['company'] : '' }}">
