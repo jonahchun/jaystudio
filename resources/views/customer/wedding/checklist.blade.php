@@ -33,7 +33,7 @@
         :vendors="{{ $vendors }}"
         :relations="{{ json_encode(Auth::user()->wedding_checklist->getRelations()) }}"
         :urls="{{ json_encode(['save' => route('customer.wedding.checklist.save')]) }}"
-        :steps="{{ json_encode(['Preparation', 'Ceremony', 'Portrait Session/ First Look', 'Reception', 'Cinematography Music', 'Vendors', 'Other Information']) }}"
+        :steps="{{ json_encode(['Preparation', 'Ceremony', 'Portrait Session', 'Reception', 'Cinematography Music', 'Vendors', 'Other Information']) }}"
         song_list="{{\Settings::getConfigValue('songs_list/song_list_content')}}"
         :readonly="{{ $readonly_flag }}"
     ></wedding-checklist-form>

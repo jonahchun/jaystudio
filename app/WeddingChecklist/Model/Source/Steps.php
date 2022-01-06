@@ -18,7 +18,7 @@ class Steps extends \WFN\Admin\Model\Source\AbstractSource
         return [
             self::PREPARATION      => 'Preparation',
             self::CEREMONY         => 'Ceremony',
-            self::PORTRAIT_SESSION => 'Portrait Session/ First Look',
+            self::PORTRAIT_SESSION => 'Portrait Session',
             self::RECEPTION        => 'Reception',
             self::CINEMATOGRAPHY   => 'Cinematography Music',
             self::VENDORS          => 'Vendors',
