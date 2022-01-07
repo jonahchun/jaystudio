@@ -401,7 +401,7 @@
                 <button class="btn-primary" @click="submit" type="submit">Next</button>
             </div>
             <div class="schedule-form__section full-width radio-group">
-                <h3>When is your first look and portrait session with your family and bridal party? </h3>
+                <h3>When is your portrait session (including bride & groom, bridal party, family & etc.) ?</h3>
                 <div class="schedule-form__options" style="padding-top:10px;">
                     <div class="form-group">
                         <input type="radio"

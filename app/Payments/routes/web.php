@@ -15,6 +15,7 @@ Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
             Route::post('save', '\App\Payments\Http\Controllers\Admin\IndexController@save')->name('admin.payments.invoices.save');
             Route::get('mark-as-paid/{id}', '\App\Payments\Http\Controllers\Admin\IndexController@markAsPaid')->name('admin.payments.invoices.mark_as_paid');
             Route::get('payers/{customer}', '\App\Payments\Http\Controllers\Admin\IndexController@payersListByCustomer')->name('admin.payments.invoices.payers');
+            Route::get('view/{id}', '\App\Payments\Http\Controllers\Admin\IndexController@view')->name('admin.paymets.invoice.view');
         });
     });
 });

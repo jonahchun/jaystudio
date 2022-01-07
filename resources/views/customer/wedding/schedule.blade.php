@@ -30,7 +30,7 @@
         :steps="{{ json_encode([
           Auth::user()->first_newlywed->first_name . '\'s Preparation',
           Auth::user()->second_newlywed->first_name . '\'s Preparation',
-          'Ceremony', 'Reception', 'Portrait session / First look', 'Other Information']) }}"
+          'Ceremony', 'Reception', 'Portrait Session', 'Other Information']) }}"
         :relations="{{ json_encode(Auth::user()->wedding_schedule->getRelations()) }}"
         :ceremony_settings="{{ \App\WeddingSchedule\Model\Ceremony\Setting::orderBy('sort_order', 'asc')->get() }}"
         :preparation_settings="{{ \App\WeddingSchedule\Model\Preparation\Setting::orderBy('sort_order', 'asc')->get() }}"

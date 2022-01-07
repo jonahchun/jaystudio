@@ -102,5 +102,16 @@ class IndexController extends \WFN\Admin\Http\Controllers\Crud\Controller
 
         }
     }
+
+    public function view($id){
+        $invoice = $this->entity->findOrFail($id);
+
+        return view('admin.payments.invoice.print', compact('invoice'));
+    }
+    public function edit($id = false)
+    {
+        $this->entity = $this->entity->findOrFail($id);
+        return $this->formBlock->setInstance($this->entity)->render();
+    }
     
 }
