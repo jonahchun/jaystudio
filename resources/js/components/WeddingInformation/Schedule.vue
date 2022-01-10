@@ -275,6 +275,31 @@
                     />
                 </div>
                 <div class="schedule-form__section-inner">
+                    <label class="schedule-form__title" for="getCurrentRelationName() + '[insurance_certificate]'" style="margin-bottom:0px;">Certificate of Insurance:</label>
+                    <div class="form-group">
+                        <input type="radio"
+                                :name="getCurrentRelationName() + '[insurance_certificate]'"
+                                value="1"
+                                id="insurance_certificate_y"
+                                :checked="getCurrentRelation().insurance_certificate == 1"
+                                v-model="getCurrentRelation().insurance_certificate"
+                                required
+                            />
+                        <label for="insurance_certificate_y">Yes </label>(Please email us at <a href="mailto:support@jaylimstudio.com" style="color:#fb434c;">support@jaylimstudio.com</a> if you need a Certificate of Insurance) **
+                    </div>
+                    <div class="form-group">
+                        <input type="radio"
+                                :name="getCurrentRelationName() + '[insurance_certificate]'"
+                                value="0"
+                                id="insurance_certificate_n"
+                                :checked="getCurrentRelation().insurance_certificate == 0"
+                                v-model="getCurrentRelation().insurance_certificate"
+                                required
+                            />
+                        <label for="insurance_certificate_n">No</label>
+                    </div>
+                </div>
+                <div class="schedule-form__section-inner">
                     <h3 class="schedule-form__title">Reception Address:</h3>
                     <wedding-schedule-form-address
                         :address="getRelationAddress()"
