@@ -52,26 +52,23 @@
         </div>
     </div>
     <div class="col-6"></div>
-    <div class="col-6">
-        <div class="row align-items-center">
-          <div class="col-4">
-            <label for="Groomsman" class="m-0"> # of Groomsman :</label>
+    <?php $c = 0;?>
+    @foreach(NewlywedType::getInstance()->getOptions() as $type => $label)
+      <?php 
+       $customer_data = $customer->{$type . '_newlywed'};
+      ?>
+      <div class="col-6">
+          <div class="row align-items-center">
+            <div class="col-4">
+              <label for="Groomsman" class="m-0"> {{$customer_data->first_name . '\'s Bridal Party'}} :</label>
+            </div>
+            <div class="col-8">
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ring Boys, Jr. Groomsman, etc." value="{{$c+1}}">
+            </div> 
           </div>
-          <div class="col-8">
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ring Boys, Jr. Groomsman, etc.">
-          </div> 
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="row align-items-center">
-          <div class="col-4">
-            <label for="Bridesmaids" class="m-0"> # of Bridesmaids :</label>
-          </div>
-          <div class="col-8">
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Flower Girls, Jr. Bridesmaids, etc.">
-          </div> 
-        </div>
-    </div>
+          <?php $c = $c + 1;?>
+      </div>
+    @endforeach
 </div>
 <hr>
 <div class="row">
@@ -200,7 +197,7 @@
         <label for="Rehearsal_time" class="m-0"> Rehearsal Start & End Time:</label>
       </div>
       <div class="col-8">
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->reception_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif @if($time = $weddingSchedule->reception->reception_end_time) - {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
       </div> 
     </div>
     <small>(Only note if same day as wedding)</small>
@@ -402,69 +399,6 @@
       <div class="col-6"></div>
     </div>
 @endforeach
-<hr>
-<div class="row">
-  <div class="col-6">
-    <h5> Phone Meeting</h5>
-    <p>List your availabities to connect to our studio coordinator
-      to confirm your wedding details :</p>
-      <div class="row align-items-center py-1">
-        <div class="col-4 text-center">
-          <p>Day</p>
-        </div>
-        <div class="col-8 text-center">
-          <p>Time</p>
-        </div>
-      </div>
-    <div class="row align-items-center py-1">
-      <div class="col-4 pr-0">
-        <input type="checkbox" id="Monday" name="Monday" value="ceremony">
-      <label for="Monday" class="m-0 pl-2"> Monday: </label>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-    </div>
-    <div class="row align-items-center py-1">
-      <div class="col-4 pr-0">
-        <input type="checkbox" id="Tuesday" name="Tuesday" value="ceremony">
-      <label for="Tuesday" class="m-0 pl-2"> Tuesday: </label>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-    </div>
-    <div class="row align-items-center py-1">
-      <div class="col-4 pr-0">
-        <input type="checkbox" id="Wednesday" name="Wednesday" value="ceremony">
-      <label for="Wednesday" class="m-0 pl-2"> Wednesday: </label>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-    </div>
-    <div class="row align-items-center py-1">
-      <div class="col-4 pr-0">
-        <input type="checkbox" id="Thursday" name="Thursday" value="ceremony">
-      <label for="Thursday" class="m-0 pl-2"> Thursday: </label>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-    </div>
-    <div class="row align-items-center py-1">
-      <div class="col-4 pr-0">
-        <input type="checkbox" id="Friday" name="Friday" value="ceremony">
-      <label for="Friday" class="m-0 pl-2"> Friday: </label>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-    </div>
-      
-  </div>
-  <div class="col-6"></div>
-</div>
 <hr>
 <div class="row mb-5">
   <div class="col-12">
