@@ -23,10 +23,17 @@
 
             }
         }
+
+        $is_download_file = 0;
+        if(!empty(Auth::user()->insurance_certificate_file)){
+            $is_download_file = 1;
+        }
     ?>
     <wedding-schedule-form 
         :wedding_schedule="{{ Auth::user()->wedding_schedule }}"
         :urls="{{ json_encode(['save' => route('customer.wedding.schedule.save')]) }}"
+        :download_urls="{{ json_encode(['download' => route('downloadInsuranceFile',Auth::user()->id)]) }}"
+        :is_download_file="{{$is_download_file}}"
         :steps="{{ json_encode([
           Auth::user()->first_newlywed->first_name . '\'s Preparation',
           Auth::user()->second_newlywed->first_name . '\'s Preparation',

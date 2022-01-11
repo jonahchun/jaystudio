@@ -284,7 +284,7 @@
                                 :checked="getCurrentRelation().insurance_certificate == 1"
                                 v-model="getCurrentRelation().insurance_certificate"
                                 required
-                            />
+                            /><br>
                         <label for="insurance_certificate_y">Yes </label>(Please email us at <a href="mailto:support@jaylimstudio.com" style="color:#fb434c;">support@jaylimstudio.com</a> if you need a Certificate of Insurance) **
                     </div>
                     <div class="form-group">
@@ -298,6 +298,7 @@
                             />
                         <label for="insurance_certificate_n">No</label>
                     </div>
+                    <a :href="download_urls.download" style="color:#fb434c;" v-if="is_download_file == 1">Download Insurance Certificate</a>
                 </div>
                 <div class="schedule-form__section-inner">
                     <h3 class="schedule-form__title">Reception Address:</h3>
@@ -529,7 +530,9 @@
             'ceremony_traditions',
             'contacts',
             'newlywed_types',
-            'readonly'
+            'readonly',
+            'download_urls',
+            'is_download_file'
         ],
         data() {
             var schedule = this.wedding_schedule;

@@ -9,7 +9,10 @@ Route::post('register', function() {
 
 Route::get('dashboard', '\\' . App\Customer\Http\Controllers\IndexController::class . '@dashboard')->name('customer.account');
 
+Route::get('insurance/download/file/{id}', '\\' . App\Customer\Http\Controllers\IndexController::class . '@downloadInsuranceFile')->name('downloadInsuranceFile');
+
 Route::prefix('customer')->group(function() {
+
     Route::post('auto-save','\\' . App\Customer\Http\Controllers\CustomerController::class . '@autoSave')->name('customer.autosave');
     Route::get('complete-profile/{token}', '\\' . App\Customer\Http\Controllers\CustomerController::class . '@completeProfile')->name('customer.complete.profile');
     Route::post('complete-profile/save', '\\' . App\Customer\Http\Controllers\CustomerController::class . '@completeProfileSave')->name('customer.complete.profile.save');
@@ -45,6 +48,7 @@ Route::prefix('customer')->group(function() {
 
 Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
     Route::get('downloadfile/{key}/{id}', '\App\Customer\Http\Controllers\Admin\CustomerController@downloadFile')->name('admin.downloadfile');
+    
     Route::prefix('customer')->group(function() {
         Route::prefix('contact')->group(function() {
             Route::get('/', '\App\Customer\Http\Controllers\Admin\ContactController@index')->name('admin.customer.contact');
