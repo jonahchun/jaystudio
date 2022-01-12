@@ -494,7 +494,7 @@
                 <button class="btn-primary" @click="back" type="button">Back</button>
                 <button class="btn-primary" @click="submit" type="submit">Submit</button>
             </div>
-            <p class="h3 mb-4">Now that you filled all information, please share with us your availabilities to connect to our scheduling coordinator to confirm your wedding details:</p>
+            <p class="h3 mb-4">Now that you filled all information, please share with us your availabilities to connect to our scheduling coordinator to confirm your wedding details: (This meeting will take about 10-15 minutes)</p>
             <wedding-schedule-availabilities :wedding_schedule="schedule"></wedding-schedule-availabilities>
             <div class="details-forms">
                 <div class="details-forms__comment">

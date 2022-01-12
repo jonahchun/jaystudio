@@ -1,6 +1,7 @@
 <template>
 <div class="schedule-availabilities-lists">
-    <div v-for="(block, index) in blocks" :key="block" class="schedule-availabilities-list">
+    <div v-for="(block, index) in blocks" :key="block" class="schedule-availabilities-list" style="position: relative;">
+        <span style="position: absolute;top: -14px;font-weight: bold;">Option {{index}}</span>
         <div class="schedule-availabilities radio-group error-top">
             <div v-for="(label, value) in weekdays" :key="value">
                 <input class="form-radio-input bordered"
@@ -14,7 +15,7 @@
                 <label :for="`${value}_${index}`">{{ label }}</label>
             </div>
         </div>
-        <div class="schedule-availabilities radio-group error-top">
+        <div class="schedule-availabilities radio-group error-top justify-content-between">
             <div v-for="(label, value) in times" :key="value">
                 <input class="form-radio-input bordered"
                     type="radio"
