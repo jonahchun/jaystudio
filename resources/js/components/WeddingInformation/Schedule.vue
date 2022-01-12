@@ -467,6 +467,8 @@
             <div class="schedule-form__section full-width flex">
                 <h3 class="schedule-form__title">Enter one or more portrait session locations:</h3>
                 <div class="schedule-form__section-inner" v-for="(address, index) in this.schedule.portrait_session.portrait_session_locations" :key="index">
+                    <b v-html="'Location ' + (index+1)" class="schedule-form__title"></b>
+                    <br>
                     <repeater-address
                         :relationName="getCurrentRelationName()"
                         :fieldName="`portrait`"
