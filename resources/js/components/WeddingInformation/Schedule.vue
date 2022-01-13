@@ -641,7 +641,7 @@
                 return this.schedule.portrait_session.portrait_session_locations;
             },
             addItems() {
-                this.schedule.portrait_session.portrait_session_locations.push({address:{address_line_1: "", address_line_2: "", country: "", state: "", city: "", zip: ""}});
+                this.schedule.portrait_session.portrait_session_locations.push({portrait_start_time:"00.00",portrait_end_time:"00.00",address:{address_line_1: "", address_line_2: "", country: "", state: "", city: "", zip: ""}});
             },
             removeItem(index) {
                 this.schedule.portrait_session.portrait_session_locations.splice(index,1);
