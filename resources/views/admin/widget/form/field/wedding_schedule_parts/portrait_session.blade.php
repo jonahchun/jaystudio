@@ -1,19 +1,19 @@
 @if($weddingSchedule->portrait_session)
 <table class="table table-bordered">
     <tr>
-        <td style="white-space:normal;width:50%;"><strong>{{ __('When is your first look and portrait session with your family and bridal party?') }}</strong></td>
+        <td style="white-space:normal;width:50%;"><strong>{{ __('When is your portrait session (including bride & groom, bridal party, family & etc.) ?') }}</strong></td>
         <td style="white-space:normal;width:50%;">
-            @switch($weddingSchedule->portrait_session->when)
-                @case(1)
-                    {{ __('Before Ceremony') }}
-                    @break
-                @case(2)
-                    {{ __('After Ceremony') }}
-                    @break
-                @case(3)
-                    {{ __('Not Sure') }}
-                    @break
-            @endswitch
+            <?php $arr = [];?>
+            @foreach(json_decode($weddingSchedule->portrait_session->when,true) as $value)
+                @if($value == 1)
+                    <?php $arr[] = 'Before Ceremony';?>
+                @elseif($value == 2)
+                    <?php $arr[] = 'After Ceremony';?>
+                @elseif($value == 3)
+                    <?php $arr[] = 'Not Sure';?>
+                @endif
+            @endforeach
+            {{implode(',',$arr)}}
         </td>
     </tr>
     @foreach($weddingSchedule->portrait_session->portrait_session_locations as $number => $location)

@@ -21,6 +21,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
+            $data['portrait_session']['when'] = json_encode($data['portrait_session']['when']);
             // dd($data);
             if(isset($data['first_newlywed_preparation'])){
                 if(isset($data['first_newlywed_preparation']['hair_makeup']) && $data['first_newlywed_preparation']['hair_makeup'] == 1){

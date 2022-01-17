@@ -430,8 +430,8 @@
                 <h3>When is your portrait session (including bride & groom, bridal party, family & etc.) ?</h3>
                 <div class="schedule-form__options" style="padding-top:10px;">
                     <div class="form-group">
-                        <input type="radio"
-                            :name="getCurrentRelationName() + '[when]'"
+                        <input type="checkbox"
+                            :name="getCurrentRelationName() + '[when][]'"
                             value="1"
                             id="beforeceremony"
                             :checked="getCurrentRelation().when == 1"
@@ -441,8 +441,8 @@
                         <label for="beforeceremony">Before Ceremony</label>
                     </div>
                     <div class="form-group">
-                        <input type="radio"
-                            :name="getCurrentRelationName() + '[when]'"
+                        <input type="checkbox"
+                            :name="getCurrentRelationName() + '[when][]'"
                             value="2"
                             id="afterceremony"
                             :checked="getCurrentRelation().when == 2"
@@ -452,8 +452,8 @@
                         <label for="afterceremony">After Ceremony</label>
                     </div>
                     <div class="form-group">
-                        <input type="radio"
-                            :name="getCurrentRelationName() + '[when]'"
+                        <input type="checkbox"
+                            :name="getCurrentRelationName() + '[when][]'"
                             value="3"
                             id="notsure"
                             :checked="getCurrentRelation().when == 3"
@@ -625,7 +625,8 @@
             };
         },
         mounted() {
-            // console.log(this.relations)
+            this.schedule.portrait_session.when = JSON.parse(this.schedule.portrait_session.when)
+            
             this.form = $('#wedding-schedule-form');
             this.formValidator = this.form.validate();
             if(!this.schedule.portrait_session.portrait_session_locations.length) {
