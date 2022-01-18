@@ -79,6 +79,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`preparation`"
                         :fieldLabel="`Hair & make up`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-time>
 
                     <!-- Transportation -->
@@ -87,6 +88,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`transportation`"
                         :fieldLabel="`Transportation`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-time>
                     <div class="form-control-wrap">
                         <label :for="getCurrentRelationName() + '_contact_name'" 
@@ -166,6 +168,7 @@
                             fieldName="invitation"
                             fieldLabel="Invitation"
                             :required="true"
+                            :time_options="time_options"
                         ></wedding-schedule-form-start-time>
 
                         <wedding-schedule-form-start-end-time
@@ -534,7 +537,8 @@
             'newlywed_types',
             'readonly',
             'download_urls',
-            'is_download_file'
+            'is_download_file',
+            'time_options'
         ],
         data() {
             var schedule = this.wedding_schedule;

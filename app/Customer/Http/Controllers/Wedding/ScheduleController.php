@@ -21,7 +21,9 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
-            $data['portrait_session']['when'] = json_encode($data['portrait_session']['when']);
+            if(isset($data['portrait_session'])){
+                $data['portrait_session']['when'] = json_encode($data['portrait_session']['when']);
+            }
             // dd($data);
             if(isset($data['first_newlywed_preparation'])){
                 if(isset($data['first_newlywed_preparation']['hair_makeup']) && $data['first_newlywed_preparation']['hair_makeup'] == 1){
@@ -49,6 +51,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             Auth::user()->wedding_schedule->fill($data)->save();
             return $redirectBack ? back() : redirect()->route('customer.wedding.info');
         } catch (\Exception $e) {
+            dd($e);
             Alert::addError('Something went wrong. Please try again later');
             return back();
         }
