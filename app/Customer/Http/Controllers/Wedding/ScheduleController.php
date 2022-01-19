@@ -51,7 +51,6 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             Auth::user()->wedding_schedule->fill($data)->save();
             return $redirectBack ? back() : redirect()->route('customer.wedding.info');
         } catch (\Exception $e) {
-            dd($e);
             Alert::addError('Something went wrong. Please try again later');
             return back();
         }

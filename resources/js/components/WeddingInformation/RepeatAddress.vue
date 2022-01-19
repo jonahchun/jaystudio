@@ -98,6 +98,7 @@
                 :relationName="this.relationName"
                 :start_value="address.portrait_start_time"
                 :end_value="address.portrait_end_time"
+                :time_options="time_options"
             ></wedding-schedule-form-start-end-time>
         </div>
         <button type="button" class="btn-remove" title="Remove Location" v-on:click.prevent="removeItem()">
@@ -108,7 +109,7 @@
 
 <script>
 export default {
-    props: ['address', 'index', 'removeItem', 'relation', 'relationName', 'fieldName', 'fieldLabel', 'portraitSessionLocation'],
+    props: ['address', 'index', 'removeItem', 'relation', 'relationName', 'fieldName', 'fieldLabel', 'portraitSessionLocation','time_options'],
     methods: {
         isRequired: function() {
             return typeof this.address.name_of_ceremony_portrait != 'undefined' && this.address.name_of_ceremony_portrait.length > 0;

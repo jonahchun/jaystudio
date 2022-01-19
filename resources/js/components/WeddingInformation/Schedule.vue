@@ -177,6 +177,7 @@
                             fieldName="ceremony"
                             fieldLabel="Ceremony"
                             :required="true"
+                            :time_options="time_options"
                         ></wedding-schedule-form-start-end-time>
                     </div>
                 </div>
@@ -359,6 +360,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`cocktails`"
                         :fieldLabel="`Cocktails`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-end-time>
 
                     <!-- Reception Start & End Time -->
@@ -368,6 +370,7 @@
                         :fieldName="`reception`"
                         :fieldLabel="`Reception`"
                         :required="true"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-end-time>
 
                      <wedding-schedule-form-time
@@ -375,6 +378,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`cake_cutting`"
                         :fieldLabel="`Cake cutting`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-time> 
 
                     <!-- Viennese -->
@@ -479,6 +483,7 @@
                         :address="address"
                         :index="index"
                         :removeItem="removeItem.bind(this, index)"
+                        :time_options="time_options"
                     ></repeater-address>
                 </div>
                 <div class="schedule-form__action-add">

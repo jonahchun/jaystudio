@@ -4,14 +4,20 @@
         <label>{{ `${fieldLabel} time` }}</label>
         <div class="datepicker-group">
             <div class="datepicker-group__inner time">
-                <input
+                <Select2 v-model="cake_cutting_time.time"
+                    @change="formatTimeValue('cake_cutting')"
+                    :settings="selectSettings"
+                    :options="selectTimeOptions"
+                    :required="required"
+                />
+                <!--<input
                     type="text" class="form-control"
                     placeholder="__:__"
                     @change="formatTimeValue('cake_cutting')"
                     @keyup="formatTimeInput('cake_cutting')"
                     v-model="cake_cutting_time.time"
                     :required="required"
-                />
+                />-->
             </div>
             <div class="datepicker-group__inner select">
                 <Select2 v-model="cake_cutting_time.ampm"
@@ -51,11 +57,21 @@ export default {
                 minimumResultsForSearch: Infinity,
             },
             selectOptions: [{id: 1, text: 'AM'}, {id: 2, text: 'PM'}],
+            selectTimeOptions: [],
         };
     },
     mounted() {
-        console.log(this.relation)
         this.prepareTime('cake_cutting');
+        var jsonObj = [];
+
+        $.each(this.time_options,function(k,v){
+            var item = {}
+            item ["id"] = k;
+            item ["text"] = v;
+
+            jsonObj.push(item);
+        });  
+        this.selectTimeOptions = jsonObj;
     },
     methods: {
         prepareTime: function (type) {
