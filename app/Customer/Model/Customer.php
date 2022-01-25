@@ -12,14 +12,19 @@ use App\Customer\Model\Source\NewlywedType;
 use App\Customer\Model\Source\AddressType;
 use App\Payments\Model\Invoice;
 use Illuminate\Support\Carbon;
+use App\Core\Model\Traits\HasUploads;
+use Storage;
 
 class Customer extends \WFN\Customer\Model\Customer
 {
+    use HasUploads;
+    
+    const MEDIA_PATH = 'insurance_certificate' . DIRECTORY_SEPARATOR;
 
     protected $fillable = [
-        'id', 'email', 'password', 'api_token', 'account_id','is_disable_update'
+        'id', 'email', 'password', 'api_token', 'account_id','is_disable_update','insurance_certificate_file'
     ];
-
+    protected $mediaFields = ['insurance_certificate_file'];
     public static function getAvailableRelations()
     {
         $relations = parent::getAvailableRelations();
@@ -32,6 +37,15 @@ class Customer extends \WFN\Customer\Model\Customer
         $relations['wedding_schedule'] = WeddingSchedule::class;
 
         return $relations;
+    }
+    public function getAttributeUrl($key)
+    {
+        $value = $this->getAttribute($key);
+        if($key == "contract"){
+            return $value ? Storage::url('customer/'. $value) : false;
+        }else{
+            return $value ? Storage::url(static::MEDIA_PATH . $value) : false;
+        }
     }
 
     public function getNewlywedNamesAttribute()

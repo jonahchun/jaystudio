@@ -22,6 +22,17 @@ class PortraitSession extends Model
         return static::ADDRESS_TYPE;
     }
 
+    public function getWhenAttribute($value){
+        if(is_array(json_decode($value, true)) == false){
+            $n_value = [];
+            $n_value[0] = $value;
+            
+            return json_encode($n_value);
+        }else{
+            return $value;
+        }
+    }
+
     public function fill(array $attributes)
     {
         foreach($attributes as $key => $value) {

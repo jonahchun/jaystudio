@@ -4,7 +4,13 @@
             <label>{{ `${fieldLabel} start time` }}</label>
             <div class="datepicker-group">
                 <div class="datepicker-group__inner time">
-                    <input
+                    <Select2 :name="`${relationName}_${fieldName}_start_time_input`" v-model="start_time.time"
+                        @change="formatTimeValue('start')"
+                        :settings="selectSettings"
+                        :options="selectTimeOptions"
+                        :required="required"
+                    />
+                    <!--<input
                             :name="`${relationName}_${fieldName}_start_time_input`"
                             type="text" class="form-control"
                             placeholder="__:__"
@@ -12,7 +18,7 @@
                             @keyup="formatTimeInput('start')"
                             v-model="start_time.time"
                             :required="required"
-                    />
+                    />-->
                 </div>
                 <div class="datepicker-group__inner select">
                     <Select2 v-model="start_time.ampm"
@@ -33,7 +39,13 @@
             <label>{{ `${fieldLabel} end time` }}</label>
             <div class="datepicker-group">
                 <div class="datepicker-group__inner time">
-                    <input
+                    <Select2 :name="`${relationName}_${fieldName}_end_time_input`" v-model="end_time.time"
+                        @change="formatTimeValue('end')"
+                        :settings="selectSettings"
+                        :options="selectTimeOptions"
+                        :required="required"
+                    />
+                    <!--<input
                             :name="`${relationName}_${fieldName}_end_time_input`"
                             type="text" class="form-control"
                             placeholder="__:__"
@@ -41,7 +53,7 @@
                             @keyup="formatTimeInput('end')"
                             v-model="end_time.time"
                             :required="required"
-                    />
+                    />-->
                 </div>
                 <div class="datepicker-group__inner select">
                     <Select2 v-model="end_time.ampm"
@@ -67,7 +79,7 @@
         components: {
             Select2
         },
-        props: ['relation', 'relationName', 'fieldName', 'fieldLabel', 'required', 'start_value', 'end_value'],
+        props: ['relation', 'relationName', 'fieldName', 'fieldLabel', 'required', 'start_value', 'end_value','time_options'],
         data() {
             return {
                 start_time: {
@@ -84,6 +96,7 @@
                     minimumResultsForSearch: Infinity,
                 },
                 selectOptions: [{id: 1, text: 'AM'}, {id: 2, text: 'PM'}],
+                selectTimeOptions: [],
             };
         },
         mounted() {
@@ -101,6 +114,17 @@
             }, "End time should be greater than start time");
             this.prepareTime('start');
             this.prepareTime('end');
+
+            var jsonObj = [];
+
+            $.each(this.time_options,function(k,v){
+                var item = {}
+                item ["id"] = k;
+                item ["text"] = v;
+
+                jsonObj.push(item);
+            });  
+            this.selectTimeOptions = jsonObj;
         },
         methods: {
             prepareTime: function (type) {

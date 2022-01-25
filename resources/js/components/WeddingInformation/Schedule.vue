@@ -79,6 +79,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`preparation`"
                         :fieldLabel="`Hair & make up`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-time>
 
                     <!-- Transportation -->
@@ -87,6 +88,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`transportation`"
                         :fieldLabel="`Transportation`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-time>
                     <div class="form-control-wrap">
                         <label :for="getCurrentRelationName() + '_contact_name'" 
@@ -166,6 +168,7 @@
                             fieldName="invitation"
                             fieldLabel="Invitation"
                             :required="true"
+                            :time_options="time_options"
                         ></wedding-schedule-form-start-time>
 
                         <wedding-schedule-form-start-end-time
@@ -174,6 +177,7 @@
                             fieldName="ceremony"
                             fieldLabel="Ceremony"
                             :required="true"
+                            :time_options="time_options"
                         ></wedding-schedule-form-start-end-time>
                     </div>
                 </div>
@@ -275,6 +279,32 @@
                     />
                 </div>
                 <div class="schedule-form__section-inner">
+                    <label class="schedule-form__title" for="getCurrentRelationName() + '[insurance_certificate]'" style="margin-bottom:0px;">Certificate of Insurance:</label>
+                    <div class="form-group">
+                        <input type="radio"
+                                :name="getCurrentRelationName() + '[insurance_certificate]'"
+                                value="1"
+                                id="insurance_certificate_y"
+                                :checked="getCurrentRelation().insurance_certificate == 1"
+                                v-model="getCurrentRelation().insurance_certificate"
+                                required
+                            /><br>
+                        <label for="insurance_certificate_y">Yes </label>(Please email us at <a href="mailto:support@jaylimstudio.com" style="color:#fb434c;">support@jaylimstudio.com</a> if you need a Certificate of Insurance) **
+                    </div>
+                    <div class="form-group">
+                        <input type="radio"
+                                :name="getCurrentRelationName() + '[insurance_certificate]'"
+                                value="0"
+                                id="insurance_certificate_n"
+                                :checked="getCurrentRelation().insurance_certificate == 0"
+                                v-model="getCurrentRelation().insurance_certificate"
+                                required
+                            />
+                        <label for="insurance_certificate_n">No</label>
+                    </div>
+                    <a :href="download_urls.download" style="color:#fb434c;" v-if="is_download_file == 1">Download Insurance Certificate</a>
+                </div>
+                <div class="schedule-form__section-inner">
                     <h3 class="schedule-form__title">Reception Address:</h3>
                     <wedding-schedule-form-address
                         :address="getRelationAddress()"
@@ -330,6 +360,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`cocktails`"
                         :fieldLabel="`Cocktails`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-end-time>
 
                     <!-- Reception Start & End Time -->
@@ -339,6 +370,7 @@
                         :fieldName="`reception`"
                         :fieldLabel="`Reception`"
                         :required="true"
+                        :time_options="time_options"
                     ></wedding-schedule-form-start-end-time>
 
                      <wedding-schedule-form-time
@@ -346,6 +378,7 @@
                         :relationName="getCurrentRelationName()"
                         :fieldName="`cake_cutting`"
                         :fieldLabel="`Cake cutting`"
+                        :time_options="time_options"
                     ></wedding-schedule-form-time> 
 
                     <!-- Viennese -->
@@ -401,11 +434,11 @@
                 <button class="btn-primary" @click="submit" type="submit">Next</button>
             </div>
             <div class="schedule-form__section full-width radio-group">
-                <h3>When is your first look and portrait session with your family and bridal party? </h3>
+                <h3>When is your portrait session (including bride & groom, bridal party, family & etc.) ?</h3>
                 <div class="schedule-form__options" style="padding-top:10px;">
                     <div class="form-group">
-                        <input type="radio"
-                            :name="getCurrentRelationName() + '[when]'"
+                        <input type="checkbox"
+                            :name="getCurrentRelationName() + '[when][]'"
                             value="1"
                             id="beforeceremony"
                             :checked="getCurrentRelation().when == 1"
@@ -415,8 +448,8 @@
                         <label for="beforeceremony">Before Ceremony</label>
                     </div>
                     <div class="form-group">
-                        <input type="radio"
-                            :name="getCurrentRelationName() + '[when]'"
+                        <input type="checkbox"
+                            :name="getCurrentRelationName() + '[when][]'"
                             value="2"
                             id="afterceremony"
                             :checked="getCurrentRelation().when == 2"
@@ -426,8 +459,8 @@
                         <label for="afterceremony">After Ceremony</label>
                     </div>
                     <div class="form-group">
-                        <input type="radio"
-                            :name="getCurrentRelationName() + '[when]'"
+                        <input type="checkbox"
+                            :name="getCurrentRelationName() + '[when][]'"
                             value="3"
                             id="notsure"
                             :checked="getCurrentRelation().when == 3"
@@ -441,6 +474,8 @@
             <div class="schedule-form__section full-width flex">
                 <h3 class="schedule-form__title">Enter one or more portrait session locations:</h3>
                 <div class="schedule-form__section-inner" v-for="(address, index) in this.schedule.portrait_session.portrait_session_locations" :key="index">
+                    <b v-html="'Location ' + (index+1)" class="schedule-form__title"></b>
+                    <br>
                     <repeater-address
                         :relationName="getCurrentRelationName()"
                         :fieldName="`portrait`"
@@ -448,6 +483,7 @@
                         :address="address"
                         :index="index"
                         :removeItem="removeItem.bind(this, index)"
+                        :time_options="time_options"
                     ></repeater-address>
                 </div>
                 <div class="schedule-form__action-add">
@@ -466,7 +502,7 @@
                 <button class="btn-primary" @click="back" type="button">Back</button>
                 <button class="btn-primary" @click="submit" type="submit">Submit</button>
             </div>
-            <p class="h3 mb-4">Now that you filled all information, please share with us your availabilities to connect to our scheduling coordinator to confirm your wedding details:</p>
+            <p class="h3 mb-4">Now that you filled all information, please share with us your availabilities to connect to our scheduling coordinator to confirm your wedding details: (This meeting will take about 10-15 minutes)</p>
             <wedding-schedule-availabilities :wedding_schedule="schedule"></wedding-schedule-availabilities>
             <div class="details-forms">
                 <div class="details-forms__comment">
@@ -504,7 +540,10 @@
             'ceremony_traditions',
             'contacts',
             'newlywed_types',
-            'readonly'
+            'readonly',
+            'download_urls',
+            'is_download_file',
+            'time_options'
         ],
         data() {
             var schedule = this.wedding_schedule;
@@ -595,7 +634,8 @@
             };
         },
         mounted() {
-            // console.log(this.relations)
+            this.schedule.portrait_session.when = JSON.parse(this.schedule.portrait_session.when)
+            
             this.form = $('#wedding-schedule-form');
             this.formValidator = this.form.validate();
             if(!this.schedule.portrait_session.portrait_session_locations.length) {
@@ -611,7 +651,7 @@
                 return this.schedule.portrait_session.portrait_session_locations;
             },
             addItems() {
-                this.schedule.portrait_session.portrait_session_locations.push({address:{address_line_1: "", address_line_2: "", country: "", state: "", city: "", zip: ""}});
+                this.schedule.portrait_session.portrait_session_locations.push({portrait_start_time:"00.00",portrait_end_time:"00.00",address:{address_line_1: "", address_line_2: "", country: "", state: "", city: "", zip: ""}});
             },
             removeItem(index) {
                 this.schedule.portrait_session.portrait_session_locations.splice(index,1);

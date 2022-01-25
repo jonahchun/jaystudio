@@ -120,6 +120,13 @@ return [
                 'source'   => IsBlock::class,
             ]
         ],
+        'insurance_certificate_file' => [
+            'type'     => 'file',
+            'label'    => 'Insurance Certificate',
+            'options'  => [
+                'required' => true,
+            ],
+        ],
     ],
     NewlywedType::FIRST . '_newlywed'  => getNewlywedFields(NewlywedType::FIRST),
     NewlywedType::SECOND . '_newlywed' => getNewlywedFields(NewlywedType::SECOND),

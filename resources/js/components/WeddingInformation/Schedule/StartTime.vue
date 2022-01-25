@@ -4,12 +4,19 @@
         <label v-else>{{ `${fieldLabel} start time` }}</label>
         <div class="datepicker-group">
             <div class="datepicker-group__inner time">
-                <input
+                <!-- <input
                     type="text" class="form-control"
                     placeholder="__:__"
                     @change="formatTimeValue('start')"
                     @keyup="formatTimeInput('start')"
                     v-model="start_time.time"
+                    :required="required"
+                />-->
+
+                <Select2 v-model="start_time.time"
+                    @change="formatTimeValue('start')"
+                    :settings="selectSettings"
+                    :options="selectTimeOptions"
                     :required="required"
                 />
             </div>
@@ -39,7 +46,7 @@ export default {
     components: {
         Select2
     },
-    props: ['relation', 'relationName', 'fieldName', 'fieldLabel', 'start_value'],
+    props: ['relation', 'relationName', 'fieldName', 'fieldLabel', 'start_value','time_options'],
     data() {
         return {
             start_time: {
@@ -51,10 +58,21 @@ export default {
                 minimumResultsForSearch: Infinity,
             },
             selectOptions: [{id: 1, text: 'AM'}, {id: 2, text: 'PM'}],
+            selectTimeOptions: [],
         };
     },
     mounted() {
         this.prepareTime('start');
+        var jsonObj = [];
+
+        $.each(this.time_options,function(k,v){
+            var item = {}
+            item ["id"] = k;
+            item ["text"] = v;
+
+            jsonObj.push(item);
+        });  
+        this.selectTimeOptions = jsonObj;
     },
 }
 </script>
