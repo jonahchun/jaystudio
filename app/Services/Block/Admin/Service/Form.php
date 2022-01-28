@@ -26,8 +26,20 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'source'   => Status::class,
         ]);
 
+        $this->addField('general', 'links', 'Link', 'rows', [
+            'columns' => [
+                'link' => [
+                    'label' => 'Link',
+                    'type'  => 'text',
+                ],
+                'type' => [
+                    'label' => 'Type',
+                    'type'  => 'text',
+                ],
+            ],
+        ]);
         if($this->instance->type && $this->instance->detail) {
-            $this->addField('general', 'completion', 'Completion', 'date');
+            // $this->addField('general', 'completion', 'Completion', 'date');
             $additionalFieldsCallback = '_add_' . $this->instance->type . '_fields';
             $this->$additionalFieldsCallback();
 

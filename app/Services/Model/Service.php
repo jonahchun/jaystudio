@@ -4,6 +4,7 @@ namespace App\Services\Model;
 use App\Services\Model\Source\Type;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Model\Service\Link;
 
 class Service extends Model
 {
@@ -106,4 +107,8 @@ class Service extends Model
         return $this->hasOne(Service\PhotoAlbumDetail::class);
     }
 
+    public function links()
+    {
+        return $this->hasMany(\App\Services\Model\Service\Link::class, 'service_id');
+    }
 }
