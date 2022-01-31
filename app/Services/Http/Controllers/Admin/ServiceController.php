@@ -285,4 +285,33 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         return redirect()->route('admin.customer.edit', ['id' => $request->customer_id]);
 
     }
+
+    public function save(Request $request)
+    {
+        try {
+            dd($request->all());
+            if($request->input('id')) {
+                $this->entity = $this->entity->findOrFail($request->input('id'));
+            }
+
+            $this->validator($request->all())->validate();
+
+            $data = $this->_prepareData($request->all());
+            $this->entity->fill($data)->save();
+
+            $this->_afterSave($request);
+
+            Alert::addSuccess($this->entityTitle . ' has been saved');
+
+        } catch (ValidationException $e) {
+            foreach($e->errors() as $messages) {
+                foreach ($messages as $message) {
+                    Alert::addError($message);
+                }
+            }
+        } catch (\Exception $e) {
+            Alert::addError('Something went wrong. Please, try again');
+        }
+        return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);
+    }
 }

@@ -28,12 +28,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
 
         $this->addField('general', 'links', 'Link', 'rows', [
             'columns' => [
-                'link' => [
-                    'label' => 'Link',
-                    'type'  => 'text',
-                ],
                 'type' => [
                     'label' => 'Type',
+                    'type'  => 'text',
+                ],
+                'link' => [
+                    'label' => 'Link',
                     'type'  => 'text',
                 ],
             ],
