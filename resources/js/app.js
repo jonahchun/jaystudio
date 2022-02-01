@@ -41,6 +41,7 @@ Vue.component('wedding-schedule-form-start-end-time', require('./components/Wedd
 Vue.component('wedding-schedule-form-start-time', require('./components/WeddingInformation/Schedule/StartTime.vue').default);
 Vue.component('wedding-schedule-form-time', require('./components/WeddingInformation/Schedule/Time.vue').default);
 Vue.component('wedding-schedule-availabilities', require('./components/WeddingInformation/Schedule/Availabilities.vue').default);
+Vue.component('wedding-cinematography', require('./components/WeddingInformation/Cinematography.vue').default);
 
 Vue.component('save-the-date-form', require('./components/Services/SaveTheDate.vue').default);
 Vue.component('photo-album-form', require('./components/Services/PhotoAlbum.vue').default);

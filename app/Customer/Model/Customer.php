@@ -14,6 +14,7 @@ use App\Payments\Model\Invoice;
 use Illuminate\Support\Carbon;
 use App\Core\Model\Traits\HasUploads;
 use Storage;
+use App\Services\Model\Service\Link;
 
 class Customer extends \WFN\Customer\Model\Customer
 {
@@ -102,6 +103,11 @@ class Customer extends \WFN\Customer\Model\Customer
     public function contacts()
     {
         return $this->hasMany(Contact::class, 'customer_id');
+    }
+
+    public function links()
+    {
+        return $this->hasMany(Link::class, 'customer_id');
     }
 
     public function getNewlywedAttribute($type, $key)

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status;
 use Alert;
+use App\Services\Model\Service\Link;
 
 class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
 {
@@ -289,9 +290,29 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
     public function save(Request $request)
     {
         try {
-            dd($request->all());
+            // dd($request->all());
             if($request->input('id')) {
                 $this->entity = $this->entity->findOrFail($request->input('id'));
+
+                if(!empty($request->input('links'))){
+                    $count_link_data = Link::count();
+                    if($count_link_data > 0){
+                        Link::whereIn('service_id', [$request->input('id')])->delete();
+                    }
+                    // dd('as');
+                    foreach($request->input('links') as $link_data){
+                        // dd($link_data);
+
+                        $link = new Link();
+
+                        $link->service_id = $request->input('id');
+                        $link->customer_id = $request->input('customer_id');
+                        $link->type = $link_data['type'];
+                        $link->link = $link_data['link'];
+                        // dd($link);
+                        $link->save();
+                    }
+                }
             }
 
             $this->validator($request->all())->validate();
@@ -310,6 +331,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 }
             }
         } catch (\Exception $e) {
+            dd($e);
             Alert::addError('Something went wrong. Please, try again');
         }
         return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);

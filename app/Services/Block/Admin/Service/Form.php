@@ -25,19 +25,21 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'readonly' => true,
             'source'   => Status::class,
         ]);
-
-        $this->addField('general', 'links', 'Link', 'rows', [
-            'columns' => [
-                'type' => [
-                    'label' => 'Type',
-                    'type'  => 'text',
+        // dd($this->instance);
+        if(isset($this->instance->id) && $this->instance->type == "videography"){
+            $this->addField('general', 'links', 'Link', 'rows', [
+                'columns' => [
+                    'type' => [
+                        'label' => 'Type',
+                        'type'  => 'text',
+                    ],
+                    'link' => [
+                        'label' => 'Link',
+                        'type'  => 'text',
+                    ],
                 ],
-                'link' => [
-                    'label' => 'Link',
-                    'type'  => 'text',
-                ],
-            ],
-        ]);
+            ]);
+        }
         if($this->instance->type && $this->instance->detail) {
             // $this->addField('general', 'completion', 'Completion', 'date');
             $additionalFieldsCallback = '_add_' . $this->instance->type . '_fields';
