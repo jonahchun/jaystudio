@@ -17,7 +17,7 @@
             </table>
         </div>
     </div>
-    <div v-else>There are no links in you list</div>
+    <div v-else>There are no links in your list</div>
 
 </template>
 

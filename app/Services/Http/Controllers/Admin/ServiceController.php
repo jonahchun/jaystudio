@@ -290,18 +290,12 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
     public function save(Request $request)
     {
         try {
-            // dd($request->all());
             if($request->input('id')) {
                 $this->entity = $this->entity->findOrFail($request->input('id'));
 
+                Link::whereIn('service_id', [$request->input('id')])->delete();
                 if(!empty($request->input('links'))){
-                    $count_link_data = Link::count();
-                    if($count_link_data > 0){
-                        Link::whereIn('service_id', [$request->input('id')])->delete();
-                    }
-                    // dd('as');
                     foreach($request->input('links') as $link_data){
-                        // dd($link_data);
 
                         $link = new Link();
 
@@ -309,7 +303,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                         $link->customer_id = $request->input('customer_id');
                         $link->type = $link_data['type'];
                         $link->link = $link_data['link'];
-                        // dd($link);
+                        
                         $link->save();
                     }
                 }
@@ -331,7 +325,6 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 }
             }
         } catch (\Exception $e) {
-            dd($e);
             Alert::addError('Something went wrong. Please, try again');
         }
         return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);
