@@ -18,8 +18,8 @@
         </nav>
         <div v-if="current_step < 2 || !current_step" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section full-width">
                 <h3 class="schedule-form__title">General Details:</h3>
@@ -132,13 +132,16 @@
                     />
                 </div>
             </div>
-            
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+            </div>
         </div>
 
         <div v-if="current_step == 2" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section">
                 <div class="schedule-form__section-inner">
@@ -260,13 +263,16 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+            </div>
         </div>
 
         <div v-if="current_step == 3" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section">
                 <div class="schedule-form__section-inner">
@@ -425,13 +431,16 @@
                 <p class="details-forms__comment-description">Please submit your reception timeline provided by the venue or DJ.</p>
                 <file-uploader name="reception[timeline_file]" :value="getCurrentRelation().timeline_file"></file-uploader>
             </div>
-            
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+            </div>
         </div>
 
         <div v-if="current_step == 4" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section full-width radio-group">
                 <h3>When is your portrait session (including bride & groom, bridal party, family & etc.) ?</h3>
@@ -494,13 +503,16 @@
                     <p class="btn-note">Please click "Next" if you are unsure</p>
                 </div>
             </div>
-            
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+            </div>
         </div>
 
         <div v-if="current_step == 5" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Submit</button>
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
             </div>
             <p class="h3 mb-4">Now that you filled all information, please share with us your availabilities to connect to our scheduling coordinator to confirm your wedding details: (This meeting will take about 10-15 minutes)</p>
             <wedding-schedule-availabilities :wedding_schedule="schedule"></wedding-schedule-availabilities>
@@ -519,7 +531,10 @@
                 <p class="details-forms__comment-description">Please attach files if you would like to share planner timeline, notes, etc.</p>
                 <file-uploader name="file" :value="schedule.file"></file-uploader>
             </div>
-            
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
+            </div>
         </div>
     </form>
 </template>
