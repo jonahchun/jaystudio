@@ -48,6 +48,5 @@ class CustomerController extends \WFN\Admin\Http\Controllers\Controller
 
         }
         return \Response::download($file_url);
-
     }
 }

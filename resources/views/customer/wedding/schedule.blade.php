@@ -23,14 +23,22 @@
 
             }
         }
+
+        $is_download_file = 0;
+        if(!empty(Auth::user()->insurance_certificate_file)){
+            $is_download_file = 1;
+        }
     ?>
     <wedding-schedule-form 
         :wedding_schedule="{{ Auth::user()->wedding_schedule }}"
         :urls="{{ json_encode(['save' => route('customer.wedding.schedule.save')]) }}"
+        :download_urls="{{ json_encode(['download' => route('downloadInsuranceFile',Auth::user()->id)]) }}"
+        :time_options="{{json_encode(config('common.wedding_form_time_option'))}}"
+        :is_download_file="{{$is_download_file}}"
         :steps="{{ json_encode([
           Auth::user()->first_newlywed->first_name . '\'s Preparation',
           Auth::user()->second_newlywed->first_name . '\'s Preparation',
-          'Ceremony', 'Reception', 'Portrait session / First look', 'Other Information']) }}"
+          'Ceremony', 'Reception', 'Portrait Session', 'Other Information']) }}"
         :relations="{{ json_encode(Auth::user()->wedding_schedule->getRelations()) }}"
         :ceremony_settings="{{ \App\WeddingSchedule\Model\Ceremony\Setting::orderBy('sort_order', 'asc')->get() }}"
         :preparation_settings="{{ \App\WeddingSchedule\Model\Preparation\Setting::orderBy('sort_order', 'asc')->get() }}"
