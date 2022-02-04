@@ -1,7 +1,7 @@
 @if($weddingSchedule->portrait_session)
 <table class="table table-bordered">
     <tr>
-        <td style="white-space:normal;width:50%;"><strong>{{ __('When do you want to take portrait session?') }}</strong></td>
+        <td style="white-space:normal;width:50%;"><strong>{{ __('When is your first look and portrait session with your family and bridal party?') }}</strong></td>
         <td style="white-space:normal;width:50%;">
             @switch($weddingSchedule->portrait_session->when)
                 @case(1)

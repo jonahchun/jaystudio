@@ -1,6 +1,7 @@
 <template>
     <div class="form-control-wrap">
-        <label>{{ `${fieldLabel} start time` }}</label>
+        <label v-if="fieldLabel == 'Hair & make up'">{{ `${fieldLabel} finish time` }}</label>
+        <label v-else>{{ `${fieldLabel} start time` }}</label>
         <div class="datepicker-group">
             <div class="datepicker-group__inner time">
                 <input

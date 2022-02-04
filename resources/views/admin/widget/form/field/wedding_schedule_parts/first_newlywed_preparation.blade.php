@@ -29,7 +29,7 @@
         <td style="white-space:normal;width:50%;">{{ optional($weddingSchedule->first_newlywed_preparation->address)->zip }}</td>
     </tr>
     <tr>
-        <td style="white-space:normal;width:50%;"><strong>{{ __('Preparation start time') }}</strong></td>
+        <td style="white-space:normal;width:50%;"><strong>{{ __('Hair & make up finish time') }}</strong></td>
         <td style="white-space:normal;width:50%;">
             @if(($time = $weddingSchedule->first_newlywed_preparation->preparation_start_time) && strpos($time, ':') !== false)
                 {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}

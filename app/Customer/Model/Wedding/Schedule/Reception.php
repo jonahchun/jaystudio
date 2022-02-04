@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Customer\Model\Wedding\Schedule;
+use App\Core\Model\Traits\HasUploads;
 
 class Reception extends Ceremony
 {
+    use HasUploads;
+    
+    const MEDIA_PATH = 'customer-wedding-reception' . DIRECTORY_SEPARATOR;
 
     const ADDRESS_TYPE = 'reception';
 
@@ -16,7 +20,10 @@ class Reception extends Ceremony
         'reception_start_time', 'reception_end_time',
         'cocktails_start_time', 'cocktails_end_time',
         'afterparty_start_time', 'afterparty_end_time',
-        'number_of_toasts', 'toast_givers', 'name_of_reception'
+        'number_of_toasts', 'toast_givers', 'name_of_reception','timeline_file'
     ];
+
+    protected $mediaFields = ['timeline_file'];
+    
 
 }
