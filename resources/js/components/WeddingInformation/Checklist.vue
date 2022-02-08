@@ -119,7 +119,10 @@
                     Add Song
                 </button>
             </div>
-            
+            <div class="details-forms__comment">
+                <label for="comment" class="details-forms__comment-label">Comments:</label>
+                <textarea name="music_comment" v-model="checklist.music_comment" id="checklist.music_comment" cols="30" rows="10" class="form-control"></textarea>
+            </div>
         </div>
 
         <div v-if="current_step == 5" class="checklist-forms">
