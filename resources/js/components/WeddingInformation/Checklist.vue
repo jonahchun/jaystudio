@@ -64,44 +64,66 @@
             <div v-html="song_list"></div>
             <div class="checklist-forms radio-group">
                 <h3 class="checklist-form__title">I want to have music picked by:</h3>
-                <div class="checklist-form__inline-options">
-                    <div class="form-group">
-                        <input type="radio"
-                            v-model="music"
-                            :name="'music'"
-                            value="1"
-                            id="jaylimstudio"
-                            :checked="music == 1"
-                            required
-                        />
-                        <label for="jaylimstudio">JAYLim Studio</label>
+                <div class="row" style="width:100%;">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="1"
+                                id="jaylimstudio"
+                                :checked="music == 1"
+                                required
+                            />
+                            <label for="jaylimstudio">JAYLim Studio</label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="radio"
-                            v-model="music"
-                            :name="'music'"
-                            value="2"
-                            id="myself"
-                            :checked="music == 2"
-                            required
-                        />
-                        <label for="myself">Myself</label>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="3"
+                                id="no_service"
+                                :checked="music == 3"
+                                required
+                            />
+                            <label for="no_service">No Cinematography Service</label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="radio"
-                            v-model="music"
-                            :name="'music'"
-                            value="3"
-                            id="no_service"
-                            :checked="music == 3"
-                            required
-                        />
-                        <label for="no_service">No Cinematography Service</label>
+                    
+                </div>
+                <div class="row" style="width:100%;">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="2"
+                                id="myself"
+                                :checked="music == 2"
+                                required
+                            />
+                            <label for="myself">Myself</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="4"
+                                id="myself_jaylim"
+                                :checked="music == 4"
+                                required
+                            />
+                            <label for="myself_jaylim">Myself & the rest can be picked by JAYlim Studio</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div v-show="music == 2" class="song-list">
+            <div v-show="music == 2 || music == 4" class="song-list">
                 <h3 class="song-list__title">Songs List:</h3>
                 <p class="song-list__subtitle wide">Song Name & Artist</p>
                 <p class="song-list__subtitle narrow">Type</p>
