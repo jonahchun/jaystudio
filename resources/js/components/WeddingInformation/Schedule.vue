@@ -295,7 +295,7 @@
                                 v-model="getCurrentRelation().insurance_certificate"
                                 required
                             /><br>
-                        <label for="insurance_certificate_y">Yes </label>(Please email us at <a href="mailto:support@jaylimstudio.com" style="color:#fb434c;">support@jaylimstudio.com</a> if you need a Certificate of Insurance) **
+                        <label for="insurance_certificate_y">Yes </label> (Please email us at <a href="mailto:support@jaylimstudio.com" style="font-weight:bold;color:rgba(57, 57, 57, 0.5);">support@jaylimstudio.com</a> if you need a Certificate of Insurance) **
                     </div>
                     <div class="form-group">
                         <input type="radio"
