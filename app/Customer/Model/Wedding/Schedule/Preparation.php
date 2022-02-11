@@ -11,7 +11,7 @@ class Preparation extends Ceremony
 
     protected $fillable = ['schedule_id', 'type', 'address_id', 'preparation_start_time',
         'preparation_start_date', 'transportation_start_time', 'transportation_start_date',
-        'contact_id', 'contact_name', 'contact_phone', 'preparation_id' , 'hair_makeup'
+        'contact_id', 'contact_name', 'contact_phone', 'preparation_id' , 'hair_makeup','jls_start_time','jls_end_time'
     ];
 
     protected $dateFields = ['preparation_start_date', 'transportation_start_date'];

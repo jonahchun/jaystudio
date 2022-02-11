@@ -90,6 +90,24 @@
                         :fieldLabel="`Transportation`"
                         :time_options="time_options"
                     ></wedding-schedule-form-start-time>
+
+                    <!-- JLS start & finish time -->
+                    <wedding-schedule-form-start-time
+                            :relation="getCurrentRelation()"
+                            :relationName="getCurrentRelationName()"
+                            fieldName="jls"
+                            fieldLabel="JLS"
+                            :time_options="time_options"
+                        ></wedding-schedule-form-start-time>
+
+                    <wedding-schedule-form-end-time
+                            :relation="getCurrentRelation()"
+                            :relationName="getCurrentRelationName()"
+                            fieldName="jls"
+                            fieldLabel="JLS"
+                            :time_options="time_options"
+                        ></wedding-schedule-form-end-time>
+
                     <div class="form-control-wrap">
                         <label :for="getCurrentRelationName() + '_contact_name'" 
                             :class="{'form-control-label js-form-label': true, 'active': getCurrentRelation().contact_name}"

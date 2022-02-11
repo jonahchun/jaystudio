@@ -39,6 +39,7 @@ Vue.component('wedding-schedule-form-address', require('./components/WeddingInfo
 Vue.component('wedding-schedule-form-hair-makeup-address', require('./components/WeddingInformation/Schedule/HairMakeupAddress.vue').default);
 Vue.component('wedding-schedule-form-start-end-time', require('./components/WeddingInformation/Schedule/StartEndTime.vue').default);
 Vue.component('wedding-schedule-form-start-time', require('./components/WeddingInformation/Schedule/StartTime.vue').default);
+Vue.component('wedding-schedule-form-end-time', require('./components/WeddingInformation/Schedule/EndTime.vue').default);
 Vue.component('wedding-schedule-form-time', require('./components/WeddingInformation/Schedule/Time.vue').default);
 Vue.component('wedding-schedule-availabilities', require('./components/WeddingInformation/Schedule/Availabilities.vue').default);
 

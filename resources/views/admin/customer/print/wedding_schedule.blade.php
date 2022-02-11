@@ -113,12 +113,20 @@
         <p class="m-0">Hair/Makeup (Location & Address)</p>
 
         <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3">{{$hair_makeup_address}}</textarea>
+        <div class="row align-items-center mb-1">
+          <div class="col-4">
+            <label for="JLS" class="m-0"> JLS Start Time:</label>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->jls_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
+          </div> 
+        </div>
         <div class="row align-items-center">
           <div class="col-4">
             <label for="JLS" class="m-0"> JLS Finish Time:</label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->preparation_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->jls_end_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
           </div> 
         </div>
         <div class="row align-items-center">
