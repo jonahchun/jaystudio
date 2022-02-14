@@ -97,13 +97,13 @@
                     <td></td><td></td><td class="title">{{ __('Tax:') }}</td><td>${{ $invoice->tax_amount }}</td>
                 </tr> -->
                 <tr>
-                    <td></td><td></td><td class="title">{{ __('Total:') }}</td><td>${{ $invoice->total }}</td>
+                    <td></td><td></td><td class="title">{{ __('Total:') }}</td><td>${{ number_format($invoice->total,2) }}</td>
                 </tr>
                 <tr>
-                    <td></td><td></td><td class="title">{{ __('Amount Paid:') }}</td><td>-${{ $invoice->paid_amount }}</td>
+                    <td></td><td></td><td class="title">{{ __('Amount Paid:') }}</td><td>-${{ number_format($invoice->paid_amount,2) }}</td>
                 </tr>
                 <tr class="highlighted">
-                    <td></td><td></td><td class="title">{{ __('Amount Due:') }}</td><td>${{ $invoice->due_amount }} USD</td>
+                    <td></td><td></td><td class="title">{{ __('Amount Due:') }}</td><td>${{ number_format($invoice->due_amount,2) }} USD</td>
                 </tr>
                 </tfoot>
             </table>
