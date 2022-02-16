@@ -10,6 +10,7 @@ Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
         Route::prefix('invoices')->group(function() {
             Route::get('/', '\App\Payments\Http\Controllers\Admin\IndexController@index')->name('admin.payments.invoices');
             Route::get('new/{customer_id?}', '\App\Payments\Http\Controllers\Admin\IndexController@new')->name('admin.payments.invoices.new');
+            Route::get('print-all/{customer_id?}', '\App\Payments\Http\Controllers\Admin\IndexController@printAll')->name('admin.payments.invoices.print-all');
             Route::get('edit/{id}', '\App\Payments\Http\Controllers\Admin\IndexController@edit')->name('admin.payments.invoices.edit');
             Route::get('delete/{id}', '\App\Payments\Http\Controllers\Admin\IndexController@delete')->name('admin.payments.invoices.delete');
             Route::post('save', '\App\Payments\Http\Controllers\Admin\IndexController@save')->name('admin.payments.invoices.save');

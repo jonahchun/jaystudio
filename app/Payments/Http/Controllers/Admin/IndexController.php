@@ -114,4 +114,10 @@ class IndexController extends \WFN\Admin\Http\Controllers\Crud\Controller
         return $this->formBlock->setInstance($this->entity)->render();
     }
     
+    public function printAll($customer_id){
+        $invoice_all = $this->entity->where('customer_id',$customer_id)->get();
+
+        // dd(count($invoice_all));
+        return view('admin.payments.invoice.print-all', compact('invoice_all'));
+    }
 }
