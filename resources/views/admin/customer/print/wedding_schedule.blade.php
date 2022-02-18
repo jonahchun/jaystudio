@@ -113,12 +113,20 @@
         <p class="m-0">Hair/Makeup (Location & Address)</p>
 
         <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3">{{$hair_makeup_address}}</textarea>
+        <div class="row align-items-center mb-1">
+          <div class="col-4">
+            <label for="JLS" class="m-0"> JLS Start Time:</label>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->jls_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
+          </div> 
+        </div>
         <div class="row align-items-center">
           <div class="col-4">
             <label for="JLS" class="m-0"> JLS Finish Time:</label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->preparation_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->jls_end_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
           </div> 
         </div>
         <div class="row align-items-center">
@@ -399,6 +407,45 @@
       <div class="col-6"></div>
     </div>
 @endforeach
+<hr>
+<h5>Availability</h5>
+<div class="row">
+  <div class="col-6">
+    <div class="row align-items-center py-1">
+      <div class="col-3">
+      <label for="cake_cutting_time" class="m-0">Option 1: </label>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ ucfirst($weddingSchedule->first_week) }}">
+      </div>
+      <div class="col-5">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{config('availability.'.$weddingSchedule->first_time) }}">
+      </div>
+    </div>
+    <div class="row align-items-center py-1">
+      <div class="col-3">
+      <label for="cake_cutting_time" class="m-0">Option 2: </label>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ ucfirst($weddingSchedule->second_week) }}">
+      </div>
+      <div class="col-5">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{config('availability.'.$weddingSchedule->second_time) }}">
+      </div>
+    </div>
+    <div class="row align-items-center py-1">
+      <div class="col-3">
+      <label for="cake_cutting_time" class="m-0">Option 3: </label>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ ucfirst($weddingSchedule->third_week) }}">
+      </div>
+      <div class="col-5">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{config('availability.'.$weddingSchedule->third_time) }}">
+      </div>
+    </div>
+  </div>
+</div>
 <hr>
 <div class="row mb-5">
   <div class="col-12">

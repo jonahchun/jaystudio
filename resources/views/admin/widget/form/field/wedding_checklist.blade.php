@@ -45,6 +45,9 @@
                                             @case(3)
                                                 {{ __('No Cinematography Service') }}
                                                 @break
+                                            @case(4)
+                                                {{ __('Myself & the rest can be picked by JAYlim Studio') }}
+                                                @break
                                         @endswitch
                                     </td>
                                 </tr>

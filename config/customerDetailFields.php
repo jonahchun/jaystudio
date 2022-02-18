@@ -124,7 +124,7 @@ return [
             'type'     => 'file',
             'label'    => 'Insurance Certificate',
             'options'  => [
-                'required' => true,
+                'required' => false,
             ],
         ],
     ],
