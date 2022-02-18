@@ -17,7 +17,7 @@ class Checklist extends \WFN\Customer\Model\Customer\Detail
 
     protected $serviceColumns = ['id', 'created_at', 'updated_at'];
 
-    protected $jsonFields = ['preparation', 'ceremony', 'portrait_session', 'reception', 'music', 'vendors'];
+    protected $jsonFields = ['preparation', 'ceremony', 'portrait_session', 'reception', 'music', 'vendors','music_comment'];
 
     protected $_relations = ['music_songs'];
 

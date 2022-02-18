@@ -37,6 +37,22 @@
         </td>
     </tr>
     <tr>
+        <td style="white-space:normal;width:50%;"><strong>{{ __('JLS start time') }}</strong></td>
+        <td style="white-space:normal;width:50%;">
+            @if(($time = $weddingSchedule->second_newlywed_preparation->jls_start_time) && strpos($time, ':') !== false)
+                {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}
+            @endif
+        </td>
+    </tr>
+    <tr>
+        <td style="white-space:normal;width:50%;"><strong>{{ __('JLS finish time') }}</strong></td>
+        <td style="white-space:normal;width:50%;">
+            @if(($time = $weddingSchedule->second_newlywed_preparation->jls_end_time) && strpos($time, ':') !== false)
+                {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}
+            @endif
+        </td>
+    </tr>
+    <tr>
         <td style="white-space:normal;width:50%;"><strong>{{ __('Transportation start time') }}</strong></td>
         <td style="white-space:normal;width:50%;">
             @if(($time = $weddingSchedule->second_newlywed_preparation->transportation_start_time) && strpos($time, ':') !== false)

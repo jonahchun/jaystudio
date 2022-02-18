@@ -5,6 +5,8 @@
     <header class="intro-heading row align-items-baseline">
         <h2 class="invoices-detail__title">{{ __('Invoice Detail') }}</h2>
     </header>
+    <?php $count = 1;?>
+    @foreach($invoice_all as $invoice)
     <div class="invoices-detail__info">
         <div class="invoices-detail__info-block">
             <a class="invoices-detail__info-logo" href="{{ route('paymets.invoice.list') }}">
@@ -64,7 +66,7 @@
             <a class="invoices-detail__info-link link-primary" href="mailto:{{ $invoice->payer->email }}">{{ $invoice->payer->email }}</a>
         </div>
     </div>
-    <div class="invoices-detail__table">
+    <div class="invoices-detail__table mb-5">
         <div class="table-responsive">
             <table class="info-table">
                 <colgroup>
@@ -109,6 +111,11 @@
             </table>
         </div>
     </div>
+    @if(count($invoice_all) != $count)
+    <hr>
+    @endif
+    <?php $count++;?>
+    @endforeach
 </section>
 @endsection
 <script type="text/javascript">
