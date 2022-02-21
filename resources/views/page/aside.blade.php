@@ -44,7 +44,7 @@
                     <li class="main-nav__item">
                         <a href="{{ route('customer.wedding.info') }}">
                             <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg>
-                            <span class="main-nav__item-text">{{ __('Wedding Information') }}</span>
+                            <span class="main-nav__item-text">{{ __('Wedding Forms') }}</span>
                         </a>
                         <ul class="main-nav__inner-nav">
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.details.form') }}">{{ __('Details about You') }}</a></li>
