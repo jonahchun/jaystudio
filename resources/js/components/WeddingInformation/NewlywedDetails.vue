@@ -18,6 +18,12 @@
         </nav>
 
         <div v-if="current_step < 3" class="details-forms">
+            <div class="row mb-4" v-if="!readonly">
+                <div class="col-12 text-right">
+                    <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                    <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                </div>
+            </div>
             <div class="details-forms__columns">
                 <div class="details-forms__column">
                     <div class="form-group" v-for="question in getStepQuestionRow(1)" :key="question.id">
@@ -36,13 +42,19 @@
 
             <div class="row" v-if="!readonly">
                 <div class="col-12 text-right">
-                    <button class="btn-primary" v-if="current_step != 0" @click="back" type="button">Back</button>
-                    <button class="btn-primary" @click="submit" type="submit">Next</button>
+                    <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                    <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
                 </div>
             </div>
         </div>
 
         <div v-if="current_step == 3" class="details-forms">
+            <div class="row mb-4" v-if="!readonly">
+                <div class="col-12 text-right">
+                    <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                    <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
+                </div>
+            </div>
             <div class="details-forms__comment">
                 <label class="details-forms__comment-label" for="comment">Comments:</label>
                 <textarea name="comment" id="comment" cols="30" rows="10" class="form-control" v-model="comment"></textarea>
@@ -52,8 +64,8 @@
 
             <div class="row" v-if="!readonly">
                 <div class="col-12 text-right">
-                    <button class="btn-primary" @click="back" type="button">Back</button>
-                    <button class="btn-primary" @click="submit" type="submit">Submit</button>
+                    <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                    <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
                 </div>
             </div>
         </div>
