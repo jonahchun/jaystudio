@@ -40,6 +40,10 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
                 ],
             ]);
         }
+        if($this->getInstance()->type == Type::PHOTO) {
+
+            $this->addField('general', 'file', 'File', 'file',['multiple'=>true]);
+        }
         if($this->instance->type && $this->instance->detail) {
             // $this->addField('general', 'completion', 'Completion', 'date');
             $additionalFieldsCallback = '_add_' . $this->instance->type . '_fields';
@@ -74,12 +78,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         }
 
         if($this->getInstance()->type == Type::PHOTO) {
-            $this->buttons[] = [
-                'label'    => 'Send Teaser',
-                'jsaction' => 'teaserEmailPopup(\'' . route('admin.customer.service.send-teaser', ['id' => $this->getInstance()->id]) . '\')',
-                'class'    => 'info',
-                'route'    => 'admin.customer.service.send-teaser'
-            ];
+            // $this->buttons[] = [
+            //     'label'    => 'Send Teaser',
+            //     'jsaction' => 'teaserEmailPopup(\'' . route('admin.customer.service.send-teaser', ['id' => $this->getInstance()->id]) . '\')',
+            //     'class'    => 'info',
+            //     'route'    => 'admin.customer.service.send-teaser'
+            // ];
             $this->buttons[] = [
                 'label'    => 'Send Engagement Session Gallery',
                 'jsaction' => 'engagementSessionEmailPopup(\'' . route('admin.customer.service.send-engagement-session', ['id' => $this->getInstance()->id]) . '\')',
