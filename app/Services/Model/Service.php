@@ -13,6 +13,8 @@ class Service extends Model
 
     protected $fillable = ['customer_id', 'type' , 'status', 'pickup_location_id', 'tracking_link'];
 
+    protected $_teaser_photos = [];
+
     public function getAttribute($key)
     {
         $value = parent::getAttribute($key);
@@ -110,5 +112,54 @@ class Service extends Model
     public function links()
     {
         return $this->hasMany(\App\Services\Model\Service\Link::class, 'service_id');
+    }
+
+    public function teaser_photos()
+    {
+        return $this->hasMany(\App\Services\Model\Service\Image::class, 'service_id');
+    }
+    public function fill(array $attributes)
+    {
+        foreach($attributes as $key => $value) {
+
+            if($key == 'teaser_photos') {
+                $this->_teaser_photos = $value;
+            }
+
+            if($key == 'image' && !empty($value['file']) && $value['file'] instanceof \Illuminate\Http\UploadedFile) {
+                // dd($value);
+                $value = $this->_uploadFile($value['file']);
+                $attributes[$key] = $value;
+            }
+        }
+        return parent::fill($attributes);
+    }
+    public function save(array $options = [])
+    {
+        parent::save($options);
+
+        $imageIds = [];
+        foreach($this->_teaser_photos as $data) {
+            if(!empty($data['id'])) {
+                $imageIds[] = $data['id'];
+            }
+        }
+        
+        if(!empty($imageIds)) {
+            // Remove old images
+            $this->teaser_photos()->whereNotIn('id', $imageIds)->delete();
+        }
+
+        foreach($this->_teaser_photos as $data) {
+            if(!empty($data['id'])) {
+                $image = \App\Services\Model\Service\Image::find($data['id']);
+            } else {
+                $image = new \App\Services\Model\Service\Image();
+            }
+            $data['customer_id'] = $this->customer_id;
+            $data['service_id'] = $this->id;
+            $image->fill($data)->save();
+        }
+        return $this;
     }
 }

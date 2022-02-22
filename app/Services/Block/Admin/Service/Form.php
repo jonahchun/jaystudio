@@ -41,8 +41,14 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             ]);
         }
         if($this->getInstance()->type == Type::PHOTO) {
-
-            $this->addField('general', 'file', 'File', 'file',['multiple'=>true]);
+            $this->addField('general', 'teaser_photos', 'Images', 'rows', [
+                'columns' => [
+                    'image' => [
+                        'label' => 'Teaser Photo',
+                        'type'  => 'file',
+                    ]
+                ],
+            ]);
         }
         if($this->instance->type && $this->instance->detail) {
             // $this->addField('general', 'completion', 'Completion', 'date');

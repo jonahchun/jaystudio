@@ -7,6 +7,7 @@ use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status;
 use Alert;
 use App\Services\Model\Service\Link;
+use App\Services\Model\Service\Image;
 
 class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
 {
@@ -296,7 +297,6 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 Link::whereIn('service_id', [$request->input('id')])->delete();
                 if(!empty($request->input('links'))){
                     foreach($request->input('links') as $link_data){
-
                         $link = new Link();
 
                         $link->service_id = $request->input('id');
@@ -312,6 +312,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             $this->validator($request->all())->validate();
 
             $data = $this->_prepareData($request->all());
+            // dd($data);
             $this->entity->fill($data)->save();
 
             $this->_afterSave($request);
@@ -325,6 +326,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 }
             }
         } catch (\Exception $e) {
+            dd($e);
             Alert::addError('Something went wrong. Please, try again');
         }
         return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);
