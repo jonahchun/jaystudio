@@ -50,6 +50,7 @@
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.details.form') }}">{{ __('Details about You') }}</a></li>
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.wedding.schedule') }}">{{ __('Schedule') }}</a></li>
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.wedding.checklist') }}">{{ __('Checklist') }}</a></li>
+                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.teaser_photo.index') }}">{{ __('Teaser Photo') }}</a></li>
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.cinematography.form') }}">{{ __('Cinematography') }}</a></li>
                         </ul>
                     </li>

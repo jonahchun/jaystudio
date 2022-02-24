@@ -47,6 +47,10 @@ Route::prefix('customer')->group(function() {
         Route::prefix('cinematography')->group(function() {
             Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\CinematographyController::class . '@index')->name('customer.cinematography.form');
         });
+
+        Route::prefix('teaser-photo')->group(function() {
+            Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\TeaserPhotoController::class . '@index')->name('customer.teaser_photo.index');
+        });
     });
 });
 

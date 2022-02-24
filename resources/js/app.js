@@ -52,6 +52,8 @@ Vue.component('order-form-templates-step', require('./components/Services/Parts/
 Vue.component('order-form-comment-step', require('./components/Services/Parts/CommentStep.vue').default);
 Vue.component('order-form-luxe-type-images', require('./components/Services/Parts/LuxeImages.vue').default);
 Vue.component('order-form-photo-album-sizes', require('./components/Services/Parts/PhotoAlbumSizes.vue').default);
+Vue.component('teaser-photo', require('./components/Services/TeaserPhoto.vue').default);
+Vue.component('photo', require('./components/Services/Photo.vue').default);
 
 Vue.component('order-form-image-edit', require('./components/Services/Parts/ImageEdit.vue').default);
 Vue.component('order-form-comment-edit', require('./components/Services/Parts/CommentEdit.vue').default);
