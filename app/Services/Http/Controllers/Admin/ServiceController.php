@@ -331,4 +331,16 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         }
         return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);
     }
+
+    public function teaserPhotoDelete(Request $request){
+        $data = $request->all();
+        
+        $count_img = Image::find($data['id']);
+
+        if(!empty($count_img)){
+            Image::find($data['id'])->delete();
+        }
+
+        return response()->json(['succes'=>true]);
+    }
 }

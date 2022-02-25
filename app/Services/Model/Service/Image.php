@@ -36,6 +36,14 @@ class Image extends Model
         return $value ? Storage::url(static::MEDIA_PATH . $value) : false;
     }
 
+    public function imageName($key){
+        $value = $this->getAttribute($key);
+        if($key == 'image'){
+            $name = explode("\\",$value);  
+            return $name[count($name)-1];
+        }
+        return '';
+    }
     protected function _uploadFile($file)
     {
         $path = 'public' . DIRECTORY_SEPARATOR . static::MEDIA_PATH;
@@ -52,6 +60,7 @@ class Image extends Model
             }
         }
 
+        // dd(substr($fileName, 0, 1) . DIRECTORY_SEPARATOR . substr($fileName, 1, 1) . DIRECTORY_SEPARATOR . $fileName);
         $file->storeAs($path, $fileName);
         return substr($fileName, 0, 1) . DIRECTORY_SEPARATOR . substr($fileName, 1, 1) . DIRECTORY_SEPARATOR . $fileName;
     }
@@ -60,6 +69,7 @@ class Image extends Model
     {
         $data = parent::toArray();
         $data['image_url'] = $this->getAttributeUrl('image');
+        $data['image_name'] = $this->imageName('image');
         return $data;
     }
 }

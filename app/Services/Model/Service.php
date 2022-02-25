@@ -138,27 +138,16 @@ class Service extends Model
     {
         parent::save($options);
 
-        $imageIds = [];
-        foreach($this->_teaser_photos as $data) {
-            if(!empty($data['id'])) {
-                $imageIds[] = $data['id'];
-            }
-        }
-        
-        if(!empty($imageIds)) {
-            // Remove old images
-            $this->teaser_photos()->whereNotIn('id', $imageIds)->delete();
-        }
-
-        foreach($this->_teaser_photos as $data) {
-            if(!empty($data['id'])) {
-                $image = \App\Services\Model\Service\Image::find($data['id']);
-            } else {
+        if(is_array($this->_teaser_photos))
+        {
+            foreach($this->_teaser_photos as $data) {
                 $image = new \App\Services\Model\Service\Image();
+
+                $data['customer_id'] = $this->customer_id;
+                $data['service_id'] = $this->id;
+                
+                $image->fill($data)->save();
             }
-            $data['customer_id'] = $this->customer_id;
-            $data['service_id'] = $this->id;
-            $image->fill($data)->save();
         }
         return $this;
     }
