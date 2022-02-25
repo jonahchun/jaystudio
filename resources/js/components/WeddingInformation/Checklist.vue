@@ -19,8 +19,8 @@
 
         <div v-if="current_step <= 3" class="checklist-forms">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button">Back</button>
-                <button class="btn-primary" type="submit">Next</button>
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="checklist-form__options">
                 <div class="form-group" v-for="question in getStepQuestionRow(current_step, 1)" :key="question.id">
@@ -53,55 +53,80 @@
                 <label :for="step_names[current_step] + '_comment'" class="checklist-form__title">Other comments:</label>
                 <textarea :name="step_names[current_step] + '[comment]'" v-model="checklist[step_names[current_step]].comment" :id="step_names[current_step] + '_comment'" cols="30" rows="10" class="form-control"></textarea>
             </div>
-            
+            <div class="checklist-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" type="submit" style="width:59px;">Next</button>
+            </div>
         </div>
 
         <div v-if="current_step == 4">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" type="submit">Next</button>
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" type="submit" style="width:59px;">Next</button>
             </div>
             <div v-html="song_list"></div>
             <div class="checklist-forms radio-group">
                 <h3 class="checklist-form__title">I want to have music picked by:</h3>
-                <div class="checklist-form__inline-options">
-                    <div class="form-group">
-                        <input type="radio"
-                            v-model="music"
-                            :name="'music'"
-                            value="1"
-                            id="jaylimstudio"
-                            :checked="music == 1"
-                            required
-                        />
-                        <label for="jaylimstudio">JAYLim Studio</label>
+                <div class="row" style="width:100%;">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="1"
+                                id="jaylimstudio"
+                                :checked="music == 1"
+                                required
+                            />
+                            <label for="jaylimstudio">JAYLim Studio</label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="radio"
-                            v-model="music"
-                            :name="'music'"
-                            value="2"
-                            id="myself"
-                            :checked="music == 2"
-                            required
-                        />
-                        <label for="myself">Myself</label>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="3"
+                                id="no_service"
+                                :checked="music == 3"
+                                required
+                            />
+                            <label for="no_service">No Cinematography Service</label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="radio"
-                            v-model="music"
-                            :name="'music'"
-                            value="3"
-                            id="no_service"
-                            :checked="music == 3"
-                            required
-                        />
-                        <label for="no_service">No Cinematography Service</label>
+                    
+                </div>
+                <div class="row" style="width:100%;">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="2"
+                                id="myself"
+                                :checked="music == 2"
+                                required
+                            />
+                            <label for="myself">Myself</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="radio"
+                                v-model="music"
+                                :name="'music'"
+                                value="4"
+                                id="myself_jaylim"
+                                :checked="music == 4"
+                                required
+                            />
+                            <label for="myself_jaylim">Myself & the rest can be picked by JAYlim Studio</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div v-show="music == 2" class="song-list">
+            <div v-show="music == 2 || music == 4" class="song-list">
                 <h3 class="song-list__title">Songs List:</h3>
                 <p class="song-list__subtitle wide">Song Name & Artist</p>
                 <p class="song-list__subtitle narrow">Type</p>
@@ -119,13 +144,20 @@
                     Add Song
                 </button>
             </div>
-            
+            <div class="details-forms__comment">
+                <label for="comment" class="details-forms__comment-label">Comments:</label>
+                <textarea name="music_comment" v-model="checklist.music_comment" id="checklist.music_comment" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="checklist-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" type="submit" style="width:59px;">Next</button>
+            </div>
         </div>
 
         <div v-if="current_step == 5" class="checklist-forms">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Next</button>
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="checklist-form__columns">
                 <div class="checklist-form__column">
@@ -181,13 +213,16 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="checklist-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+            </div>
         </div>
 
         <div v-if="current_step == 6" class="details-forms">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
-                <button class="btn-primary" @click="submit" type="submit">Submit</button>
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
             </div>
             <div class="details-forms__comment">
                 <label for="comment" class="details-forms__comment-label">Comments:</label>
@@ -197,7 +232,10 @@
 
             <file-uploader name="file" :value="checklist.file"></file-uploader>
 
-            
+            <div class="checklist-form__action mb-4" v-if="!readonly">
+                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
+            </div>
         </div>
     </form>
 </template>

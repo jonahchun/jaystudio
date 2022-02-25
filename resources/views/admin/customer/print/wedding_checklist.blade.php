@@ -113,6 +113,14 @@
                 </div>
               </div> 
             </div>
+            <div class="row align-items-center py-1">
+              <div class="col-12 pr-0">
+                <div class="d-flex align-items-baseline">
+                  <input type="radio" name="music_by" value="Myself & the rest can be picked by JAYlim Studio" @if($value->music == 4) checked @endif>
+                  <label for="cg2" class="m-0 pl-2"> Myself & the rest can be picked by JAYlim Studio </label>
+                </div>
+              </div> 
+            </div>
             <br>
             @if(count($value->music_songs) > 0)
                <p><b>Song List:</b></p>

@@ -7,7 +7,12 @@
                     'jsaction' => 'setLocation("' . route('admin.payments.invoices.new', ['customer' => $form->getInstance()->id]) . '")', 
                     'label'    => 'Add new',
                     'route'    => 'admin.payments.invoices.new'
-                ])        
+                ])  
+                @includeIf('admin::widget.button', [
+                    'jsaction' => 'setLocation("' . route('admin.payments.invoices.print-all', ['customer' => $form->getInstance()->id]) . '")', 
+                    'label'    => 'Print',
+                    'route'    => 'admin.payments.invoices.print-all'
+                ])       
             </div>
             <div class="card-body">
                 <table class="table table-hover">

@@ -53,6 +53,21 @@
                         @endforeach
                     @endif
                     <div id="schedule_other_information" class="container tab-pane">
+                        <label for="basic-textarea">Availability</label>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td style="white-space:normal;width:50%;"><strong>{{ __('Option 1') }}</strong></td>
+                                <td style="white-space:normal;width:50%;">{{ ucfirst($weddingSchedule->first_week) }}<br>{{config('availability.'.$weddingSchedule->first_time) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="white-space:normal;width:50%;"><strong>{{ __('Option 2') }}</strong></td>
+                                <td style="white-space:normal;width:50%;">{{ ucfirst($weddingSchedule->second_week) }}<br>{{config('availability.'.$weddingSchedule->second_time) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="white-space:normal;width:50%;"><strong>{{ __('Option 3') }}</strong></td>
+                                <td style="white-space:normal;width:50%;">{{ ucfirst($weddingSchedule->third_week) }}<br>{{config('availability.'.$weddingSchedule->third_time) }}</td>
+                            </tr>
+                        </table>
                         <div class="form-group">
                             <label for="basic-textarea">Comment</label>
                             <textarea rows="4" class="form-control" readonly="" disabled="">{{ !empty($value->comment) ? $value->comment : '' }}</textarea>
@@ -62,6 +77,7 @@
                             'readonly'    => true,
                             'publicValue' => $form->getInstance()->wedding_schedule->file ? $form->getInstance()->wedding_schedule->getAttributeUrl('file') : false
                         ])
+                        
                     </div>
                 </div>
             </div>
