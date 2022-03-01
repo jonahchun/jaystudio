@@ -1,5 +1,6 @@
 <template>
   <div class="gallery">
+    <div v-if="!photos.length">No any Teaser Photo</div>
     <div class="gallery-panel"
          v-for="photo in photos"
          :key="photo.id">
