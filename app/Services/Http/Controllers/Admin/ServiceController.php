@@ -343,4 +343,11 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
 
         return response()->json(['succes'=>true]);
     }
+
+    public function edit($id = false)
+    {
+        $this->entity = $this->entity->with('teaser_photos')->findOrFail($id);
+        
+        return $this->formBlock->setInstance($this->entity)->render();
+    }
 }

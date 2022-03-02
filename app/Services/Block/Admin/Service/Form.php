@@ -41,6 +41,8 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             ]);
         }
         if($this->getInstance()->type == Type::PHOTO) {
+            $last_date = date('m-d-Y H:i:s',strtotime($this->instance->teaser_photos[count($this->instance->teaser_photos)-1]['updated_at']));
+            $this->addField('general', 'updated_date', '', 'info',['text'=>'Last Updated Date:','val'=>$last_date]);
             // $this->addField('general', 'teaser_photoss', 'Images', 'rows', [
             //     'columns' => [
             //         'image' => [
@@ -49,7 +51,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             //         ]
             //     ],
             // ]);
-            $this->addField('general', 'teaser_photos', 'Images', 'multifile', ['required' => true]);
+            $this->addField('general', 'teaser_photos', 'Teaser Photos', 'multifile', ['required' => true]);
         }
         if($this->instance->type && $this->instance->detail) {
             // $this->addField('general', 'completion', 'Completion', 'date');
