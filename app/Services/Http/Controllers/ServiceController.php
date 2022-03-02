@@ -10,6 +10,7 @@ use App\Services\Model\Service\Upload;
 use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status as ServiceStatus;
 use App\Services\Model\Source\Upload\Status as UploadStatus;
+use App\Services\Model\Service\Link;
 
 class ServiceController extends \WFN\Customer\Http\Controllers\Controller
 {
@@ -25,8 +26,18 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
         if(!$service->detail) {
             return redirect()->route('service.order-form.new', ['service' => $service]);
         }
+        
+        $old_links = Link::with('services')->where('service_id',$service->id)->get()->toArray();
+        
+        $links = [];
 
-        return view('service.view.' . $service->type, compact('service'));
+        foreach ($old_links as $link_key => $link_value) {
+            if($link_value['services']['status'] == ServiceStatus::COMPLETE){
+                $links[] = $link_value; 
+            }
+        }
+        
+        return view('service.view.' . $service->type, compact('service','links'));
     }
 
     public function orderFormNew(Service $service)

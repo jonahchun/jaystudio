@@ -24,6 +24,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             if(isset($data['portrait_session'])){
                 $data['portrait_session']['when'] = json_encode($data['portrait_session']['when']);
             }
+            // dd(Auth::user()->wedding_schedule->first_newlywed_address);
             // dd($data);
             if(isset($data['first_newlywed_preparation'])){
                 if(isset($data['first_newlywed_preparation']['hair_makeup']) && $data['first_newlywed_preparation']['hair_makeup'] == 1){

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status;
 use Alert;
+use App\Services\Model\Service\Link;
+use App\Services\Model\Service\Image;
 
 class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
 {
@@ -284,5 +286,68 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
 
         return redirect()->route('admin.customer.edit', ['id' => $request->customer_id]);
 
+    }
+
+    public function save(Request $request)
+    {
+        try {
+            if($request->input('id')) {
+                $this->entity = $this->entity->findOrFail($request->input('id'));
+
+                Link::whereIn('service_id', [$request->input('id')])->delete();
+                if(!empty($request->input('links'))){
+                    foreach($request->input('links') as $link_data){
+                        $link = new Link();
+
+                        $link->service_id = $request->input('id');
+                        $link->customer_id = $request->input('customer_id');
+                        $link->type = $link_data['type'];
+                        $link->link = $link_data['link'];
+                        
+                        $link->save();
+                    }
+                }
+            }
+
+            $this->validator($request->all())->validate();
+
+            $data = $this->_prepareData($request->all());
+            // dd($data);
+            $this->entity->fill($data)->save();
+
+            $this->_afterSave($request);
+
+            Alert::addSuccess($this->entityTitle . ' has been saved');
+
+        } catch (ValidationException $e) {
+            foreach($e->errors() as $messages) {
+                foreach ($messages as $message) {
+                    Alert::addError($message);
+                }
+            }
+        } catch (\Exception $e) {
+            dd($e);
+            Alert::addError('Something went wrong. Please, try again');
+        }
+        return !$this->entity->id ? redirect()->route($this->adminRoute . '.new') : redirect()->route($this->adminRoute . '.edit', ['id' => $this->entity->id]);
+    }
+
+    public function teaserPhotoDelete(Request $request){
+        $data = $request->all();
+        
+        $count_img = Image::find($data['id']);
+
+        if(!empty($count_img)){
+            Image::find($data['id'])->delete();
+        }
+
+        return response()->json(['succes'=>true]);
+    }
+
+    public function edit($id = false)
+    {
+        $this->entity = $this->entity->with('teaser_photos')->findOrFail($id);
+        
+        return $this->formBlock->setInstance($this->entity)->render();
     }
 }

@@ -43,6 +43,14 @@ Route::prefix('customer')->group(function() {
             Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\DetailsController::class . '@index')->name('customer.details.form');
             Route::post('save', '\\' . App\Customer\Http\Controllers\Wedding\DetailsController::class . '@save')->name('customer.details.save');
         });
+
+        Route::prefix('cinematography')->group(function() {
+            Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\CinematographyController::class . '@index')->name('customer.cinematography.form');
+        });
+
+        Route::prefix('teaser-photo')->group(function() {
+            Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\TeaserPhotoController::class . '@index')->name('customer.teaser_photo.index');
+        });
     });
 });
 

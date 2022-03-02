@@ -25,9 +25,36 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'readonly' => true,
             'source'   => Status::class,
         ]);
-
+        // dd($this->instance);
+        if(isset($this->instance->id) && $this->instance->type == "videography"){
+            $this->addField('general', 'links', 'Link', 'rows', [
+                'columns' => [
+                    'type' => [
+                        'label' => 'Type',
+                        'type'  => 'text',
+                    ],
+                    'link' => [
+                        'label' => 'Link',
+                        'type'  => 'text',
+                    ],
+                ],
+            ]);
+        }
+        if($this->getInstance()->type == Type::PHOTO) {
+            $last_date = date('m-d-Y H:i:s',strtotime($this->instance->teaser_photos[count($this->instance->teaser_photos)-1]['updated_at']));
+            $this->addField('general', 'updated_date', '', 'info',['text'=>'Last Updated Date:','val'=>$last_date]);
+            // $this->addField('general', 'teaser_photoss', 'Images', 'rows', [
+            //     'columns' => [
+            //         'image' => [
+            //             'label' => 'Teaser Photo',
+            //             'type'  => 'file',
+            //         ]
+            //     ],
+            // ]);
+            $this->addField('general', 'teaser_photos', 'Teaser Photos', 'multifile', ['required' => true]);
+        }
         if($this->instance->type && $this->instance->detail) {
-            $this->addField('general', 'completion', 'Completion', 'date');
+            // $this->addField('general', 'completion', 'Completion', 'date');
             $additionalFieldsCallback = '_add_' . $this->instance->type . '_fields';
             $this->$additionalFieldsCallback();
 
@@ -60,12 +87,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         }
 
         if($this->getInstance()->type == Type::PHOTO) {
-            $this->buttons[] = [
-                'label'    => 'Send Teaser',
-                'jsaction' => 'teaserEmailPopup(\'' . route('admin.customer.service.send-teaser', ['id' => $this->getInstance()->id]) . '\')',
-                'class'    => 'info',
-                'route'    => 'admin.customer.service.send-teaser'
-            ];
+            // $this->buttons[] = [
+            //     'label'    => 'Send Teaser',
+            //     'jsaction' => 'teaserEmailPopup(\'' . route('admin.customer.service.send-teaser', ['id' => $this->getInstance()->id]) . '\')',
+            //     'class'    => 'info',
+            //     'route'    => 'admin.customer.service.send-teaser'
+            // ];
             $this->buttons[] = [
                 'label'    => 'Send Engagement Session Gallery',
                 'jsaction' => 'engagementSessionEmailPopup(\'' . route('admin.customer.service.send-engagement-session', ['id' => $this->getInstance()->id]) . '\')',
