@@ -7,6 +7,7 @@ use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status;
 use Alert;
 use App\Services\Model\Service\Link;
+use App\Services\Model\Service\OnlineGallery;
 use App\Services\Model\Service\Image;
 
 class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
@@ -305,6 +306,20 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                         $link->link = $link_data['link'];
                         
                         $link->save();
+                    }
+                }
+                OnlineGallery::whereIn('service_id', [$request->input('id')])->delete();
+                if(!empty($request->input('online_gallery'))){
+                    foreach($request->input('online_gallery') as $gallery_data){
+                        $gallery = new OnlineGallery();
+
+                        $gallery->service_id = $request->input('id');
+                        $gallery->customer_id = $request->input('customer_id');
+                        $gallery->gallery_name = $gallery_data['gallery_name'];
+                        $gallery->access_code = $gallery_data['access_code'];
+                        $gallery->password = $gallery_data['password'];
+                        
+                        $gallery->save();
                     }
                 }
             }

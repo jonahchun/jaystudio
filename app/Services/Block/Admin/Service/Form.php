@@ -41,6 +41,22 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             ]);
         }
         if($this->getInstance()->type == Type::PHOTO) {
+            $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
+                'columns' => [
+                    'gallery_name' => [
+                        'label' => 'Gallery Name',
+                        'type'  => 'text',
+                    ],
+                    'access_code' => [
+                        'label' => 'Access Code',
+                        'type'  => 'text',
+                    ],
+                    'password' => [
+                        'label' => 'Password',
+                        'type'  => 'text',
+                    ],
+                ],
+            ]);
             if(count($this->instance->teaser_photos) > 0){
                 $last_date = date('m-d-Y H:i:s',strtotime($this->instance->teaser_photos[count($this->instance->teaser_photos)-1]['updated_at']));
                 $this->addField('general', 'updated_date', '', 'info',['text'=>'Last Updated Date:','val'=>$last_date]);

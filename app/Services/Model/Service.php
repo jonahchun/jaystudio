@@ -5,6 +5,7 @@ use App\Services\Model\Source\Type;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Model\Service\Link;
+use App\Services\Model\Service\OnlineGallery;
 
 class Service extends Model
 {
@@ -112,6 +113,11 @@ class Service extends Model
     public function links()
     {
         return $this->hasMany(\App\Services\Model\Service\Link::class, 'service_id');
+    }
+
+    public function online_gallery()
+    {
+        return $this->hasMany(\App\Services\Model\Service\OnlineGallery::class, 'service_id');
     }
 
     public function teaser_photos()
