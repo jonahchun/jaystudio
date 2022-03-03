@@ -3,6 +3,7 @@ namespace App\Services\Block\Admin\Service;
 
 use App\Services\Model\Source\Status;
 use App\Services\Model\Source\Type;
+use App\Services\Model\Source\Gallery;
 
 class Form extends \WFN\Admin\Block\Widget\AbstractForm
 {
@@ -41,11 +42,14 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             ]);
         }
         if($this->getInstance()->type == Type::PHOTO) {
+            $gallery = new Gallery;
+
             $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
                 'columns' => [
                     'gallery_name' => [
                         'label' => 'Gallery Name',
-                        'type'  => 'text',
+                        'type'  => 'select',
+                        'source'   => $gallery
                     ],
                     'access_code' => [
                         'label' => 'Access Code',
