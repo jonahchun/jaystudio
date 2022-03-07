@@ -11,6 +11,10 @@ $services = [
         ServiceStatus::PENDING, ServiceStatus::PROCESSING, ServiceStatus::COMPLETE, ServiceStatus::EDITING, 
         ServiceStatus::EDITS_COMPLETE, ServiceStatus::ON_HOLD
     ],
+    ServiceType::ENGAGEMENT_SESSION => [
+        ServiceStatus::PENDING, ServiceStatus::PROCESSING, ServiceStatus::COMPLETE, ServiceStatus::EDITING, 
+        ServiceStatus::EDITS_COMPLETE, ServiceStatus::ON_HOLD
+    ],
     ServiceType::VIDEO => [
         ServiceStatus::PENDING, ServiceStatus::PROCESSING, ServiceStatus::COMPLETE, ServiceStatus::EDITING, 
         ServiceStatus::EDITS_COMPLETE, ServiceStatus::ON_HOLD

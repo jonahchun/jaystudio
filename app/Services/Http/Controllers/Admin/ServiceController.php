@@ -175,6 +175,9 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         if(empty($data['id'])) {
             switch($data['type']) {
                 case ServiceType::PHOTO:
+                case ServiceType::ENGAGEMENT_SESSION:
+                    $data['status'] = Status::PENDING;
+                    break;
                 case ServiceType::VIDEO:
                     $data['status'] = Status::PENDING;
                     break;
@@ -194,7 +197,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             $this->entity->detail->fill($request->all())->save();
         }
 
-        if(!$this->entity->detail && in_array($this->entity->type, [ServiceType::PHOTO, ServiceType::VIDEO])) {
+        if(!$this->entity->detail && in_array($this->entity->type, [ServiceType::PHOTO, ServiceType::VIDEO, ServiceType::ENGAGEMENT_SESSION])) {
             $this->entity->detail()->create($request->all());
         }
 
@@ -207,7 +210,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
 
     protected function _checkAndProcessPhotoVideoUploads($uploadLink)
     {
-        if(!in_array($this->entity->type, [ServiceType::PHOTO, ServiceType::VIDEO])) {
+        if(!in_array($this->entity->type, [ServiceType::PHOTO, ServiceType::VIDEO,ServiceType::ENGAGEMENT_SESSION])) {
             return $this;
         }
         
@@ -235,6 +238,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
     public function serviceSave(Request $request){
         try {
             $all_data = $request->all();
+            // dd($all_data);
             $service_data = $this->entity->where('customer_id',$all_data['customer_id'])->get();
 
             $old_type_arr = [];
@@ -256,7 +260,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                     $this->arr[$t_key] = $all_data;
                     $this->arr[$t_key]['type'] = $t_value; 
                 }
-
+                // dd($this->arr);
                 foreach ($this->arr as $key => $value) {
                     if($value['id']) {
                         $this->entity = $this->entity->findOrFail($value['id']);
@@ -267,8 +271,21 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                     $this->validator($value)->validate();
 
                     $data = $this->_prepareData($value);
-                    // dd($data);
+                   
                     $this->entity->fill($data)->save();
+
+                    // Code for after save
+                    if($this->entity->detail) {
+                        $this->entity->detail->fill($data)->save();
+                    }
+
+                    if(!$this->entity->detail && in_array($this->entity->type, [ServiceType::PHOTO, ServiceType::VIDEO, ServiceType::ENGAGEMENT_SESSION])) {
+                        $this->entity->detail()->create($data);
+                    }
+
+                    if($this->oldStatus != $this->entity->status) {
+                        $this->entity->addStatusHistoryComment();
+                    }
                 }
                 
             }
@@ -282,6 +299,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 }
             }
         } catch (\Exception $e) {
+            dd($e);
             Alert::addError('Something went wrong. Please, try again');
         }
 

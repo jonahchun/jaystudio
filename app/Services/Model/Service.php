@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Model\Service\Link;
 use App\Services\Model\Service\OnlineGallery;
+use App\Services\Model\Service\EngagementSessionDetail;
 
 class Service extends Model
 {
@@ -108,6 +109,10 @@ class Service extends Model
     protected function _photo_album_detail()
     {
         return $this->hasOne(Service\PhotoAlbumDetail::class);
+    }
+    protected function _engagement_session_detail()
+    {
+        return $this->hasOne(Service\EngagementSessionDetail::class);
     }
 
     public function links()
