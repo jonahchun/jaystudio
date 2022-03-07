@@ -29,7 +29,8 @@
                                       URL
                                       <em class="text-danger">*</em>
                                       </label>
-                                      <input type="text" name="url" class="form-control" required="" value="">                  
+                                      <input type="hidden" name="id" value="{{$id}}">
+                                      <input type="text" name="url" class="form-control" required="" value="{{$link}}">                  
                                    </div>
                                 </section>
                              </div>
