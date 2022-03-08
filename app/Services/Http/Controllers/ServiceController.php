@@ -10,10 +10,12 @@ use App\Services\Model\Service\Upload;
 use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status as ServiceStatus;
 use App\Services\Model\Source\Gallery;
+use App\Services\Model\Source\EngagementSessionGallery;
 use App\Services\Model\Source\Upload\Status as UploadStatus;
 use App\Services\Model\Service\Link;
 use App\Core\Model\OnlineGalleryLink;
 use App\Services\Model\Service\OnlineGallery;
+
 class ServiceController extends \WFN\Customer\Http\Controllers\Controller
 {
 
@@ -46,8 +48,8 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
         $online_gallery_link = '';
         
         if($link_count > 0){
-            $links = OnlineGalleryLink::first();
-            $online_gallery_link = $links->url; 
+            $gallery_links = OnlineGalleryLink::first();
+            $online_gallery_link = $gallery_links->url; 
         }
         
         $online_gallery_data = OnlineGallery::with('services')->where('service_id',$service->id)->get()->toArray();
@@ -56,7 +58,11 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
 
         foreach ($online_gallery_data as $link_key => $link_value) {
             if($link_value['services']['status'] == ServiceStatus::COMPLETE){
-                $config_file = new Gallery;
+                if($link_value['services']['type'] == ServiceType::PHOTO){
+                    $config_file = new Gallery;
+                }else{
+                    $config_file = new EngagementSessionGallery;
+                }
 
                 $online_gallery[] = $link_value; 
                 $online_gallery[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']); 

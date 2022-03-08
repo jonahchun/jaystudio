@@ -4,6 +4,7 @@ namespace App\Services\Block\Admin\Service;
 use App\Services\Model\Source\Status;
 use App\Services\Model\Source\Type;
 use App\Services\Model\Source\Gallery;
+use App\Services\Model\Source\EngagementSessionGallery;
 
 class Form extends \WFN\Admin\Block\Widget\AbstractForm
 {
@@ -41,8 +42,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
                 ],
             ]);
         }
-        if($this->getInstance()->type == Type::PHOTO) {
-            $gallery = new Gallery;
+        if($this->getInstance()->type == Type::PHOTO || $this->getInstance()->type == Type::ENGAGEMENT_SESSION) {
+            if($this->getInstance()->type == Type::PHOTO){
+                $gallery = new Gallery;
+            }else{
+                $gallery = new EngagementSessionGallery;
+            }
 
             $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
                 'columns' => [
@@ -61,6 +66,8 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
                     ],
                 ],
             ]);
+        }
+        if($this->getInstance()->type == Type::PHOTO) {
             if(count($this->instance->teaser_photos) > 0){
                 $last_date = date('m-d-Y H:i:s',strtotime($this->instance->teaser_photos[count($this->instance->teaser_photos)-1]['updated_at']));
                 $this->addField('general', 'updated_date', '', 'info',['text'=>'Last Updated Date:','val'=>$last_date]);
@@ -115,7 +122,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             ];
         }
 
-        if(!in_array($this->getInstance()->type, [Type::PHOTO, Type::VIDEO])) {
+        if(!in_array($this->getInstance()->type, [Type::PHOTO, Type::VIDEO,Type::ENGAGEMENT_SESSION])) {
             switch($this->getInstance()->status) {
                 case Status::ORDER_FORM_SUBMITTED:
                     $this->buttons[] = [
@@ -189,7 +196,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'readonly' => true
         ]);
     }
-
+    protected function _add_engagement_session_fields()
+    {
+        $this->addField('details', 'upload', 'Upload', 'text', [
+            'readonly' => true
+        ]);
+    }
     protected function _add_videography_fields()
     {
         $this->_add_photography_fields();
