@@ -44,15 +44,29 @@
                     <li class="main-nav__item">
                         <a href="{{ route('customer.wedding.info') }}">
                             <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg>
-                            <span class="main-nav__item-text">{{ __('Wedding Information') }}</span>
+                            <span class="main-nav__item-text">{{ __('Wedding Forms') }}</span>
                         </a>
                         <ul class="main-nav__inner-nav">
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.details.form') }}">{{ __('Details about You') }}</a></li>
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.wedding.schedule') }}">{{ __('Schedule') }}</a></li>
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.wedding.checklist') }}">{{ __('Checklist') }}</a></li>
-                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.teaser_photo.index') }}">{{ __('Teaser Photo') }}</a></li>
-                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.cinematography.form') }}">{{ __('Cinematography') }}</a></li>
                         </ul>
+                    </li>
+                    <li class="main-nav__item">
+                        <a href="javascript:;">
+                            <svg class="icon icon-album"><use xlink:href="#icon-album"></use></svg>
+                            <span class="main-nav__item-text">{{ __('Photography') }}</span>
+                        </a>
+                        <ul class="main-nav__inner-nav">
+                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.teaser_photo.index') }}">{{ __('Teaser Photo') }}</a></li>
+                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.online-gallery.index') }}">{{ __('Online Gallery') }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="main-nav__item">
+                        <a href="{{ route('customer.cinematography.form') }}">
+                            <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg>
+                            <span class="main-nav__item-text">{{ __('Cinematography') }}</span>
+                        </a>
                     </li>
                     <li class="main-nav__item">
                         <a href="{{ route('paymets.invoice.list') }}">
@@ -60,6 +74,7 @@
                             <span class="main-nav__item-text">{{ __('Invoices') }}</span>
                         </a>
                     </li>
+                    
                     <li class="main-nav__item">
                         <a href="{{ url('faq') }}" target="_blank">
                             <svg class="icon icon-help"><use xlink:href="#icon-help"></use></svg>

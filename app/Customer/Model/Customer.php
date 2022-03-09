@@ -16,6 +16,7 @@ use App\Core\Model\Traits\HasUploads;
 use Storage;
 use App\Services\Model\Service\Link;
 use App\Services\Model\Service\Image;
+use App\Services\Model\Service\OnlineGallery;
 
 class Customer extends \WFN\Customer\Model\Customer
 {
@@ -109,6 +110,10 @@ class Customer extends \WFN\Customer\Model\Customer
     public function links()
     {
         return $this->hasMany(Link::class, 'customer_id');
+    }
+    public function online_gallery()
+    {
+        return $this->hasMany(OnlineGallery::class, 'customer_id');
     }
 
     public function teaser_photos()
