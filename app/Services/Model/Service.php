@@ -76,7 +76,7 @@ class Service extends Model
 
     public function canCreateEditRequest()
     {
-        if(in_array($this->type, [Type::PHOTO, Type::VIDEO]) && $this->customer->wedding_date->gt(Carbon::now())) {
+        if(in_array($this->type, [Type::PHOTO, Type::VIDEO,Type::ENGAGEMENT_SESSION]) && $this->customer->wedding_date->gt(Carbon::now())) {
             return false;
         }
         $lastUpload = $this->uploads()->orderBy('created_at', 'desc')->first();
