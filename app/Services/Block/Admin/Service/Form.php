@@ -23,10 +23,18 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'readonly' => $this->getInstance()->id
         ]);
         
-        $this->addField('general', 'status', 'Status', 'select', [
-            'readonly' => true,
-            'source'   => Status::class,
-        ]);
+        if(\Auth::guard('admin')->user()->role->id == config('common.role.superadmin')){
+            $this->addField('general', 'status', 'Status', 'select', [
+                'readonly' => false,
+                'source'   => Status::class,
+            ]);
+        }else{
+            $this->addField('general', 'status', 'Status', 'select', [
+                'readonly' => true,
+                'source'   => Status::class,
+            ]);
+
+        }
         // dd($this->instance);
         if(isset($this->instance->id) && $this->instance->type == "videography"){
             $this->addField('general', 'links', 'Link', 'rows', [
