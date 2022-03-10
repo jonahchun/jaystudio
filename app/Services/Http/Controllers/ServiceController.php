@@ -64,7 +64,7 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
                     $config_file = new EngagementSessionGallery;
                 }
 
-                $online_gallery[] = $link_value; 
+                $online_gallery[$link_key] = $link_value; 
                 $online_gallery[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']); 
             }
         }
