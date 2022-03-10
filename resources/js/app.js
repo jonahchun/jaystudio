@@ -58,6 +58,7 @@ Vue.component('photo', require('./components/Services/Photo.vue').default);
 Vue.component('order-form-image-edit', require('./components/Services/Parts/ImageEdit.vue').default);
 Vue.component('order-form-comment-edit', require('./components/Services/Parts/CommentEdit.vue').default);
 
+Vue.component('engagement_session-edit-request', require('./components/Services/EditRequests/Engagement_session.vue').default);
 Vue.component('photography-edit-request', require('./components/Services/EditRequests/Photography.vue').default);
 Vue.component('videography-edit-request', require('./components/Services/EditRequests/Videography.vue').default);
 Vue.component('card-edit-request', require('./components/Services/EditRequests/Card.vue').default);

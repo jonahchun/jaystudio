@@ -9,8 +9,12 @@ use App\Services\Model\Service\EditRequest;
 use App\Services\Model\Service\Upload;
 use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status as ServiceStatus;
+use App\Services\Model\Source\Gallery;
+use App\Services\Model\Source\EngagementSessionGallery;
 use App\Services\Model\Source\Upload\Status as UploadStatus;
 use App\Services\Model\Service\Link;
+use App\Core\Model\OnlineGalleryLink;
+use App\Services\Model\Service\OnlineGallery;
 
 class ServiceController extends \WFN\Customer\Http\Controllers\Controller
 {
@@ -26,7 +30,8 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
         if(!$service->detail) {
             return redirect()->route('service.order-form.new', ['service' => $service]);
         }
-        
+
+        // LINKS
         $old_links = Link::with('services')->where('service_id',$service->id)->get()->toArray();
         
         $links = [];
@@ -37,7 +42,34 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
             }
         }
         
-        return view('service.view.' . $service->type, compact('service','links'));
+        // Online Gallery Detail
+        $link_count = OnlineGalleryLink::count();
+
+        $online_gallery_link = '';
+        
+        if($link_count > 0){
+            $gallery_links = OnlineGalleryLink::first();
+            $online_gallery_link = $gallery_links->url; 
+        }
+        
+        $online_gallery_data = OnlineGallery::with('services')->where('service_id',$service->id)->get()->toArray();
+
+        $online_gallery = [];
+
+        foreach ($online_gallery_data as $link_key => $link_value) {
+            if($link_value['services']['status'] == ServiceStatus::COMPLETE){
+                if($link_value['services']['type'] == ServiceType::PHOTO){
+                    $config_file = new Gallery;
+                }else{
+                    $config_file = new EngagementSessionGallery;
+                }
+
+                $online_gallery[] = $link_value; 
+                $online_gallery[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']); 
+            }
+        }
+
+        return view('service.view.' . $service->type, compact('service','links','online_gallery_link','online_gallery'));
     }
 
     public function orderFormNew(Service $service)

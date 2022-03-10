@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <a class="btn-default--alt mb-3" href="{{ route('customer.teaser_photo.index') }}">{{ __('View Teaser Photo') }}</a>
-    @include('service.view.parts.header', ['title' => __('Photography')])
+
+    @include('service.view.parts.header', ['title' => __('Engagement Session')])
     <div class="info-blocks">
         <div class="info-block">
             @include('service.view.parts.uploads', ['title' => __('Your Prototype Draft')])

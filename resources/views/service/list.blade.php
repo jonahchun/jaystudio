@@ -30,7 +30,7 @@
                     @include('service.parts.status')
                 </td>
                 <td class="text-center">
-                    @if(in_array($service->type, [\App\Services\Model\Source\Type::PHOTO, \App\Services\Model\Source\Type::VIDEO]))
+                    @if(in_array($service->type, [\App\Services\Model\Source\Type::PHOTO, \App\Services\Model\Source\Type::VIDEO,\App\Services\Model\Source\Type::ENGAGEMENT_SESSION]))
                     <a class="btn-default--alt mb-2 mb-xl-0 mr-xl-2" href="{{ route('customer.wedding.info') }}">{{ __('Wedding Info') }}</a>
                     @else
                     <a class="btn-default--alt mb-2 mb-xl-0 mr-xl-2" href="{{ route('service.order-form.view', ['service' => $service]) }}">{{ __('Order Form') }}</a>

@@ -10,6 +10,7 @@ class Type extends \WFN\Admin\Model\Source\AbstractSource
     const TYC         = 'thank_you_card';
     const STDC        = 'save_the_date_card';
     const PHOTO_ALBUM = 'photo_album';
+    const ENGAGEMENT_SESSION = 'engagement_session';
 
     protected function _getOptions()
     {
@@ -19,6 +20,7 @@ class Type extends \WFN\Admin\Model\Source\AbstractSource
             self::TYC         => 'Thank You Card',
             self::STDC        => 'Save The Date Card',
             self::PHOTO_ALBUM => 'Photo Album',
+            self::ENGAGEMENT_SESSION => 'Engagement Session',
         ];
     }
 

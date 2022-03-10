@@ -5,6 +5,8 @@ use App\Services\Model\Source\Type;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Model\Service\Link;
+use App\Services\Model\Service\OnlineGallery;
+use App\Services\Model\Service\EngagementSessionDetail;
 
 class Service extends Model
 {
@@ -74,7 +76,7 @@ class Service extends Model
 
     public function canCreateEditRequest()
     {
-        if(in_array($this->type, [Type::PHOTO, Type::VIDEO]) && $this->customer->wedding_date->gt(Carbon::now())) {
+        if(in_array($this->type, [Type::PHOTO, Type::VIDEO,Type::ENGAGEMENT_SESSION]) && $this->customer->wedding_date->gt(Carbon::now())) {
             return false;
         }
         $lastUpload = $this->uploads()->orderBy('created_at', 'desc')->first();
@@ -108,10 +110,19 @@ class Service extends Model
     {
         return $this->hasOne(Service\PhotoAlbumDetail::class);
     }
+    protected function _engagement_session_detail()
+    {
+        return $this->hasOne(Service\EngagementSessionDetail::class);
+    }
 
     public function links()
     {
         return $this->hasMany(\App\Services\Model\Service\Link::class, 'service_id');
+    }
+
+    public function online_gallery()
+    {
+        return $this->hasMany(\App\Services\Model\Service\OnlineGallery::class, 'service_id');
     }
 
     public function teaser_photos()
