@@ -58,7 +58,7 @@
                             <span class="main-nav__item-text">{{ __('Photography') }}</span>
                         </a>
                         <ul class="main-nav__inner-nav">
-                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.teaser_photo.index') }}">{{ __('Teaser Photo') }}</a></li>
+                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.teaser_photo.index') }}">{{ __('Teaser Photos') }}</a></li>
                             <li class="main-nav__inner-nav-item"><a href="{{ route('customer.online-gallery.index') }}">{{ __('Online Gallery') }}</a></li>
                         </ul>
                     </li>
