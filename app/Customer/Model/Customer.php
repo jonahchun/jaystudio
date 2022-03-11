@@ -13,6 +13,7 @@ use App\Customer\Model\Source\AddressType;
 use App\Payments\Model\Invoice;
 use Illuminate\Support\Carbon;
 use App\Core\Model\Traits\HasUploads;
+use App\Notification\Model\Notification;
 use Storage;
 use App\Services\Model\Service\Link;
 use App\Services\Model\Service\Image;
@@ -20,7 +21,7 @@ use App\Services\Model\Service\Image;
 class Customer extends \WFN\Customer\Model\Customer
 {
     use HasUploads;
-    
+
     const MEDIA_PATH = 'insurance_certificate' . DIRECTORY_SEPARATOR;
 
     protected $fillable = [
@@ -96,6 +97,11 @@ class Customer extends \WFN\Customer\Model\Customer
         return $this->hasOne(WeddingChecklist::class);
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function wedding_schedule()
     {
         return $this->hasOne(WeddingSchedule::class);
@@ -130,6 +136,12 @@ class Customer extends \WFN\Customer\Model\Customer
                 return $this->second_newlywed()->create(['type' => NewlywedType::SECOND]);
             case 'billing_address':
                 return $this->billing_address()->create();
+            case 'newlywed_detail':
+                return $this->newlywed_detail()->create(['initially_complete' => 0]);
+            case 'wedding_schedule':
+                return $this->wedding_schedule()->create(['initially_complete' => 0]);
+            case 'wedding_checklist':
+                return $this->wedding_checklist()->create(['initially_complete' => 0]);
             default:
                 return parent::_createRelation($relation);
         }

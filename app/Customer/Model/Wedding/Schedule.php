@@ -11,10 +11,10 @@ class Schedule extends Model
     use HasUploads;
 
     const MEDIA_PATH = 'customer-wedding-schedule' . DIRECTORY_SEPARATOR;
-    
+
     protected $table = 'customer_wedding_schedule';
 
-    protected $fillable = ['availability', 'comment', 'file', 'current_step', 'first_week', 'first_time', 'second_week', 'second_time', 'third_week', 'third_time' ];
+    protected $fillable = ['availability', 'comment','initially_complete', 'file', 'current_step', 'first_week', 'first_time', 'second_week', 'second_time', 'third_week', 'third_time' ];
 
     protected $_relations = ['first_newlywed_preparation', 'second_newlywed_preparation',
         'ceremony', 'reception', 'portrait_session','first_newlywed_address','second_newlywed_address'
@@ -138,7 +138,7 @@ class Schedule extends Model
                 $this->{$relation}->address()->create(['type' => $relation]);
                 $this->{$relation}->load('address');
             }
-            
+
             $data[$relation] = $this->{$relation};
         }
         $array['file_url'] = $this->getAttributeUrl('file');

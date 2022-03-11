@@ -8,7 +8,6 @@ Route::post('register', function() {
 });
 
 Route::get('dashboard', '\\' . App\Customer\Http\Controllers\IndexController::class . '@dashboard')->name('customer.account');
-
 Route::get('insurance/download/file/{id}', '\\' . App\Customer\Http\Controllers\IndexController::class . '@downloadInsuranceFile')->name('downloadInsuranceFile');
 
 Route::prefix('customer')->group(function() {
@@ -36,7 +35,7 @@ Route::prefix('customer')->group(function() {
         Route::prefix('schedule')->group(function() {
             Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\ScheduleController::class . '@index')->name('customer.wedding.schedule');
             Route::post('save', '\\' . App\Customer\Http\Controllers\Wedding\ScheduleController::class . '@save')->name('customer.wedding.schedule.save');
-            
+
         });
 
         Route::prefix('details')->group(function() {
@@ -56,7 +55,15 @@ Route::prefix('customer')->group(function() {
 
 Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
     Route::get('downloadfile/{key}/{id}', '\App\Customer\Http\Controllers\Admin\CustomerController@downloadFile')->name('admin.downloadfile');
-    
+    Route::get('notification-data', '\\' . '\App\Notification\Http\Controllers\Admin\NotificationController@getNotification')->name('admin.getNotification');
+    Route::post('notification-flag-change', '\\' . '\App\Notification\Http\Controllers\Admin\NotificationController@notificationFlagChange')->name('admin.notificationFlagChange');
+    Route::prefix('notification')->group(function() {
+        Route::get('/', '\\' . '\App\Notification\Http\Controllers\Admin\NotificationController@index')->name('admin.notification');
+        Route::get('new/{customer_id?}', '\App\Notification\Http\Controllers\Admin\NotificationController@new')->name('admin.notification.new');
+        Route::get('edit/{id}', '\App\Notification\Http\Controllers\Admin\NotificationController@edit')->name('admin.notification.edit');
+        Route::get('delete/{id}', '\App\Notification\Http\Controllers\Admin\NotificationController@delete')->name('admin.notification.delete');
+    });
+
     Route::prefix('customer')->group(function() {
         Route::prefix('contact')->group(function() {
             Route::get('/', '\App\Customer\Http\Controllers\Admin\ContactController@index')->name('admin.customer.contact');
