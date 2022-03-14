@@ -1,12 +1,14 @@
 <template>
-  <div class="gallery">
-    <div v-if="!photos.length">No any Teaser Photo</div>
-    <div class="gallery-panel"
-         v-for="photo in photos"
-         :key="photo.id">
-         <img :src="photo.image_url" @click="preview(photo)">
+  <div>
+    <div v-if="!photos.length">It’s not available yet! It takes 2-3 weeks for teaser photos and we ask that you check back.</div>
+    <div class="gallery">
+      <div class="gallery-panel"
+           v-for="photo in photos"
+           :key="photo.id">
+           <img :src="photo.image_url" @click="preview(photo)">
+      </div>
+      <photo :photos="img" @close="close" v-if="show_preview"></photo>
     </div>
-    <photo :photos="img" @close="close" v-if="show_preview"></photo>
   </div>
 </template>
 
