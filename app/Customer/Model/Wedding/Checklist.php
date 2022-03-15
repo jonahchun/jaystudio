@@ -15,9 +15,9 @@ class Checklist extends \WFN\Customer\Model\Customer\Detail
 
     protected $mediaFields = ['file'];
 
-    protected $serviceColumns = ['id', 'created_at', 'updated_at'];
+    protected $serviceColumns = ['id', 'created_at', 'updated_at','music_comment'];
 
-    protected $jsonFields = ['preparation', 'ceremony', 'portrait_session', 'reception', 'music', 'vendors','music_comment'];
+    protected $jsonFields = ['preparation', 'ceremony', 'portrait_session', 'reception', 'music', 'vendors'];
 
     protected $_relations = ['music_songs'];
 

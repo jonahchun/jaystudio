@@ -152,6 +152,12 @@
             @endif
           </div>
         </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <h5> Other Comments</h5>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ !empty($value['music_comment']) ? $value['music_comment'] : '' }}</textarea>
+          </div>
+        </div>
    @elseif($_value !== \App\WeddingChecklist\Model\Source\Steps::VENDORS)
       <div class="row">
          <div class="row">
@@ -167,6 +173,12 @@
                </div>
             @endforeach  
          </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <h5> Other Comments</h5>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ !empty($value[$_value]['comment']) ? $value[$_value]['comment'] : '' }}</textarea>
+        </div>
       </div>
    @else
       <div class="row">
@@ -192,7 +204,13 @@
    @endif
 <div class="row"><hr class="w-100"></div>
 @endforeach
+<div class="row mb-5">
+  <div class="col-12">
+    <h5> Comments</h5>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8">{{ $customer->wedding_checklist->comment }}</textarea>
+  </div>
+</div>
 
-
+<div class="row"><hr class="w-100"></div>
 <p class="mt-5">*Please remember to save all written information before submitting. Once completed, please send via email as an attachment to support@jaylimstudio.com</p>
 @endsection
