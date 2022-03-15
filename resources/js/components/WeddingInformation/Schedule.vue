@@ -9,7 +9,12 @@
     >
         <input type="hidden" name="_token" :value="csrf" />
         <input type="hidden" name="current_step" :value="current_step" />
-        <input type="hidden" name="is_final_step" :value="is_final_step" />
+        <input
+            type="hidden"
+            name="is_final_step"
+            :value="is_final_step"
+            id="is_final_step"
+        />
 
         <header class="intro-heading row">
             <div class="col-9">
@@ -73,7 +78,12 @@
                             getCurrentRelationName() +
                                 '[field_data][preparation_id]'
                         "
-                        :value="getCurrentRelationName() + ' general detail'"
+                        :value="
+                            getFieldInfo(
+                                getCurrentRelationName() + ' general detail',
+                                'Selection'
+                            )
+                        "
                         data-type="Selection"
                     />
                 </div>
@@ -120,7 +130,11 @@
                                 '[field_data][hair_makeup]'
                         "
                         :value="
-                            getCurrentRelationName() + '  Hair/Makeup location'
+                            getFieldInfo(
+                                getCurrentRelationName() +
+                                    '  Hair/Makeup location',
+                                'Radio button value'
+                            )
                         "
                         data-type="Radio button value"
                     />
@@ -168,8 +182,11 @@
                                 '[field_data][preparation_start_time]'
                         "
                         :value="
-                            getCurrentRelationName() +
-                                '  preparation start time'
+                            getFieldInfo(
+                                getCurrentRelationName() +
+                                    '  preparation start time',
+                                'Selection'
+                            )
                         "
                         data-type="Selection"
                     />
@@ -188,8 +205,11 @@
                                 '[field_data][transportation_start_time]'
                         "
                         :value="
-                            getCurrentRelationName() +
-                                '  transportation start time'
+                            getFieldInfo(
+                                getCurrentRelationName() +
+                                    '  transportation start time',
+                                'Selection'
+                            )
                         "
                         data-type="Selection"
                     />
@@ -207,7 +227,12 @@
                             getCurrentRelationName() +
                                 '[field_data][jls_start_time]'
                         "
-                        :value="getCurrentRelationName() + '  jls start time'"
+                        :value="
+                            getFieldInfo(
+                                getCurrentRelationName() + '  jls start time',
+                                'Selection'
+                            )
+                        "
                         data-type="Selection"
                     />
                     <wedding-schedule-form-end-time
@@ -223,7 +248,12 @@
                             getCurrentRelationName() +
                                 '[field_data][jls_end_time]'
                         "
-                        :value="getCurrentRelationName() + '  jls end time'"
+                        :value="
+                            getFieldInfo(
+                                getCurrentRelationName() + '  jls end time',
+                                'Selection'
+                            )
+                        "
                         data-type="Selection"
                     />
                     <div class="form-control-wrap">
@@ -251,7 +281,12 @@
                                 getCurrentRelationName() +
                                     '[field_data][contact_name]'
                             "
-                            :value="getCurrentRelationName() + '  contact name'"
+                            :value="
+                                getFieldInfo(
+                                    getCurrentRelationName() + '  contact name',
+                                    'Text Value'
+                                )
+                            "
                             data-type="Text Value"
                         />
                     </div>
@@ -282,7 +317,11 @@
                                     '[field_data][contact_phone]'
                             "
                             :value="
-                                getCurrentRelationName() + '  contact phone'
+                                getFieldInfo(
+                                    getCurrentRelationName() +
+                                        '  contact phone',
+                                    'Text Value'
+                                )
                             "
                             data-type="Text Value"
                         />
@@ -305,7 +344,11 @@
                                 '[field_data][contact_id]'
                         "
                         :value="
-                            getCurrentRelationName() + '  emergency contact'
+                            getFieldInfo(
+                                getCurrentRelationName() +
+                                    '  emergency contact',
+                                'Selection'
+                            )
                         "
                         data-type="Selection"
                     />
@@ -383,7 +426,12 @@
                                 getCurrentRelationName() +
                                     '[field_data][name_of_ceremony]'
                             "
-                            value="Ceremony location name"
+                            :value="
+                                getFieldInfo(
+                                    'Ceremony location name',
+                                    'Text value'
+                                )
+                            "
                             data-type="Text value"
                         />
                     </div>
@@ -413,7 +461,12 @@
                                 getCurrentRelationName() +
                                     '[field_data][invitation_start_time]'
                             "
-                            value="Invitation start time"
+                            :value="
+                                getFieldInfo(
+                                    'Invitation start time',
+                                    'Selection'
+                                )
+                            "
                             data-type="Selection"
                         />
                         <wedding-schedule-form-start-end-time
@@ -430,7 +483,9 @@
                                 getCurrentRelationName() +
                                     '[field_data][ceremony_start_time]'
                             "
-                            value="Ceremony start time"
+                            :value="
+                                getFieldInfo('Ceremony start time', 'Selection')
+                            "
                             data-type="Selection"
                         />
                         <input
@@ -439,7 +494,9 @@
                                 getCurrentRelationName() +
                                     '[field_data][ceremony_end_time]'
                             "
-                            value="Ceremony end time"
+                            :value="
+                                getFieldInfo('Ceremony end time', 'Selection')
+                            "
                             data-type="Selection"
                         />
                     </div>
@@ -490,7 +547,12 @@
                         :name="
                             getCurrentRelationName() + '[field_data][settings]'
                         "
-                        value="Ceremony setting"
+                        :value="
+                            getFieldInfo(
+                                'Ceremony setting',
+                                'Radio button value'
+                            )
+                        "
                         data-type="Radio button value"
                     />
                 </div>
@@ -547,7 +609,7 @@
                             getCurrentRelationName() +
                                 '[field_data][ceremony_traditions]'
                         "
-                        value="Ceremony traditions"
+                        :value="getFieldInfo('Ceremony traditions', 'Checkbox')"
                         data-type="Checkbox"
                     />
                 </div>
@@ -604,7 +666,7 @@
                         :name="
                             getCurrentRelationName() + '[field_data][details]'
                         "
-                        value="Ceremony details"
+                        :value="getFieldInfo('Ceremony details', 'Checkbox')"
                         data-type="Checkbox"
                     />
                 </div>
@@ -673,7 +735,12 @@
                             getCurrentRelationName() +
                                 '[field_data][name_of_reception]'
                         "
-                        value="Reception location name"
+                        :value="
+                            getFieldInfo(
+                                'Reception location name',
+                                'Text Value'
+                            )
+                        "
                         data-type="Text Value"
                     />
                 </div>
@@ -731,7 +798,12 @@
                             getCurrentRelationName() +
                                 '[field_data][insurance_certificate]'
                         "
-                        value="Insurance certificate"
+                        :value="
+                            getFieldInfo(
+                                'Insurance certificate',
+                                'Radio button value'
+                            )
+                        "
                         data-type="Radio button value"
                     />
                     <a
@@ -783,7 +855,12 @@
                                     getCurrentRelationName() +
                                         '[field_data][venue_coordinator_name]'
                                 "
-                                value="Venue coordinator name"
+                                :value="
+                                    getFieldInfo(
+                                        'Venue coordinator name',
+                                        'Text Value'
+                                    )
+                                "
                                 data-type="Text Value"
                             />
                         </div>
@@ -819,7 +896,12 @@
                                     getCurrentRelationName() +
                                         '[field_data][venue_coordinator_email]'
                                 "
-                                value="Venue coordinator email"
+                                :value="
+                                    getFieldInfo(
+                                        'Venue coordinator email',
+                                        'Text Value'
+                                    )
+                                "
                                 data-type="Text Value"
                             />
                         </div>
@@ -855,7 +937,12 @@
                                     getCurrentRelationName() +
                                         '[field_data][venue_coordinator_phone]'
                                 "
-                                value="Venue coordinator phone"
+                                :value="
+                                    getFieldInfo(
+                                        'Venue coordinator phone',
+                                        'Text Value'
+                                    )
+                                "
                                 data-type="Text Value"
                             />
                         </div>
@@ -880,7 +967,9 @@
                             getCurrentRelationName() +
                                 '[field_data][cocktails_start_time]'
                         "
-                        value="Cocktails start time"
+                        :value="
+                            getFieldInfo('Cocktails start time', 'Selection')
+                        "
                         data-type="Selection"
                     />
                     <input
@@ -889,7 +978,7 @@
                             getCurrentRelationName() +
                                 '[field_data][cocktails_end_time]'
                         "
-                        value="Cocktails end time"
+                        :value="getFieldInfo('Cocktails end time', 'Selection')"
                         data-type="Selection"
                     />
                     <!-- Reception Start & End Time -->
@@ -907,7 +996,9 @@
                             getCurrentRelationName() +
                                 '[field_data][reception_start_time]'
                         "
-                        value="Reception start time"
+                        :value="
+                            getFieldInfo('Reception start time', 'Selection')
+                        "
                         data-type="Selection"
                     />
                     <input
@@ -916,7 +1007,7 @@
                             getCurrentRelationName() +
                                 '[field_data][reception_end_time]'
                         "
-                        value="Reception end time"
+                        :value="getFieldInfo('Reception end time', 'Selection')"
                         data-type="Selection"
                     />
                     <wedding-schedule-form-time
@@ -932,7 +1023,7 @@
                             getCurrentRelationName() +
                                 '[field_data][cake_cutting_time]'
                         "
-                        value="Cake cutting time"
+                        :value="getFieldInfo('Cake cutting time', 'Selection')"
                         data-type="Selection"
                     />
                     <!-- Viennese -->
@@ -985,7 +1076,12 @@
                             getCurrentRelationName() +
                                 '[field_data][toast_givers]'
                         "
-                        value="Who will give speech/Toast"
+                        :value="
+                            getFieldInfo(
+                                'Who will give speech/Toast',
+                                'Text Value'
+                            )
+                        "
                         data-type="Text Value"
                     />
                 </div>
@@ -1004,7 +1100,12 @@
                     :name="
                         getCurrentRelationName() + '[field_data][timeline_file]'
                     "
-                    value="Reception timeline for venue or DJ"
+                    :value="
+                        getFieldInfo(
+                            'Reception timeline for venue or DJ',
+                            'File'
+                        )
+                    "
                     data-type="File"
                 />
             </div>
@@ -1092,7 +1193,7 @@
                     <input
                         type="hidden"
                         :name="getCurrentRelationName() + '[field_data][when]'"
-                        value="Portrait session"
+                        :value="getFieldInfo('Portrait session', 'Checkbox')"
                         data-type="Checkbox"
                     />
                 </div>
@@ -1120,6 +1221,7 @@
                         :index="index"
                         :removeItem="removeItem.bind(this, index)"
                         :time_options="time_options"
+                        :relation="relations"
                     ></repeater-address>
                 </div>
                 <div class="schedule-form__action-add">
@@ -1382,6 +1484,13 @@ export default {
         }
     },
     methods: {
+        getFieldInfo(fieldVal, fieldType) {
+            var fieldInfo = [];
+            fieldInfo["val"] = fieldVal;
+            fieldInfo["type"] = fieldType;
+
+            return JSON.stringify(Object.assign({}, fieldInfo));
+        },
         back() {
             this.current_step--;
             this.current_step = Math.max(this.current_step, 0);
@@ -1443,11 +1552,13 @@ export default {
             if (!this.form.valid()) {
                 event.preventDefault();
             } else {
-                if (
-                    document.getElementsByClassName("submit-btn")[0].type ==
-                    "submit"
-                ) {
-                    this.is_final_step = 1;
+                var submitBtn = document.getElementsByClassName(
+                    "submit-btn"
+                )[0];
+                if (typeof submitBtn !== "undefined") {
+                    if (submitBtn.type == "submit") {
+                        document.getElementById("is_final_step").value = 1;
+                    }
                 }
             }
             return false;
@@ -1470,7 +1581,7 @@ export default {
                 address = {};
             }
             address.type = this.getCurrentRelationName();
-            console.log(address);
+            //console.log(address);
             return address;
         },
         onChangeValue: function($event) {

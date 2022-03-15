@@ -23,8 +23,13 @@
                     <label :for="`${value}_${index}`">{{ label }}</label>
                     <input
                         type="hidden"
-                        :name="'[field_data]' + `${block}_week`"
-                        :value="'Availabilities day for ' + `${block}`"
+                        :name="'field_data[' + `${block}_week` + ']'"
+                        :value="
+                            getFieldInfo(
+                                'Availabilities day for ' + `${block}_week`,
+                                'Radio button value'
+                            )
+                        "
                         data-type="Radio button value"
                     />
                 </div>
@@ -45,8 +50,13 @@
                     <label :for="`${value}_${index}`">{{ label }}</label>
                     <input
                         type="hidden"
-                        :name="'[field_data]' + `${block}_time`"
-                        :value="'Availabilities time for ' + `${block}`"
+                        :name="'field_data[' + `${block}_time` + ']'"
+                        :value="
+                            getFieldInfo(
+                                'Availabilities time for ' + `${block}_time`,
+                                'Radio button value'
+                            )
+                        "
                         data-type="Radio button value"
                     />
                 </div>
@@ -79,6 +89,15 @@ export default {
             },
             schedule: this.wedding_schedule
         };
+    },
+    methods: {
+        getFieldInfo(fieldVal, fieldType) {
+            var fieldInfo = [];
+            fieldInfo["val"] = fieldVal;
+            fieldInfo["type"] = fieldType;
+
+            return JSON.stringify(Object.assign({}, fieldInfo));
+        }
     }
 };
 </script>

@@ -47,7 +47,7 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
             $data['current_step'] = min(intval($data['current_step']) + 1, 3);
             Auth::user()->newlywed_detail->fill($data)->save();
 
-             //add Notification for edit
+            //add Notification for edit
             $this->editFormNotification($data,$notifData,$oldDetailValue);
 
             $initially_complete = Auth::user()->newlywed_detail->initially_complete;
@@ -101,7 +101,7 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
                         $notifData['field_type'] = strtolower($form_field_type[$i]);
                         $notifData['old_data'] = $getOldValue[$key];
                         $notifData['new_data'] = $val;
-                        $notifData['form_steps'] = $data['current_step'];
+                        $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
                         \App\Customer\Helper\Data::saveNotification($notifData);
                     }
                     $i++;
@@ -118,7 +118,7 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
                 $notifData['field_type'] = Notification::COMMENT_FIELD_TYPE;
                 $notifData['old_data'] = $oldCommentValue;
                 $notifData['new_data'] = $data['comment'];
-                $notifData['form_steps'] = $data['current_step'];
+                $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
                 \App\Customer\Helper\Data::saveNotification($notifData);
             }
             if(trim($oldFileValue) !== trim($data['file'])){
@@ -127,7 +127,7 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
                 $notifData['field_type'] = Notification::FILE_FIELD_TYPE;
                 $notifData['old_data'] = $oldFileValue;
                 $notifData['new_data'] = Auth::user()->newlywed_detail->file;
-                $notifData['form_steps'] = $data['current_step'];
+                $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
                 \App\Customer\Helper\Data::saveNotification($notifData);
             }
         }

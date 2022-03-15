@@ -41,7 +41,12 @@
                         index +
                         '][name_of_ceremony_portrait]'
                 "
-                value="Name of portrait session location"
+                :value="
+                    getFieldInfo(
+                        'Name of portrait session location',
+                        'Text Value'
+                    )
+                "
                 data-type="Text Value"
             />
         </div>
@@ -87,7 +92,12 @@
                         this.index +
                         '][address][address_line_1]'
                 "
-                :value="this.relationName + ' address line #1'"
+                :value="
+                    getFieldInfo(
+                        this.relationName + ' address line #1',
+                        'Text Value'
+                    )
+                "
                 data-type="Text Value"
             />
         </div>
@@ -132,7 +142,12 @@
                         this.index +
                         '][address][address_line_2]'
                 "
-                :value="this.relationName + ' address line #2'"
+                :value="
+                    getFieldInfo(
+                        this.relationName + ' address line #2',
+                        'Text Value'
+                    )
+                "
                 data-type="Text Value"
             />
         </div>
@@ -178,7 +193,7 @@
                         this.index +
                         '][address][city]'
                 "
-                :value="this.relationName + ' city'"
+                :value="getFieldInfo(this.relationName + ' city', 'Text Value')"
                 data-type="Text Value"
             />
         </div>
@@ -224,7 +239,9 @@
                         this.index +
                         '][address][state]'
                 "
-                :value="this.relationName + ' state'"
+                :value="
+                    getFieldInfo(this.relationName + ' state', 'Text Value')
+                "
                 data-type="Text Value"
             />
         </div>
@@ -270,12 +287,11 @@
                         this.index +
                         '][address][zip]'
                 "
-                :value="this.relationName + ' zip'"
+                :value="getFieldInfo(this.relationName + ' zip', 'Text Value')"
                 data-type="Text Value"
             />
         </div>
         <div class="form-control-wrap js-input-wrap"></div>
-
         <div class="form-control-wrap full-width ">
             <wedding-schedule-form-start-end-time
                 :fieldName="
@@ -290,6 +306,7 @@
                 :start_value="address.portrait_start_time"
                 :end_value="address.portrait_end_time"
                 :time_options="time_options"
+                :relation="relation"
             ></wedding-schedule-form-start-end-time>
             <input
                 type="hidden"
@@ -299,7 +316,7 @@
                         this.index +
                         '][portrait_start_time]'
                 "
-                value="Portrait start time"
+                :value="getFieldInfo('Portrait start time', 'Selection')"
                 data-type="Selection"
             />
             <input
@@ -310,7 +327,7 @@
                         this.index +
                         '][portrait_end_time]'
                 "
-                value="Portrait end time"
+                :value="getFieldInfo('Portrait end time', 'Selection')"
                 data-type="Selection"
             />
         </div>
@@ -324,6 +341,28 @@
                 <use xlink:href="#icon-trash"></use>
             </svg>
         </button>
+        <input
+            type="hidden"
+            :name="
+                this.relationName +
+                    '[portrait_session_location][' +
+                    this.index +
+                    '][address][portrait_session_location_id]'
+            "
+            :value="this.address.id"
+            data-type="Text Value"
+        />
+        <input
+            type="hidden"
+            :name="
+                this.relationName +
+                    '[portrait_session_location][' +
+                    this.index +
+                    '][portrait_session_id]'
+            "
+            :value="this.address.portrait_session_id"
+            data-type="Text Value"
+        />
     </div>
 </template>
 
@@ -346,6 +385,13 @@ export default {
                 typeof this.address.name_of_ceremony_portrait != "undefined" &&
                 this.address.name_of_ceremony_portrait.length > 0
             );
+        },
+        getFieldInfo(fieldVal, fieldType) {
+            var fieldInfo = [];
+            fieldInfo["val"] = fieldVal;
+            fieldInfo["type"] = fieldType;
+
+            return JSON.stringify(Object.assign({}, fieldInfo));
         }
     },
     mounted() {

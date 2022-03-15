@@ -73,7 +73,12 @@
                         :for="step_names[current_step] + '_' + question.id"
                         >{{ question.title }}</label
                     >
-
+                    <input
+                        type="hidden"
+                        :name="'field_data[' + question.id + '][value]'"
+                        :value="getFieldInfo(question.title, 'Selection')"
+                        data-type="Selection"
+                    />
                     <small
                         v-if="question.has_details"
                         aria-describedby="textSpecific"
@@ -120,7 +125,12 @@
                         :for="step_names[current_step] + '_' + question.id"
                         >{{ question.title }}</label
                     >
-
+                    <input
+                        type="hidden"
+                        :name="'field_data[' + question.id + '][value]'"
+                        :value="getFieldInfo(question.title, 'Selection')"
+                        data-type="Selection"
+                    />
                     <small
                         v-if="question.has_details"
                         aria-describedby="textSpecific"
@@ -164,6 +174,12 @@
                     rows="10"
                     class="form-control"
                 ></textarea>
+                <input
+                    type="hidden"
+                    name="field_data[comment]"
+                    :value="getFieldInfo('Other comments', 'Selection')"
+                    data-type="Text Value"
+                />
             </div>
             <div class="checklist-form__action mb-4" v-if="!readonly">
                 <button
@@ -621,6 +637,13 @@ export default {
         this.addSongs();
     },
     methods: {
+        getFieldInfo(fieldVal, fieldType) {
+            var fieldInfo = [];
+            fieldInfo["val"] = fieldVal;
+            fieldInfo["type"] = fieldType;
+
+            return JSON.stringify(Object.assign({}, fieldInfo));
+        },
         back() {
             this.current_step--;
             this.current_step = Math.max(this.current_step, 0);
