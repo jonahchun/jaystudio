@@ -391,6 +391,14 @@
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->cake_cutting_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
       </div>
     </div> 
+    <div class="row align-items-center py-1">
+      <div class="col-5">
+      <label for="cake_cutting_time" class="m-0">Who Will Give Speech/Toast: </label>
+      </div>
+      <div class="col-7">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->toast_givers}}">
+      </div>
+    </div> 
   </div>
 </div>
 <hr>
