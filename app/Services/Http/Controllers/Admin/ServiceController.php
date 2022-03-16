@@ -51,7 +51,13 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
     public function delete($id)
     {
         $customerId = $this->entity->findOrFail($id)->customer->id;
+        
+        $teaser_photo_del = Image::where('service_id',$id)->delete();
+        $service_link_del = Link::where('service_id',$id)->delete();
+        $online_gallery_del = OnlineGallery::where('service_id',$id)->delete();
+
         parent::delete($id);
+        
         return redirect()->route('admin.customer.edit', ['id' => $customerId]);
     }
 
