@@ -4,7 +4,7 @@ namespace App\Services\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\Model\Service;
-use Alert;
+use Alert,Auth;
 use App\Services\Model\Service\EditRequest;
 use App\Services\Model\Service\Upload;
 use App\Services\Model\Source\Type as ServiceType;
@@ -69,8 +69,8 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
                 $online_gallery[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']); 
             }
         }
-        $photos_data = Image::with('services')->take(4)->get()->toArray();
-
+        $photos_data = Auth::user()->teaser_photos()->with('services')->take(4)->get()->toArray();
+        
         $photos = [];
 
         foreach ($photos_data as $photo_key => $photo_value) {
