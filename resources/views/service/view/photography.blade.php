@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <a class="btn-default--alt mb-3" href="{{ route('customer.teaser_photo.index') }}">{{ __('View Teaser Photo') }}</a>
     @include('service.view.parts.header', ['title' => __('Photography')])
     <div class="info-blocks">
         <div class="info-block">
@@ -11,6 +10,20 @@
         @include('service.view.parts.edit_requests')
         </div>
     </div>
+    @if(count($photos) > 0)
+        <header class="intro-heading row">
+            <div class="col-12 col-sm-8">
+                <h2>{{ __('Teaser Photos') }}</h2>
+            </div>
+
+            <div class="col-12 col-sm-4 text-sm-right">
+                <a class="link-primary" href="{{ route('customer.teaser_photo.index') }}" target="_blank">{{ __('See all') }}</a>
+            </div>
+        </header>
+        <teaser-photo 
+        :photos="{{ json_encode($photos) }}"
+        ></teaser-photo>
+    @endif
     @if(count($online_gallery) > 0)
         <header class="intro-heading row">
             <div class="col-12 col-sm-8">

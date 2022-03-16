@@ -51,6 +51,9 @@ class Image extends Model
         $path .= substr($fileName, 0, 1) . DIRECTORY_SEPARATOR . substr($fileName, 1, 1) . DIRECTORY_SEPARATOR;
         if(Storage::disk('local')->exists($path . $fileName)) {
             $iterator = 1;
+            if(is_numeric($fileName[0])){
+                $iterator = 'a';
+            }
             while(Storage::disk('local')->exists($path . $fileName)) {
                 $fileName = str_replace(
                     '.' . $file->getClientOriginalExtension(),

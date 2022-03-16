@@ -49,7 +49,7 @@ window.serviceHoldPopup = function(urlLink) {
                     <label for="delivery-location">{{ __('Delivery Location') }}</label>
                     <select class="form-control" id="delivery-location" name="complete[pickup_location_id]">
                         @foreach(\App\Core\Model\PickupLocation::all() as $location)
-                        <option value="{{ $location->id }}">{{ $location->title }}</option>
+                        <option value="{{ $location->id }}" @if($location->id == 2) selected @endif>{{ $location->title }}</option>
                         @endforeach
                         <option value="">{{ __('Shipped') }}</option>
                     </select>

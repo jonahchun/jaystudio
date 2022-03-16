@@ -15,6 +15,7 @@ use App\Services\Model\Source\Upload\Status as UploadStatus;
 use App\Services\Model\Service\Link;
 use App\Core\Model\OnlineGalleryLink;
 use App\Services\Model\Service\OnlineGallery;
+use App\Services\Model\Service\Image;
 
 class ServiceController extends \WFN\Customer\Http\Controllers\Controller
 {
@@ -64,12 +65,20 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
                     $config_file = new EngagementSessionGallery;
                 }
 
-                $online_gallery[] = $link_value; 
+                $online_gallery[$link_key] = $link_value; 
                 $online_gallery[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']); 
             }
         }
+        $photos_data = Image::with('services')->take(4)->get()->toArray();
 
-        return view('service.view.' . $service->type, compact('service','links','online_gallery_link','online_gallery'));
+        $photos = [];
+
+        foreach ($photos_data as $photo_key => $photo_value) {
+            if($photo_value['services']['status'] == ServiceStatus::COMPLETE){
+                $photos[] = $photo_value; 
+            }
+        }
+        return view('service.view.' . $service->type, compact('service','links','online_gallery_link','online_gallery','photos'));
     }
 
     public function orderFormNew(Service $service)
