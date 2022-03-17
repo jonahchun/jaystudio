@@ -2,6 +2,7 @@
     <form :action="urls.save" method="post" id="wedding-schedule-form" enctype="multipart/form-data" autocomplete="off" :class="{'readonly': readonly}">
         <input type="hidden" name="_token" :value="csrf" />
         <input type="hidden" name="current_step" :value="current_step" />
+        <input type="hidden" name="button_type" id="btn_type"/>
 
         <header class="intro-heading row">
             <div class="col-9">
@@ -12,13 +13,13 @@
         <nav class="steps">
             <ol class="steps__list js-tabset">
                 <li v-for="(step, index) in steps" :key="index" :class="{'steps__list-item' : true, 'is-complete' : (current_step > index && !readonly), 'is-active' : (index == current_step) }">
-                    <a @click="goToStep(index)" href="">{{ step }}</a>
+                    <a @click="goToStep(index,this)" href="">{{ step }}</a>
                 </li>
             </ol>
         </nav>
         <div v-if="current_step < 2 || !current_step" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section full-width">
@@ -151,14 +152,14 @@
                 </div>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
         </div>
 
         <div v-if="current_step == 2" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section">
@@ -282,14 +283,14 @@
                 </div>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
         </div>
 
         <div v-if="current_step == 3" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section">
@@ -450,14 +451,14 @@
                 <file-uploader name="reception[timeline_file]" :value="getCurrentRelation().timeline_file"></file-uploader>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
         </div>
 
         <div v-if="current_step == 4" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
             <div class="schedule-form__section full-width radio-group">
@@ -522,14 +523,14 @@
                 </div>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
             </div>
         </div>
 
         <div v-if="current_step == 5" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
             </div>
             <p class="h3 mb-4">Now that you filled all information, please share with us your availabilities to connect to our scheduling coordinator to confirm your wedding details: (This meeting will take about 10-15 minutes)</p>
@@ -550,7 +551,7 @@
                 <file-uploader name="file" :value="schedule.file"></file-uploader>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button" style="width:59px;">Back</button>
+                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
                 <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Submit</button>
             </div>
         </div>
@@ -676,9 +677,14 @@
             }
         },
         methods: {
-            back() {
-                this.current_step--;
-                this.current_step = Math.max(this.current_step, 0);
+            back(event) {
+                $('#btn_type').val('back');
+                this.form.validate();
+                if(!this.form.valid()) {
+                    event.preventDefault();
+                }
+                return false;
+
             },
             portraitSessionLocation() {
                 return this.schedule.portrait_session.portrait_session_locations;
@@ -703,13 +709,19 @@
             getCurrentRelationName: function() {
                 return this.relations[this.current_step];
             },
-            goToStep: function(step) {
+            goToStep: function(step,event) {
                 if(step >= this.current_step && !this.readonly) {
                     return false;
+                }
+                $('#btn_type').val('back');
+                this.form.validate();
+                if(!this.form.valid()) {
+                    event.preventDefault();
                 }
                 this.current_step = step;
             },
             submit: function(event) {
+                $('#btn_type').val('submit');
                 this.form.validate();
                 if(!this.form.valid()) {
                     event.preventDefault();

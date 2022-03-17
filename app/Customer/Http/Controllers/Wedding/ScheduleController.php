@@ -21,6 +21,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
+            // dd($data);
             if(isset($data['portrait_session'])){
                 $data['portrait_session']['when'] = json_encode($data['portrait_session']['when']);
             }
@@ -47,8 +48,14 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                 }
             }
 
-            $redirectBack = intval($data['current_step']) + 1 <= 5;
-            $data['current_step'] = min(intval($data['current_step']) + 1, 5);
+            if($data['button_type'] == "back"){
+                $redirectBack = intval($data['current_step']) + 1 <= 6;
+                $data['current_step'] = min(intval($data['current_step']) - 1, 5);
+            }else{
+                $redirectBack = intval($data['current_step']) + 1 <= 5;
+                $data['current_step'] = min(intval($data['current_step']) + 1, 5);
+            }
+            
             Auth::user()->wedding_schedule->fill($data)->save();
             return $redirectBack ? back() : redirect()->route('customer.wedding.info');
         } catch (\Exception $e) {
