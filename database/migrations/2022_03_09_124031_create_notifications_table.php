@@ -16,7 +16,7 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
-            $table->string('field_name')->nullable(true);
+            $table->text('field_name')->nullable(true);
             $table->text('old_data')->nullable(true);
             $table->text('new_data')->nullable(true);
             $table->string('form_type')->nullable(true);

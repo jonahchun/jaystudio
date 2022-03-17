@@ -22,12 +22,7 @@
             <input
                 type="hidden"
                 :name="address.type + '[field_data][address][hair_makeup_name]'"
-                :value="
-                    getFieldInfo(
-                        address.type + ' hair makeup address name',
-                        'Text value'
-                    )
-                "
+                :value="getFieldInfo(field_name + ' | ' + name, 'Text value')"
                 data-type="Text value"
             />
         </div>
@@ -58,7 +53,7 @@
                 "
                 :value="
                     getFieldInfo(
-                        address.type + ' hair makeup address line #1',
+                        field_name + ' | ' + 'Address Line #1',
                         'Text value'
                     )
                 "
@@ -91,7 +86,7 @@
                 "
                 :value="
                     getFieldInfo(
-                        address.type + ' hair makeup address line #2',
+                        field_name + ' | ' + 'Address Line #2',
                         'Text value'
                     )
                 "
@@ -120,12 +115,7 @@
             <input
                 type="hidden"
                 :name="address.type + '[field_data][address][hair_makeup_city]'"
-                :value="
-                    getFieldInfo(
-                        address.type + ' hair makeup city',
-                        'Text value'
-                    )
-                "
+                :value="getFieldInfo(field_name + ' | ' + 'City', 'Text value')"
                 data-type="Text value"
             />
         </div>
@@ -155,7 +145,7 @@
                 "
                 :value="
                     getFieldInfo(
-                        address.type + ' hair makeup state',
+                        field_name + ' | ' + 'State / Province',
                         'Text value'
                     )
                 "
@@ -186,7 +176,7 @@
                 :name="address.type + '[field_data][address][hair_makeup_zip]'"
                 :value="
                     getFieldInfo(
-                        address.type + ' hair makeup zip',
+                        field_name + ' | ' + 'ZIP / Postcode',
                         'Text value'
                     )
                 "
@@ -198,6 +188,15 @@
 
 <script>
 export default {
-    props: ["address", "name"]
+    props: ["address", "name", "field_name"],
+    methods: {
+        getFieldInfo(fieldVal, fieldType) {
+            var fieldInfo = [];
+            fieldInfo["val"] = fieldVal;
+            fieldInfo["type"] = fieldType;
+
+            return JSON.stringify(Object.assign({}, fieldInfo));
+        }
+    }
 };
 </script>

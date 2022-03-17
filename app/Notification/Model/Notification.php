@@ -16,8 +16,10 @@ class Notification extends Model
     const COMMENT_FIELD_TYPE        = 'textarea';
     const FILE_FIELD                = 'File';
     const FILE_FIELD_TYPE           = 'file';
-    const NOTIF_MSG_1               = 'has initially complete';
-
+    const NOTIF_MSG_1               = 'Form Submitted';
+    const STEP_FOR_TYPE_1 = ['Your History', 'What You Like In Each Other', 'Your Wedding', 'Comments'];
+    const STEP_FOR_TYPE_2 = ['1st Preparation', '2nd Preparation','Ceremony', 'Reception', 'Portrait Session', 'Other Information'];
+    const STEP_FOR_TYPE_3 = ['Preparation', 'Ceremony', 'Portrait Session', 'Reception', 'Cinematography Music', 'Vendors', 'Other Information'];
     protected $table = 'notifications';
 
     protected $serviceColumns = ['id', 'created_at', 'updated_at'];
@@ -28,5 +30,6 @@ class Notification extends Model
     {
         return $this->belongsTo(\Customer::class);
     }
+
 
 }

@@ -140,11 +140,17 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
         }
         if(isset($data['portrait_session'])){
             $newCeremonyVal = $data['portrait_session'];
-            $fieldData['portrait_session_location'] = $newCeremonyVal['field_data']['portrait_session_location'];
+
+            $fieldData['portrait_session_location'] = key_exists('portrait_session_location',$newCeremonyVal['field_data'])?$newCeremonyVal['field_data']['portrait_session_location']: [];
             $fieldData['portrait_session'] = array_diff_key($newCeremonyVal['field_data'], array_flip(["portrait_session_location"]));
 
-            $newData['portrait_session_location'] = $newCeremonyVal['portrait_session_location'];
+            $newData['portrait_session_location'] = key_exists('portrait_session_location',$newCeremonyVal)?$newCeremonyVal['portrait_session_location']:[];
             $newData['portrait_session'] = array_diff_key($newCeremonyVal, array_flip(["portrait_session_location", "field_data"]));
+
+            if(count($fieldData['portrait_session_location']) == 0){
+                $fieldData['portrait_session_location'][0]['address'] = [];
+                $newData['portrait_session_location'][0]['address'] = [];
+            }
         }
         if($data['is_final_step'] == 1){
             $fieldData['schedule'] = $data['field_data'];
@@ -156,39 +162,35 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
 
             foreach($newData as $newDataKey => $newDataVal){
+
                 if($newDataKey == 'portrait_session_location' && isset($data['portrait_session'])){
+                    $newFillableData = $newDataVal;
                     if(count($newDataVal)>0){
                         foreach($newDataVal as $portraitKey => $portraitVal){
                             foreach($portraitVal as $portraitLocKey => $portraitLocVal){
-                                $getOldAdressData = $getOldValue[$newDataKey][$portraitKey][$portraitLocKey];
-                                if($portraitLocKey == 'address'){
-                                    foreach($portraitLocVal as $protraitAddKey => $protraitAddVal){
-                                        if($protraitAddVal != '' && $protraitAddKey != 'portrait_session_location_id'){
-                                            if($portraitVal[$portraitLocKey]['portrait_session_location_id'] == ''){
-                                                $oldDataVal =  null;
-                                            }else{
-                                                $oldDataVal = trim($getOldAdressData[$protraitAddKey]);
-                                            }
+                                $getOldAddressData = $getOldValue[$newDataKey][$portraitKey][$portraitLocKey];
 
-                                            $notifData['old_data'] = $oldDataVal;
-                                            $newDataVal = trim($protraitAddVal);
-                                            if(strcasecmp($newDataVal,$oldDataVal) != 0 ){
-                                                $fieldInfo = json_decode($fieldData[$newDataKey][$portraitKey][$portraitLocKey][$protraitAddKey], true);
-                                                $notifData['new_data'] = $newDataVal;
-                                                $notifData['field_name'] = str_replace("_"," ",$fieldInfo['val']);
-                                                $notifData['field_type'] = $fieldInfo['type'];
-                                                \App\Customer\Helper\Data::saveNotification($notifData);
-                                            }
+                                if($portraitLocKey == 'address' ){
+                                    if($portraitKey == 0){
+                                        //For dynamic portrait session locations
+                                        $locationListResult = $this->compareSessionLocationList($newFillableData, $getOldValue[$newDataKey]);
+
+                                        if($locationListResult['isChanged'] == 1){
+                                            $notifData['old_data'] = $locationListResult['oldData'];
+                                            $notifData['new_data'] = $locationListResult['newData'];
+                                            $notifData['field_name'] = json_decode($fieldData[$newDataKey][$portraitKey][$portraitLocKey],true)['val'];
+                                            $notifData['field_type'] = json_decode($fieldData[$newDataKey][$portraitKey][$portraitLocKey],true)['type'];
+                                            \App\Customer\Helper\Data::saveNotification($notifData);
                                         }
                                     }
                                 }else{
                                     if($portraitLocVal != ''){
-                                        $oldDataVal = trim($getOldAdressData);
+                                        $oldDataVal = trim($getOldAddressData);
                                         $newDataVal = trim($portraitLocVal);
                                         if(strcasecmp($newDataVal,$oldDataVal) != 0 ){
                                             $fieldInfo = json_decode($fieldData[$newDataKey][$portraitKey][$portraitLocKey], true);
 
-                                            $notifData['old_data'] = $getOldAdressData;
+                                            $notifData['old_data'] = $getOldAddressData;
                                             $notifData['new_data'] = $portraitLocVal;
                                             $notifData['field_name'] = str_replace("_"," ",$fieldInfo['val']);
                                             $notifData['field_type'] = $fieldInfo['type'];
@@ -243,7 +245,56 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                         }
                     }
                 }
-            }//exit;
+            }
         }
+    }
+    public function compareSessionLocationList($newAddressData,$getOldAddressData){
+        $newData = $oldData = $compareArr1 = $compareArr2 = [];
+
+        if(count($newAddressData)>0){
+            foreach($newAddressData as $newAddressDataKey => $newAddressDataVal){
+                $newData['address_line_1'][$newAddressDataKey] = (key_exists('address_line_1',$newAddressDataVal['address']))?$newAddressDataVal['address']['address_line_1']:'';
+                $newData['address_line_2'][$newAddressDataKey] = (key_exists('address_line_2',$newAddressDataVal['address']))?$newAddressDataVal['address']['address_line_2']:'';
+                $newData['city'][$newAddressDataKey] = (key_exists('city',$newAddressDataVal['address']))?$newAddressDataVal['address']['city']:'';
+                $newData['state'][$newAddressDataKey] = (key_exists('state',$newAddressDataVal['address']))?$newAddressDataVal['address']['state']:'';
+                $newData['zip'][$newAddressDataKey] = (key_exists('zip',$newAddressDataVal['address']))?$newAddressDataVal['address']['zip']:'';
+            }
+        }
+        if(count($getOldAddressData) > 0 ){
+            foreach($getOldAddressData as $getOldAddressDataKey => $getOldAddressDataVal){
+                $oldData['address_line_1'][$getOldAddressDataKey] = $getOldAddressDataVal['address']['address_line_1'];
+                $oldData['address_line_2'][$getOldAddressDataKey] = $getOldAddressDataVal['address']['address_line_2'];
+                $oldData['city'][$getOldAddressDataKey] = $getOldAddressDataVal['address']['city'];
+                $oldData['state'][$getOldAddressDataKey] = $getOldAddressDataVal['address']['state'];
+                $oldData['zip'][$getOldAddressDataKey] = $getOldAddressDataVal['address']['zip'];
+            }
+        }else{
+            $oldData['address_line_1'][] = '';
+            $oldData['address_line_2'][] = '';
+            $oldData['city'][] = '';
+            $oldData['state'][] = '';
+            $oldData['zip'][] = '';
+        }
+
+        if(count($newData['address_line_1']) > count($oldData['address_line_1'])){
+            $compareArr1 = $newData;
+            $compareArr2 = $oldData;
+        }else{
+            $compareArr1 = $oldData;
+            $compareArr2 = $newData;
+        }
+        $isChanged = 0;
+        $result = [];
+        foreach($newData as $key => $val){
+            $compareCount = count(array_diff($compareArr1[$key],$compareArr2[$key]));
+            if($compareCount > 0){
+                $isChanged = 1;
+            }
+        }
+        $result['newData'] = json_encode($newData);
+        $result['oldData'] = json_encode($oldData);
+        $result['isChanged'] = $isChanged;
+
+        return $result;
     }
 }

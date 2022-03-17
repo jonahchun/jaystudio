@@ -43,7 +43,9 @@
                 "
                 :value="
                     getFieldInfo(
-                        'Name of portrait session location',
+                        field_name +
+                            ' | ' +
+                            'Name of Portrait Session Location',
                         'Text Value'
                     )
                 "
@@ -84,22 +86,6 @@
                 v-model="address.address.address_line_1"
                 :required="isRequired()"
             />
-            <input
-                type="hidden"
-                :name="
-                    this.relationName +
-                        '[field_data][portrait_session_location][' +
-                        this.index +
-                        '][address][address_line_1]'
-                "
-                :value="
-                    getFieldInfo(
-                        this.relationName + ' address line #1',
-                        'Text Value'
-                    )
-                "
-                data-type="Text Value"
-            />
         </div>
         <div class="form-control-wrap js-input-wrap">
             <label
@@ -133,22 +119,6 @@
                         '][address][address_line_2]'
                 "
                 v-model="address.address.address_line_2"
-            />
-            <input
-                type="hidden"
-                :name="
-                    this.relationName +
-                        '[field_data][portrait_session_location][' +
-                        this.index +
-                        '][address][address_line_2]'
-                "
-                :value="
-                    getFieldInfo(
-                        this.relationName + ' address line #2',
-                        'Text Value'
-                    )
-                "
-                data-type="Text Value"
             />
         </div>
         <div class="form-control-wrap js-input-wrap">
@@ -185,17 +155,6 @@
                 v-model="address.address.city"
                 :required="isRequired()"
             />
-            <input
-                type="hidden"
-                :name="
-                    this.relationName +
-                        '[field_data][portrait_session_location][' +
-                        this.index +
-                        '][address][city]'
-                "
-                :value="getFieldInfo(this.relationName + ' city', 'Text Value')"
-                data-type="Text Value"
-            />
         </div>
         <div class="form-control-wrap js-input-wrap">
             <label
@@ -230,19 +189,6 @@
                 "
                 v-model="address.address.state"
                 :required="isRequired()"
-            />
-            <input
-                type="hidden"
-                :name="
-                    this.relationName +
-                        '[field_data][portrait_session_location][' +
-                        this.index +
-                        '][address][state]'
-                "
-                :value="
-                    getFieldInfo(this.relationName + ' state', 'Text Value')
-                "
-                data-type="Text Value"
             />
         </div>
         <div class="form-control-wrap js-input-wrap">
@@ -279,18 +225,18 @@
                 v-model="address.address.zip"
                 :required="isRequired()"
             />
-            <input
-                type="hidden"
-                :name="
-                    this.relationName +
-                        '[field_data][portrait_session_location][' +
-                        this.index +
-                        '][address][zip]'
-                "
-                :value="getFieldInfo(this.relationName + ' zip', 'Text Value')"
-                data-type="Text Value"
-            />
         </div>
+        <input
+            type="hidden"
+            :name="
+                this.relationName +
+                    '[field_data][portrait_session_location][' +
+                    this.index +
+                    '][address]'
+            "
+            :value="getFieldInfo(field_name + ' | ' + 'Address', 'Text Value')"
+            data-type="Text Value"
+        />
         <div class="form-control-wrap js-input-wrap"></div>
         <div class="form-control-wrap full-width ">
             <wedding-schedule-form-start-end-time
@@ -316,7 +262,12 @@
                         this.index +
                         '][portrait_start_time]'
                 "
-                :value="getFieldInfo('Portrait start time', 'Selection')"
+                :value="
+                    getFieldInfo(
+                        field_name + ' | ' + 'Portrait session start time',
+                        'Selection'
+                    )
+                "
                 data-type="Selection"
             />
             <input
@@ -327,7 +278,12 @@
                         this.index +
                         '][portrait_end_time]'
                 "
-                :value="getFieldInfo('Portrait end time', 'Selection')"
+                :value="
+                    getFieldInfo(
+                        field_name + ' | ' + 'Portrait session end time',
+                        'Selection'
+                    )
+                "
                 data-type="Selection"
             />
         </div>
@@ -341,17 +297,6 @@
                 <use xlink:href="#icon-trash"></use>
             </svg>
         </button>
-        <input
-            type="hidden"
-            :name="
-                this.relationName +
-                    '[portrait_session_location][' +
-                    this.index +
-                    '][address][portrait_session_location_id]'
-            "
-            :value="this.address.id"
-            data-type="Text Value"
-        />
         <input
             type="hidden"
             :name="
@@ -377,7 +322,8 @@ export default {
         "fieldName",
         "fieldLabel",
         "portraitSessionLocation",
-        "time_options"
+        "time_options",
+        "field_name"
     ],
     methods: {
         isRequired: function() {

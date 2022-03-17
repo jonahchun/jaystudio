@@ -26,7 +26,7 @@
                         :name="'field_data[' + `${block}_week` + ']'"
                         :value="
                             getFieldInfo(
-                                'Availabilities day for ' + `${block}_week`,
+                                field_name + ' |  Option ' + index + ' | Week',
                                 'Radio button value'
                             )
                         "
@@ -53,7 +53,7 @@
                         :name="'field_data[' + `${block}_time` + ']'"
                         :value="
                             getFieldInfo(
-                                'Availabilities time for ' + `${block}_time`,
+                                field_name + ' |  Option ' + index + ' | Time',
                                 'Radio button value'
                             )
                         "
@@ -67,7 +67,7 @@
 
 <script>
 export default {
-    props: ["wedding_schedule"],
+    props: ["wedding_schedule", "field_name"],
     data() {
         return {
             blocks: {

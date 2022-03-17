@@ -78,12 +78,7 @@
                             getCurrentRelationName() +
                                 '[field_data][preparation_id]'
                         "
-                        :value="
-                            getFieldInfo(
-                                getCurrentRelationName() + ' general detail',
-                                'Selection'
-                            )
-                        "
+                        :value="getFieldInfo('General Details', 'Selection')"
                         data-type="Selection"
                     />
                 </div>
@@ -131,8 +126,7 @@
                         "
                         :value="
                             getFieldInfo(
-                                getCurrentRelationName() +
-                                    '  Hair/Makeup location',
+                                'Hair/Makeup - Same Location',
                                 'Radio button value'
                             )
                         "
@@ -145,6 +139,7 @@
                 <wedding-schedule-form-address
                     :address="getRelationAddress()"
                     name="Name of Venue / Hotel (if applicable)"
+                    field_name="Preparation Address"
                 ></wedding-schedule-form-address>
 
                 <h3
@@ -156,6 +151,7 @@
                 <wedding-schedule-form-hair-makeup-address
                     :address="getRelationAddress()"
                     name="Name of Venue / Hotel (if applicable)"
+                    field_name="Hair/Makeup Address"
                     v-if="getCurrentRelation().hair_makeup == 0"
                 ></wedding-schedule-form-hair-makeup-address>
             </div>
@@ -183,8 +179,9 @@
                         "
                         :value="
                             getFieldInfo(
-                                getCurrentRelationName() +
-                                    '  preparation start time',
+                                'Preparation Schedule & Contact' +
+                                    ' | ' +
+                                    'Hair & make up finish time',
                                 'Selection'
                             )
                         "
@@ -206,8 +203,9 @@
                         "
                         :value="
                             getFieldInfo(
-                                getCurrentRelationName() +
-                                    '  transportation start time',
+                                'Preparation Schedule & Contact' +
+                                    ' | ' +
+                                    'Transportation start time',
                                 'Selection'
                             )
                         "
@@ -229,7 +227,9 @@
                         "
                         :value="
                             getFieldInfo(
-                                getCurrentRelationName() + '  jls start time',
+                                'Preparation Schedule & Contact' +
+                                    ' | ' +
+                                    'JLS start time',
                                 'Selection'
                             )
                         "
@@ -250,7 +250,9 @@
                         "
                         :value="
                             getFieldInfo(
-                                getCurrentRelationName() + '  jls end time',
+                                'Preparation Schedule & Contact' +
+                                    ' | ' +
+                                    'JLS finish time',
                                 'Selection'
                             )
                         "
@@ -283,7 +285,9 @@
                             "
                             :value="
                                 getFieldInfo(
-                                    getCurrentRelationName() + '  contact name',
+                                    'Preparation Schedule & Contact' +
+                                        ' | ' +
+                                        'Full Name',
                                     'Text Value'
                                 )
                             "
@@ -318,8 +322,9 @@
                             "
                             :value="
                                 getFieldInfo(
-                                    getCurrentRelationName() +
-                                        '  contact phone',
+                                    'Preparation Schedule & Contact' +
+                                        ' | ' +
+                                        'Phone',
                                     'Text Value'
                                 )
                             "
@@ -345,8 +350,9 @@
                         "
                         :value="
                             getFieldInfo(
-                                getCurrentRelationName() +
-                                    '  emergency contact',
+                                'Preparation Schedule & Contact' +
+                                    ' | ' +
+                                    'Select from contacts list',
                                 'Selection'
                             )
                         "
@@ -428,7 +434,7 @@
                             "
                             :value="
                                 getFieldInfo(
-                                    'Ceremony location name',
+                                    'Name of Ceremony Location',
                                     'Text value'
                                 )
                             "
@@ -440,6 +446,7 @@
                     <h3 class="schedule-form__title">Ceremony Address:</h3>
                     <wedding-schedule-form-address
                         :address="getRelationAddress()"
+                        field_name="Ceremony Address"
                     ></wedding-schedule-form-address>
                 </div>
                 <div class="schedule-form__section-inner">
@@ -463,7 +470,9 @@
                             "
                             :value="
                                 getFieldInfo(
-                                    'Invitation start time',
+                                    'Ceremony Schedule' +
+                                        ' | ' +
+                                        'Invitation start time',
                                     'Selection'
                                 )
                             "
@@ -484,7 +493,12 @@
                                     '[field_data][ceremony_start_time]'
                             "
                             :value="
-                                getFieldInfo('Ceremony start time', 'Selection')
+                                getFieldInfo(
+                                    'Ceremony Schedule' +
+                                        ' | ' +
+                                        'Ceremony start time',
+                                    'Selection'
+                                )
                             "
                             data-type="Selection"
                         />
@@ -495,7 +509,12 @@
                                     '[field_data][ceremony_end_time]'
                             "
                             :value="
-                                getFieldInfo('Ceremony end time', 'Selection')
+                                getFieldInfo(
+                                    'Ceremony Schedule' +
+                                        ' | ' +
+                                        'Ceremony end time',
+                                    'Selection'
+                                )
                             "
                             data-type="Selection"
                         />
@@ -666,7 +685,7 @@
                         :name="
                             getCurrentRelationName() + '[field_data][details]'
                         "
-                        :value="getFieldInfo('Ceremony details', 'Checkbox')"
+                        :value="getFieldInfo('Details', 'Checkbox')"
                         data-type="Checkbox"
                     />
                 </div>
@@ -737,7 +756,7 @@
                         "
                         :value="
                             getFieldInfo(
-                                'Reception location name',
+                                'Name of Reception Location',
                                 'Text Value'
                             )
                         "
@@ -800,7 +819,7 @@
                         "
                         :value="
                             getFieldInfo(
-                                'Insurance certificate',
+                                'Certificate of Insurance',
                                 'Radio button value'
                             )
                         "
@@ -817,6 +836,7 @@
                     <h3 class="schedule-form__title">Reception Address:</h3>
                     <wedding-schedule-form-address
                         :address="getRelationAddress()"
+                        field_name="Reception Address"
                     ></wedding-schedule-form-address>
                 </div>
 
@@ -857,7 +877,9 @@
                                 "
                                 :value="
                                     getFieldInfo(
-                                        'Venue coordinator name',
+                                        'Venue Information' +
+                                            ' | ' +
+                                            'Venue Coordinator Name',
                                         'Text Value'
                                     )
                                 "
@@ -898,7 +920,9 @@
                                 "
                                 :value="
                                     getFieldInfo(
-                                        'Venue coordinator email',
+                                        'Venue Information' +
+                                            ' | ' +
+                                            'Venue Coordinator Email',
                                         'Text Value'
                                     )
                                 "
@@ -939,7 +963,9 @@
                                 "
                                 :value="
                                     getFieldInfo(
-                                        'Venue coordinator phone',
+                                        'Venue Information' +
+                                            ' | ' +
+                                            'Venue Coordinator Phone',
                                         'Text Value'
                                     )
                                 "
@@ -968,7 +994,12 @@
                                 '[field_data][cocktails_start_time]'
                         "
                         :value="
-                            getFieldInfo('Cocktails start time', 'Selection')
+                            getFieldInfo(
+                                'Reception Schedule' +
+                                    ' | ' +
+                                    'Cocktails start time',
+                                'Selection'
+                            )
                         "
                         data-type="Selection"
                     />
@@ -978,7 +1009,14 @@
                             getCurrentRelationName() +
                                 '[field_data][cocktails_end_time]'
                         "
-                        :value="getFieldInfo('Cocktails end time', 'Selection')"
+                        :value="
+                            getFieldInfo(
+                                'Reception Schedule' +
+                                    ' | ' +
+                                    'Cocktails end time',
+                                'Selection'
+                            )
+                        "
                         data-type="Selection"
                     />
                     <!-- Reception Start & End Time -->
@@ -997,7 +1035,12 @@
                                 '[field_data][reception_start_time]'
                         "
                         :value="
-                            getFieldInfo('Reception start time', 'Selection')
+                            getFieldInfo(
+                                'Reception Schedule' +
+                                    ' | ' +
+                                    'Reception start time',
+                                'Selection'
+                            )
                         "
                         data-type="Selection"
                     />
@@ -1007,7 +1050,14 @@
                             getCurrentRelationName() +
                                 '[field_data][reception_end_time]'
                         "
-                        :value="getFieldInfo('Reception end time', 'Selection')"
+                        :value="
+                            getFieldInfo(
+                                'Reception Schedule' +
+                                    ' | ' +
+                                    'Reception end time',
+                                'Selection'
+                            )
+                        "
                         data-type="Selection"
                     />
                     <wedding-schedule-form-time
@@ -1023,7 +1073,14 @@
                             getCurrentRelationName() +
                                 '[field_data][cake_cutting_time]'
                         "
-                        :value="getFieldInfo('Cake cutting time', 'Selection')"
+                        :value="
+                            getFieldInfo(
+                                'Reception Schedule' +
+                                    ' | ' +
+                                    'Cake cutting time',
+                                'Selection'
+                            )
+                        "
                         data-type="Selection"
                     />
                     <!-- Viennese -->
@@ -1102,7 +1159,7 @@
                     "
                     :value="
                         getFieldInfo(
-                            'Reception timeline for venue or DJ',
+                            'Please submit your reception timeline provided by the venue or DJ',
                             'File'
                         )
                     "
@@ -1193,7 +1250,12 @@
                     <input
                         type="hidden"
                         :name="getCurrentRelationName() + '[field_data][when]'"
-                        :value="getFieldInfo('Portrait session', 'Checkbox')"
+                        :value="
+                            getFieldInfo(
+                                'When is your portrait session (including bride & groom,bridal party, family & etc.) ?',
+                                'Checkbox'
+                            )
+                        "
                         data-type="Checkbox"
                     />
                 </div>
@@ -1222,6 +1284,10 @@
                         :removeItem="removeItem.bind(this, index)"
                         :time_options="time_options"
                         :relation="relations"
+                        :field_name="
+                            'Enter one or more portrait session locations | Location ' +
+                                (index + 1)
+                        "
                     ></repeater-address>
                 </div>
                 <div class="schedule-form__action-add">
@@ -1283,6 +1349,7 @@
             </p>
             <wedding-schedule-availabilities
                 :wedding_schedule="schedule"
+                field_name="Availabilities"
             ></wedding-schedule-availabilities>
             <div class="details-forms">
                 <div class="details-forms__comment">

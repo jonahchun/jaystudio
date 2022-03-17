@@ -177,7 +177,7 @@
                 <input
                     type="hidden"
                     name="field_data[comment]"
-                    :value="getFieldInfo('Other comments', 'Selection')"
+                    :value="getFieldInfo('Other comments', 'Text Value')"
                     data-type="Text Value"
                 />
             </div>
@@ -281,6 +281,17 @@
                         </div>
                     </div>
                 </div>
+                <input
+                    type="hidden"
+                    name="field_data[music]"
+                    :value="
+                        getFieldInfo(
+                            'I want to have music picked by',
+                            'Radio button value'
+                        )
+                    "
+                    data-type="Radio button value"
+                />
             </div>
 
             <div v-show="music == 2 || music == 4" class="song-list">
@@ -319,6 +330,12 @@
                     rows="10"
                     class="form-control"
                 ></textarea>
+                <input
+                    type="hidden"
+                    name="field_data[music_comment]"
+                    :value="getFieldInfo('Comments', 'Text Value')"
+                    data-type="Text Value"
+                />
             </div>
             <div class="checklist-form__action mb-4" v-if="!readonly">
                 <button
@@ -394,6 +411,22 @@
                                 "
                                 :required="question.is_required ? true : false"
                             />
+                            <input
+                                type="hidden"
+                                :name="
+                                    'field_data' +
+                                        '[' +
+                                        question.id +
+                                        '][company]'
+                                "
+                                :value="
+                                    getFieldInfo(
+                                        question.title + ' | Name / Company',
+                                        'Text Value'
+                                    )
+                                "
+                                data-type="Text Value"
+                            />
                         </div>
                         <div class="checklist-form__column-input">
                             <input
@@ -411,6 +444,23 @@
                                     ].socials
                                 "
                                 :required="question.is_required ? true : false"
+                            />
+                            <input
+                                type="hidden"
+                                :name="
+                                    'field_data' +
+                                        '[' +
+                                        question.id +
+                                        '][socials]'
+                                "
+                                :value="
+                                    getFieldInfo(
+                                        question.title +
+                                            ' | Social media handle',
+                                        'Text Value'
+                                    )
+                                "
+                                data-type="Text Value"
                             />
                         </div>
                     </div>
@@ -454,6 +504,22 @@
                                 "
                                 :required="question.is_required ? true : false"
                             />
+                            <input
+                                type="hidden"
+                                :name="
+                                    'field_data' +
+                                        '[' +
+                                        question.id +
+                                        '][company]'
+                                "
+                                :value="
+                                    getFieldInfo(
+                                        question.title + ' | Name / Company',
+                                        'Text Value'
+                                    )
+                                "
+                                data-type="Text Value"
+                            />
                         </div>
                         <div class="checklist-form__column-input">
                             <input
@@ -471,6 +537,23 @@
                                     ].socials
                                 "
                                 :required="question.is_required ? true : false"
+                            />
+                            <input
+                                type="hidden"
+                                :name="
+                                    'field_data' +
+                                        '[' +
+                                        question.id +
+                                        '][socials]'
+                                "
+                                :value="
+                                    getFieldInfo(
+                                        question.title +
+                                            ' | Social media handle',
+                                        'Text Value'
+                                    )
+                                "
+                                data-type="Text Value"
                             />
                         </div>
                     </div>

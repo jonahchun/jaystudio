@@ -22,12 +22,7 @@
             <input
                 type="hidden"
                 :name="address.type + '[field_data][address][name]'"
-                :value="
-                    getFieldInfo(
-                        address.type + ' name of venue / hotel',
-                        'Text value'
-                    )
-                "
+                :value="getFieldInfo(field_name + ' | ' + name, 'Text value')"
                 data-type="Text value"
             />
         </div>
@@ -55,7 +50,7 @@
                 :name="address.type + '[field_data][address][address_line_1]'"
                 :value="
                     getFieldInfo(
-                        address.type + ' address line #1',
+                        field_name + ' | ' + 'Address Line #1',
                         'Text value'
                     )
                 "
@@ -85,7 +80,7 @@
                 :name="address.type + '[field_data][address][address_line_2]'"
                 :value="
                     getFieldInfo(
-                        address.type + ' address line #2',
+                        field_name + ' | ' + 'Address Line #2',
                         'Text value'
                     )
                 "
@@ -114,9 +109,7 @@
             <input
                 type="hidden"
                 :name="address.type + '[field_data][address][city]'"
-                :value="
-                    getFieldInfo(address.type + ' address city', 'Text value')
-                "
+                :value="getFieldInfo(field_name + ' | ' + 'City', 'Text value')"
                 data-type="Text value"
             />
         </div>
@@ -143,7 +136,10 @@
                 type="hidden"
                 :name="address.type + '[field_data][address][state]'"
                 :value="
-                    getFieldInfo(address.type + ' address state', 'Text value')
+                    getFieldInfo(
+                        field_name + ' | ' + 'State / Province',
+                        'Text value'
+                    )
                 "
                 data-type="Text value"
             />
@@ -171,7 +167,10 @@
                 type="hidden"
                 :name="address.type + '[field_data][address][zip]'"
                 :value="
-                    getFieldInfo(address.type + ' address zip', 'Text value')
+                    getFieldInfo(
+                        field_name + ' | ' + 'ZIP / Postcode',
+                        'Text value'
+                    )
                 "
                 data-type="Text value"
             />
@@ -181,7 +180,7 @@
 
 <script>
 export default {
-    props: ["address", "name"],
+    props: ["address", "name", "field_name"],
     methods: {
         getFieldInfo(fieldVal, fieldType) {
             var fieldInfo = [];

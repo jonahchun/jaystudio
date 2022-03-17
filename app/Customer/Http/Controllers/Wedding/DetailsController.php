@@ -86,6 +86,7 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
     }
 
     public function editFormNotification($data,$notifData,$oldDetailValue){
+        $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
         if($data['is_final_step'] == 0){
             $getOldValue = $oldDetailValue->question_answers;
             $newValue = $data['question_answers'];
@@ -101,7 +102,6 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
                         $notifData['field_type'] = strtolower($form_field_type[$i]);
                         $notifData['old_data'] = $getOldValue[$key];
                         $notifData['new_data'] = $val;
-                        $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
                         \App\Customer\Helper\Data::saveNotification($notifData);
                     }
                     $i++;
@@ -110,15 +110,13 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
         }else{
             $oldCommentValue = $oldDetailValue->comment;
             $oldFileValue = $oldDetailValue->file;
-            $form_fields = '';
-            $form_field_type = json_decode($data['form_field_type'], true);
+
             if(trim($oldCommentValue) !== trim($data['comment'])){
                 $notifData['customer_type'] = Notification::OLD_CUSTOMER_TYPE;
                 $notifData['field_name'] = Notification::COMMENT_FIELD;
                 $notifData['field_type'] = Notification::COMMENT_FIELD_TYPE;
                 $notifData['old_data'] = $oldCommentValue;
                 $notifData['new_data'] = $data['comment'];
-                $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
                 \App\Customer\Helper\Data::saveNotification($notifData);
             }
             if(trim($oldFileValue) !== trim($data['file'])){
@@ -127,7 +125,6 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
                 $notifData['field_type'] = Notification::FILE_FIELD_TYPE;
                 $notifData['old_data'] = $oldFileValue;
                 $notifData['new_data'] = Auth::user()->newlywed_detail->file;
-                $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
                 \App\Customer\Helper\Data::saveNotification($notifData);
             }
         }
