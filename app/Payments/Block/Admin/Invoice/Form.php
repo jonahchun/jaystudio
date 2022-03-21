@@ -28,7 +28,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             ]);
 
         }
-        
+
         $this->addField('general', 'customer_id', 'Customer', 'select', [
             'required' => true,
             'source'   => \App\Customer\Model\Source\Customers::class,
@@ -40,9 +40,9 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'required' => true,
             'source'   => Type::class,
         ]);
-        
-        $this->addField('general', 'invoice_id', 'Invoice ID', 'text', ['readonly' => true]);
-        $this->addField('general', 'paypal_invoice_id', 'Paypal Invoice ID', 'text', ['readonly' => true]);
+
+        $this->addField('general', 'invoice_id', '', 'text', ['readonly' => true]);
+        $this->addField('general', 'paypal_invoice_id', 'Paypal ', 'text', ['readonly' => true]);
 
         $this->addField('general', 'due_date', 'Due Date', 'date', ['format'   => config('app.date_format'),'required' => true]);
         $this->addField('general', 'item_description', 'Item Description', 'text', ['required' => true]);

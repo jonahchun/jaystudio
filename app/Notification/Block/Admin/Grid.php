@@ -4,7 +4,7 @@ namespace App\Notification\Block\Admin;
 class Grid extends \WFN\Admin\Block\Widget\AbstractGrid
 {
 
-    protected $filterableFields = ['id'];
+    protected $filterableFields = ['customer_id','form_type'];
 
     protected $adminRoute = 'admin.notification';
 
@@ -15,9 +15,9 @@ class Grid extends \WFN\Admin\Block\Widget\AbstractGrid
 
     protected function _beforeRender()
     {
-        $this->addColumn('id', 'ID');
         $this->addColumn('customer_id', 'Customer', 'select', false, \App\Customer\Model\Source\Customers::getInstance());
-        $this->addColumn('form_type', 'Notification');
+        $this->addColumn('form_type', 'Form Name');
+        $this->addColumn('id', 'Notification Details','select', false, \App\Notification\Model\Source\Notifications::getInstance());
         return parent::_beforeRender();
     }
 
