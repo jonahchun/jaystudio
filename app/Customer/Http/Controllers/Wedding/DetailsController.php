@@ -34,8 +34,18 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
-            $redirectBack = intval($data['current_step']) + 1 <= 3;
-            $data['current_step'] = min(intval($data['current_step']) + 1, 3);
+
+            if($data['button_type'] == "back"){
+                $redirectBack = intval($data['current_step']) + 1 <= 4;
+                $data['current_step'] = min(intval($data['current_step']) - 1, 3);
+            }elseif($data['button_type'] == "gotostep"){
+                $redirectBack = true;
+                $data['current_step'] = $data['go_step'];
+            }else{
+                $redirectBack = intval($data['current_step']) + 1 <= 3;
+                $data['current_step'] = min(intval($data['current_step']) + 1, 3);
+            }
+            
             Auth::user()->newlywed_detail->fill($data)->save();
         } catch (\Exception $e) {
             Alert::addError('Something went wrong. Please try again later');

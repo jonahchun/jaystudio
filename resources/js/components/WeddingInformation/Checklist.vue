@@ -2,7 +2,9 @@
     <form :action="urls.save" id="wedding-checklist-form" method="post" enctype="multipart/form-data" autocomplete="off" :class="{'readonly': readonly}">
         <input type="hidden" name="_token" :value="csrf" />
         <input type="hidden" name="current_step" :value="current_step" />
-        
+        <input type="hidden" name="button_type" id="btn_type"/>
+        <input type="hidden" name="go_step" id="go_step"/>
+
         <header class="intro-heading row">
             <div class="col-9">
                 <h2>Wedding Checklist</h2>
@@ -12,14 +14,14 @@
         <nav class="steps">
             <ol class="steps__list js-tabset">
                 <li v-for="(step, index) in steps" :key="index" :class="{'steps__list-item' : true, 'is-complete' : (current_step > index && !readonly), 'is-active' : (index == current_step) }">
-                    <a @click="goToStep(index)" href="">{{ step }}</a>
+                    <a @click="(event)=>goToStep(event,index)" href="">{{ step }}</a>
                 </li>
             </ol>
         </nav>
 
         <div v-if="current_step <= 3" class="checklist-forms">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="button">Back</button>
+                <button class="btn-primary" v-if="current_step != 0" @click="back" type="submit">Back</button>
                 <button class="btn-primary" type="submit">Next</button>
             </div>
             <div class="checklist-form__options">
@@ -58,7 +60,7 @@
 
         <div v-if="current_step == 4">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="back" type="submit">Back</button>
                 <button class="btn-primary" type="submit">Next</button>
             </div>
             <div v-html="song_list"></div>
@@ -149,7 +151,7 @@
 
         <div v-if="current_step == 5" class="checklist-forms">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="back" type="submit">Back</button>
                 <button class="btn-primary" @click="submit" type="submit">Next</button>
             </div>
             <div class="checklist-form__columns">
@@ -211,7 +213,7 @@
 
         <div v-if="current_step == 6" class="details-forms">
             <div class="checklist-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="button">Back</button>
+                <button class="btn-primary" @click="back" type="submit">Back</button>
                 <button class="btn-primary" @click="submit" type="submit">Submit</button>
             </div>
             <div class="details-forms__comment">
@@ -282,8 +284,12 @@ export default {
     },
     methods: {
         back() {
-            this.current_step--;
-            this.current_step = Math.max(this.current_step, 0);
+            $('#btn_type').val('back');
+            this.form.validate();
+            if(!this.form.valid()) {
+                event.preventDefault();
+            }
+            return false;
         },
         addSongs(){
             this.checklist.music_songs.push({song_name: "", type: ""});
@@ -299,11 +305,19 @@ export default {
             }
             return rowNumber == 1 ? questions.slice(0, Math.round(questions.length / 2)) : questions.slice(Math.round(questions.length / 2));
         },
-        goToStep: function(step) {
+        goToStep: function(event,step) {
             if(step >= this.current_step && !this.readonly) {
                 return false;
+            }else{
+                $('#btn_type').val('gotostep');
+                $('#go_step').val(step);
+                this.form.validate();
+                if(!this.form.valid()) {
+                    event.preventDefault();
+                }else{
+                    $('#wedding-checklist-form').submit();
+                }
             }
-            this.current_step = step;
         },
         getCurrentRelationName: function() {
             return this.relations[0];

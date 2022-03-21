@@ -21,7 +21,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
-            // dd($data);
+            
             if(isset($data['portrait_session'])){
                 $data['portrait_session']['when'] = json_encode($data['portrait_session']['when']);
             }
@@ -51,6 +51,9 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             if($data['button_type'] == "back"){
                 $redirectBack = intval($data['current_step']) + 1 <= 6;
                 $data['current_step'] = min(intval($data['current_step']) - 1, 5);
+            }elseif($data['button_type'] == "gotostep"){
+                $redirectBack = true;
+                $data['current_step'] = $data['go_step'];
             }else{
                 $redirectBack = intval($data['current_step']) + 1 <= 5;
                 $data['current_step'] = min(intval($data['current_step']) + 1, 5);

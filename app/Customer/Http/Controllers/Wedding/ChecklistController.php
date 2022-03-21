@@ -32,8 +32,18 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
-            $redirectBack = intval($data['current_step']) + 1 <= 6;
-            $data['current_step'] = min(intval($data['current_step']) + 1, 6);
+
+            if($data['button_type'] == "back"){
+                $redirectBack = intval($data['current_step']) + 1 <= 7;
+                $data['current_step'] = min(intval($data['current_step']) - 1, 6);
+            }elseif($data['button_type'] == "gotostep"){
+                $redirectBack = true;
+                $data['current_step'] = $data['go_step'];
+            }else{
+                $redirectBack = intval($data['current_step']) + 1 <= 6;
+                $data['current_step'] = min(intval($data['current_step']) + 1, 6);
+            }
+            
             Auth::user()->wedding_checklist->fill($data)->save();
         } catch (\Exception $e) {
             Alert::addError('Something went wrong. Please try again later');

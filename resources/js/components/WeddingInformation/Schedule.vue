@@ -3,6 +3,7 @@
         <input type="hidden" name="_token" :value="csrf" />
         <input type="hidden" name="current_step" :value="current_step" />
         <input type="hidden" name="button_type" id="btn_type"/>
+        <input type="hidden" name="go_step" id="go_step"/>
 
         <header class="intro-heading row">
             <div class="col-9">
@@ -13,7 +14,7 @@
         <nav class="steps">
             <ol class="steps__list js-tabset">
                 <li v-for="(step, index) in steps" :key="index" :class="{'steps__list-item' : true, 'is-complete' : (current_step > index && !readonly), 'is-active' : (index == current_step) }">
-                    <a @click="goToStep(index,this)" href="">{{ step }}</a>
+                    <a @click="(event)=>goToStep(event,index)" href="">{{ step }}</a>
                 </li>
             </ol>
         </nav>
@@ -709,16 +710,19 @@
             getCurrentRelationName: function() {
                 return this.relations[this.current_step];
             },
-            goToStep: function(step,event) {
+            goToStep: function(event,step) {
                 if(step >= this.current_step && !this.readonly) {
                     return false;
+                }else{
+                    $('#btn_type').val('gotostep');
+                    $('#go_step').val(step);
+                    this.form.validate();
+                    if(!this.form.valid()) {
+                        event.preventDefault();
+                    }else{
+                        $('#wedding-schedule-form').submit();
+                    }
                 }
-                $('#btn_type').val('back');
-                this.form.validate();
-                if(!this.form.valid()) {
-                    event.preventDefault();
-                }
-                this.current_step = step;
             },
             submit: function(event) {
                 $('#btn_type').val('submit');
