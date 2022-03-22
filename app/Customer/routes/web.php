@@ -55,8 +55,7 @@ Route::prefix('customer')->group(function() {
 
 Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
     Route::get('downloadfile/{key}/{id}', '\App\Customer\Http\Controllers\Admin\CustomerController@downloadFile')->name('admin.downloadfile');
-    Route::get('notification-data', '\\' . '\App\Notification\Http\Controllers\Admin\NotificationController@getNotification')->name('admin.getNotification');
-    Route::post('notification-flag-change', '\\' . '\App\Notification\Http\Controllers\Admin\NotificationController@notificationFlagChange')->name('admin.notificationFlagChange');
+
     Route::prefix('notification')->group(function() {
         Route::get('/', '\\' . '\App\Notification\Http\Controllers\Admin\NotificationController@index')->name('admin.notification');
         Route::get('new/{customer_id?}', '\App\Notification\Http\Controllers\Admin\NotificationController@new')->name('admin.notification.new');

@@ -37,6 +37,8 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
         try {
             $data = $request->all();
             $oldDetailValue = Auth::user()->newlywed_detail;
+
+            $initially_complete = Auth::user()->newlywed_detail->initially_complete;
             if(Auth::user()->newlywed_detail){
                 $oldDetailValue = Detail::find(Auth::user()->newlywed_detail->id);
             }
@@ -45,12 +47,12 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
 
             $redirectBack = intval($data['current_step']) + 1 <= 3;
             $data['current_step'] = min(intval($data['current_step']) + 1, 3);
+
             Auth::user()->newlywed_detail->fill($data)->save();
-
             //add Notification for edit
-            $this->editFormNotification($data,$notifData,$oldDetailValue);
-
-            $initially_complete = Auth::user()->newlywed_detail->initially_complete;
+            if($initially_complete != 0){
+                $this->editFormNotification($data,$notifData,$oldDetailValue);
+            }
             $answerExist = $this->checkAnswerExist();
 
             if($answerExist == 1 && $data['is_final_step'] == 1 && $initially_complete == 0){

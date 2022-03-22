@@ -3,6 +3,7 @@
 namespace App\Notification\Http\Controllers\Admin;
 
 use App\Notification\Model\Notification;
+use App\WeddingChecklist\Model\Vendor;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 
@@ -32,32 +33,5 @@ class NotificationController extends \WFN\Admin\Http\Controllers\Crud\Controller
         ]);
     }
 
-    public function getNotification()
-    {
-        $result = [];
-        $notification = [];
-        $notificationId = [];
-        $getNotif = Notification::where(['is_read'=>0])->orderBy('notifications.created_at','desc')->get();
-
-        if(count($getNotif)>0){
-            foreach($getNotif as $val){
-                $customer = $val->customer;
-                $cusName = $customer->first_newlywed->first_name.' & '.$customer->second_newlywed->first_name;
-                $notification[] = $cusName.' '.Notification::NOTIF_MSG_1.' '.$val['form_type'].' form';
-                $notificationId[] = $val->id;
-            }
-        }
-        $result['notifCount'] = count($getNotif);
-        $result['notification'] = $notification;
-        $result['notificationId'] = $notificationId;
-        return $result;
-    }
-
-    public function notificationFlagChange(Request $request){
-        $notifId = $request['notifIds'];
-        if(isset($notifId) && count($notifId) > 0){
-            Notification::whereIn('id',$notifId)->update(['is_read'=>0]);
-        }
-    }
 
 }

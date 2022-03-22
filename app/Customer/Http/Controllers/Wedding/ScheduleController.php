@@ -82,16 +82,16 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             $redirectBack = intval($data['current_step']) + 1 <= 5;
             $data['current_step'] = min(intval($data['current_step']) + 1, 5);
             Auth::user()->wedding_schedule->fill($data)->save();
+            $initially_complete = Auth::user()->wedding_schedule->initially_complete;
 
             //add Notification for edit
-            $this->editFormNotification($data,$notifData,$oldDetailValue);
-
-            $initially_complete = Auth::user()->wedding_schedule->initially_complete;
+            if($initially_complete != 0){
+                $this->editFormNotification($data,$notifData,$oldDetailValue);
+            }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
                 Auth::user()->wedding_schedule->update(['initially_complete'=>1]);
                  //add Notification
                  $notifData['customer_type'] = Notification::NEW_CUSTOMER_TYPE;
-
                  Auth::user()->notifications()->create($notifData);
             }
 
@@ -164,11 +164,11 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             foreach($newData as $newDataKey => $newDataVal){
 
                 if($newDataKey == 'portrait_session_location' && isset($data['portrait_session'])){
+
                     $newFillableData = $newDataVal;
                     if(count($newDataVal)>0){
                         foreach($newDataVal as $portraitKey => $portraitVal){
                             foreach($portraitVal as $portraitLocKey => $portraitLocVal){
-                                $getOldAddressData = $getOldValue[$newDataKey][$portraitKey][$portraitLocKey];
 
                                 if($portraitLocKey == 'address' ){
                                     if($portraitKey == 0){
@@ -185,8 +185,10 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                                     }
                                 }else{
                                     if($portraitLocVal != ''){
+                                        $getOldAddressData = (count($getOldValue[$newDataKey]) == 0 )?'':$getOldValue[$newDataKey][$portraitKey][$portraitLocKey];
                                         $oldDataVal = trim($getOldAddressData);
                                         $newDataVal = trim($portraitLocVal);
+
                                         if(strcasecmp($newDataVal,$oldDataVal) != 0 ){
                                             $fieldInfo = json_decode($fieldData[$newDataKey][$portraitKey][$portraitLocKey], true);
 
@@ -260,6 +262,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                 $newData['zip'][$newAddressDataKey] = (key_exists('zip',$newAddressDataVal['address']))?$newAddressDataVal['address']['zip']:'';
             }
         }
+
         if(count($getOldAddressData) > 0 ){
             foreach($getOldAddressData as $getOldAddressDataKey => $getOldAddressDataVal){
                 $oldData['address_line_1'][$getOldAddressDataKey] = $getOldAddressDataVal['address']['address_line_1'];
@@ -283,6 +286,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             $compareArr1 = $oldData;
             $compareArr2 = $newData;
         }
+
         $isChanged = 0;
         $result = [];
         foreach($newData as $key => $val){
@@ -294,7 +298,6 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
         $result['newData'] = json_encode($newData);
         $result['oldData'] = json_encode($oldData);
         $result['isChanged'] = $isChanged;
-
         return $result;
     }
 }

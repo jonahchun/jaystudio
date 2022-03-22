@@ -48,11 +48,12 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
             $data['current_step'] = min(intval($data['current_step']) + 1, 6);
 
             Auth::user()->wedding_checklist->fill($data)->save();
+            $initially_complete = Auth::user()->wedding_checklist->initially_complete;
 
             //add Notification for edit
-            $this->editFormNotification($data,$notifData,$oldDetailValue);
-
-            $initially_complete = Auth::user()->wedding_checklist->initially_complete;
+            if($initially_complete != 0){
+                $this->editFormNotification($data,$notifData,$oldDetailValue);
+            }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
                 Auth::user()->wedding_checklist->update(['initially_complete'=>1]);
                  //add Notification
@@ -222,10 +223,12 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
     public function compareSongList($songNewData,$getOldSongData){
         $newData = $oldData = $compareArr1 = $compareArr2 = [];
 
-        if(count($songNewData)>0){
+        if(count($songNewData) > 0){
             foreach($songNewData as $songNewDataKey => $songNewDataVal){
-                $newData['name'][$songNewDataKey] = $songNewDataVal['song_name'];
-                $newData['type'][$songNewDataKey] = key_exists('type',$songNewDataVal)?$songNewDataVal['type']:'';
+                if($songNewDataVal['song_name'] != ''){
+                    $newData['name'][$songNewDataKey] = $songNewDataVal['song_name'];
+                    $newData['type'][$songNewDataKey] = key_exists('type',$songNewDataVal)?$songNewDataVal['type']:'';
+                }
             }
         }
         if(count($getOldSongData) > 0 ){
@@ -245,6 +248,7 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
             $compareArr1 = $oldData;
             $compareArr2 = $newData;
         }
+
         $isChanged = 0;
         $result = [];
         foreach($newData as $key => $val){

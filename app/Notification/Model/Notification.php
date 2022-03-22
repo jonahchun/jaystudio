@@ -30,6 +30,14 @@ class Notification extends Model
     {
         return $this->belongsTo(\Customer::class);
     }
+    public function getFormTypesAttribute($value)
+    {
+        return ucfirst($this->form_type);
+    }
 
-
+    public function getAccountIdAttribute($value)
+    {
+        $getAccountId = Customer::find($this->customer_id);
+        return $getAccountId->account_id;//$this->customer_id;
+    }
 }

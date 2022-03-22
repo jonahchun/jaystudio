@@ -22,7 +22,7 @@ class Grid extends \WFN\Customer\Block\Admin\Grid
 
     protected function _getCollection()
     {
-        $query = $this->->newQuery();
+        $query = $this->getInstance()->newQuery();
 
         if(isset($this->request['email'])) {
             $query->where('email', 'like', '%' . $this->request['email'] . '%');

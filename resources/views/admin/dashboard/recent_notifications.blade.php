@@ -19,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach(\App\Notification\Model\Notification::orderBy('created_at', 'desc')->get() as $notification)
+                        @foreach(\App\Notification\Model\Notification::orderBy('created_at', 'desc')->limit(5)->get() as $notification)
                         <?php
                             $notifDetail = '';
                             if($notification->customer_type == \App\Notification\Model\Notification::NEW_CUSTOMER_TYPE){
@@ -56,7 +56,7 @@
                                     {{ $notification->customer->first_newlywed->first_name }} &
                                     {{ $notification->customer->second_newlywed->first_name }}
                                 </td>
-                                <td>{{ ucfirst($notification->form_type) }}</td>
+                                <td>{{ ($notification->form_types) }}</td>
                                 <td>
                                 {{$notifDetail}}
                                 </td>
