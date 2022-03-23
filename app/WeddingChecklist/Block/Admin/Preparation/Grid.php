@@ -1,7 +1,7 @@
 <?php
 namespace App\WeddingChecklist\Block\Admin\Preparation;
 
-class Grid extends
+class Grid extends \WFN\Admin\Block\Widget\AbstractGrid
 {
 
     protected $filterableFields = ['title', 'sort_order', 'has_details'];

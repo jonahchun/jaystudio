@@ -11,7 +11,7 @@ class Customers extends \WFN\Admin\Model\Source\AbstractSource
     {
         $options = [];
         foreach(Customer::all() as $customer) {
-            $options[$customer->id] = $customer->account_id;
+            $options[$customer->id] = $customer->newlywed_names;
         }
         return $options;
     }

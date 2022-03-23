@@ -38,6 +38,6 @@ class Notification extends Model
     public function getAccountIdAttribute($value)
     {
         $getAccountId = Customer::find($this->customer_id);
-        return $getAccountId->account_id;//$this->customer_id;
+        return $getAccountId->account_id;
     }
 }
