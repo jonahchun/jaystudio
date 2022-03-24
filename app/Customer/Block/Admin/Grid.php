@@ -6,7 +6,7 @@ class Grid extends \WFN\Customer\Block\Admin\Grid
 {
 
     protected $filterableFields = ['email', 'newlywed_names', 'account_id'];
-    
+
     protected function _beforeRender()
     {
         $this->addColumn('id', 'ID', 'text', true);
@@ -27,7 +27,7 @@ class Grid extends \WFN\Customer\Block\Admin\Grid
         if(isset($this->request['email'])) {
             $query->where('email', 'like', '%' . $this->request['email'] . '%');
         }
-        
+
         if(isset($this->request['account_id'])) {
             $value = $this->request['account_id'];
             $query->whereHas('detail', function($query) use ($value) {
@@ -55,7 +55,7 @@ class Grid extends \WFN\Customer\Block\Admin\Grid
                     }
                 });
             }
-            
+
         }
 
         $query->orderBy($this->getOrderBy(), $this->getDirection());

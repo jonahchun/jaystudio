@@ -18,7 +18,7 @@ class Checklist extends \WFN\Customer\Model\Customer\Detail
     protected $serviceColumns = ['id', 'created_at', 'updated_at','music_comment'];
 
     protected $jsonFields = ['preparation', 'ceremony', 'portrait_session', 'reception', 'music', 'vendors'];
-
+//,'music_comment'
     protected $_relations = ['music_songs'];
 
     protected $_songs_list = false;
@@ -91,7 +91,7 @@ class Checklist extends \WFN\Customer\Model\Customer\Detail
             foreach($this->music_songs as $list) {
                 $list->delete();
             }
-    
+
             foreach($this->_songs_list as $list) {
                 if(empty($list['song_name'])) continue;
                 $list['checklist_id'] = $this->id;

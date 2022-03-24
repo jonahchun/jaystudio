@@ -3,6 +3,7 @@
 @section('content')
 <div class="container-fluid">
     @include('admin.dashboard.statistics')
+    @include('admin.dashboard.recent_notifications')
     @include('admin.dashboard.recent_order_forms')
     @include('admin.dashboard.recent_edit_requests')
     @include('admin.dashboard.recent_approved_layouts')

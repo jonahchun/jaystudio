@@ -21,7 +21,7 @@
                         <a class="logo" href="{{ route('dashboard') }}">
                             <img class="logo__img print" src="{{ \Settings::getConfigValueUrl('app/logo') ?: asset('images/logo-big.svg') }}" width="170" alt="JAY LIM STUDIO">
                         </a>
-                    </div>    
+                    </div>
                 </div>
             </div>
             @include('admin.customer.print.newlyweds_info')
@@ -31,6 +31,6 @@
     <script type="text/javascript">
         window.print();
     </script>
-    
+
 </body>
 </html>

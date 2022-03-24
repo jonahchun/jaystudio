@@ -1,10 +1,10 @@
 <template>
     <div class="form-control-wrap">
-        
         <label>{{ `${fieldLabel} time` }}</label>
         <div class="datepicker-group">
             <div class="datepicker-group__inner time">
-                <Select2 v-model="cake_cutting_time.time"
+                <Select2
+                    v-model="cake_cutting_time.time"
                     @change="formatTimeValue('cake_cutting')"
                     :settings="selectSettings"
                     :options="selectTimeOptions"
@@ -20,7 +20,8 @@
                 />-->
             </div>
             <div class="datepicker-group__inner select">
-                <Select2 v-model="cake_cutting_time.ampm"
+                <Select2
+                    v-model="cake_cutting_time.ampm"
                     @change="formatTimeValue('cake_cutting')"
                     :settings="selectSettings"
                     :options="selectOptions"
@@ -28,7 +29,8 @@
                     :required="required"
                 />
 
-                <input type="text"
+                <input
+                    type="text"
                     :name="`${relationName}[${fieldName}_time]`"
                     style="opacity:0; width:0px; height: 0px;"
                     v-model="cake_cutting_time_value"
@@ -38,50 +40,58 @@
     </div>
 </template>
 <script>
-import Select2 from 'v-select2-component';
-import StartEndTime from './StartEndTime.vue';
+import Select2 from "v-select2-component";
+import StartEndTime from "./StartEndTime.vue";
 export default {
     extends: StartEndTime,
     components: {
         Select2
     },
-    props: ['relation', 'relationName', 'fieldName', 'fieldLabel', 'start_value'],
+    props: [
+        "relation",
+        "relationName",
+        "fieldName",
+        "fieldLabel",
+        "start_value"
+    ],
     data() {
         return {
             cake_cutting_time: {
-                time: '',
-                ampm: '',
+                time: "",
+                ampm: ""
             },
-            cake_cutting_time_value: '',
+            cake_cutting_time_value: "",
             selectSettings: {
-                minimumResultsForSearch: Infinity,
+                minimumResultsForSearch: Infinity
             },
-            selectOptions: [{id: 1, text: 'AM'}, {id: 2, text: 'PM'}],
-            selectTimeOptions: [],
+            selectOptions: [{ id: 1, text: "AM" }, { id: 2, text: "PM" }],
+            selectTimeOptions: []
         };
     },
     mounted() {
-        this.prepareTime('cake_cutting');
+        this.prepareTime("cake_cutting");
         var jsonObj = [];
 
-        $.each(this.time_options,function(k,v){
-            var item = {}
-            item ["id"] = k;
-            item ["text"] = v;
+        $.each(this.time_options, function(k, v) {
+            var item = {};
+            item["id"] = k;
+            item["text"] = v;
 
             jsonObj.push(item);
-        });  
+        });
         this.selectTimeOptions = jsonObj;
     },
     methods: {
-        prepareTime: function (type) {
-            let time = this[`${type}_time_value`] ? this[`${type}_time_value`] : this.relation[`${type}_time`];
+        prepareTime: function(type) {
+            let time = this[`${type}_time_value`]
+                ? this[`${type}_time_value`]
+                : this.relation[`${type}_time`];
             if (!time) {
                 this[`${type}_time`].ampm = 1;
                 return;
             }
 
-            time = time.split(':');
+            time = time.split(":");
             if (time.length != 2) {
                 this[`${type}_time`].ampm = 1;
                 return;
@@ -95,22 +105,21 @@ export default {
                 this[`${type}_time`].ampm = 1;
             }
 
-            this[`${type}_time`].time = time.join(':');
+            this[`${type}_time`].time = time.join(":");
             this.formatTimeValue(type);
-            console.log(this.formatTimeValue(type));
-
+            // console.log(this.formatTimeValue(type));
         },
-        formatTimeValue: function (type) {
-            let time = this[`${type}_time`].time.split(':');
+        formatTimeValue: function(type) {
+            let time = this[`${type}_time`].time.split(":");
             if (time.length != 2) {
-                this[`${type}_time_value`] = '';
+                this[`${type}_time_value`] = "";
                 return;
             }
 
             time[0] = parseInt(time[0]);
             time[1] = parseInt(time[1]);
             if (isNaN(time[0]) || isNaN(time[1])) {
-                this[`${type}_time_value`] = '';
+                this[`${type}_time_value`] = "";
                 return;
             }
 
@@ -119,15 +128,15 @@ export default {
             }
 
             if (time[0] < 10) {
-                time[0] = '0' + time[0];
+                time[0] = "0" + time[0];
             }
 
             if (time[1] < 10) {
-                time[1] = '0' + time[1];
+                time[1] = "0" + time[1];
             }
 
-            this[`${type}_time_value`] = time.join(':');
-        },
+            this[`${type}_time_value`] = time.join(":");
+        }
     }
-}
+};
 </script>
