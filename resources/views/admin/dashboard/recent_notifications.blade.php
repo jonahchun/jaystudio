@@ -44,6 +44,7 @@
                                 }else{
                                     $fieldName = (is_array($fieldName)?implode(",",$fieldName):$fieldName);
                                 }
+                                
                                 $notifDetail = $step[$notification->form_steps - 1].' | '.(is_array($fieldName)?implode(",",$fieldName):$fieldName);
                                 //dd($step);
                             }

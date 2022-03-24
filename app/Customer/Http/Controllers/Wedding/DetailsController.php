@@ -37,17 +37,13 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
         try {
             $data = $request->all();
             $oldDetailValue = Auth::user()->newlywed_detail;
-
+            // dd($data);
             $initially_complete = Auth::user()->newlywed_detail->initially_complete;
             if(Auth::user()->newlywed_detail){
                 $oldDetailValue = Detail::find(Auth::user()->newlywed_detail->id);
             }
             $notifData['form_type'] = Notification::FORM_TYPE_1;
             $notifData['customer_id'] = Auth::user()->id;
-
-            $redirectBack = intval($data['current_step']) + 1 <= 3;
-            $data['current_step'] = min(intval($data['current_step']) + 1, 3);
-
 
             if($data['button_type'] == "back"){
                 $redirectBack = intval($data['current_step']) + 1 <= 4;
@@ -100,8 +96,20 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
     }
 
     public function editFormNotification($data,$notifData,$oldDetailValue){
-        $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
-        if($data['is_final_step'] == 0){
+        if($data['button_type'] == "back"){
+            $notifData['form_steps'] = $data['current_step'] + 2;
+
+        }elseif($data['button_type'] == "gotostep"){
+            $notifData['form_steps'] = $data['go_prev_step'] + 1;
+
+        }else{
+            $notifData['form_steps'] = ($data['is_final_step'] == 1 ? $data['current_step'] + 1: $data['current_step']);
+
+        }
+        // dd($data);
+        // dd($notifData);
+        // $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
+        if($notifData['form_steps'] != 4){
             $getOldValue = $oldDetailValue->question_answers;
             $newValue = $data['question_answers'];
             $form_fields = json_decode($data['form_fields'], true);

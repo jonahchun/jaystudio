@@ -9,10 +9,10 @@
     >
         <input type="hidden" name="_token" :value="csrf" />
         <input type="hidden" name="current_step" :value="current_step" />
-        <input type="hidden" name="is_final_step" :value="is_final_step" />
+        <input type="hidden" name="is_final_step" :value="is_final_step" id="is_final_step"/>
         <input type="hidden" name="button_type" id="btn_type"/>
         <input type="hidden" name="go_step" id="go_step"/>
-
+        <input type="hidden" name="go_prev_step" id="go_prev_step"/>
         <header class="intro-heading row">
             <div class="col-9">
                 <h2>{{ content.title }}</h2>
@@ -31,7 +31,6 @@
                         'is-active': index == current_step
                     }"
                 >
-                    <a @click="goToStep(index)" href="">{{ step }}</a>
                     <a @click="(event)=>goToStep(event,index)" href="">{{ step }}</a>
                 </li>
             </ol>
@@ -44,7 +43,7 @@
                         class="btn-primary"
                         v-if="current_step != 0"
                         @click="back"
-                        type="button"
+                        type="submit"
                         style="width:59px;"
                     >
                         Back
@@ -115,7 +114,7 @@
                         class="btn-primary"
                         v-if="current_step != 0"
                         @click="back"
-                        type="button"
+                        type="submit"
                         style="width:59px;"
                     >
                         Back
@@ -138,7 +137,7 @@
                     <button
                         class="btn-primary"
                         @click="back"
-                        type="button"
+                        type="submit"
                         style="width:59px;"
                     >
                         Back
@@ -178,7 +177,7 @@
                     <button
                         class="btn-primary"
                         @click="back"
-                        type="button"
+                        type="submit"
                         style="width:59px;"
                     >
                         Back
@@ -276,6 +275,7 @@ export default {
                 : questions.slice(Math.round(questions.length / 2));
         },
         goToStep: function(event,step) {
+            document.getElementById("go_prev_step").value = this.current_step;
             if(step >= this.current_step && !this.readonly) {
                 return false;
             }else{
@@ -294,11 +294,14 @@ export default {
             if (!this.form.valid()) {
                 event.preventDefault();
             } else {
-                if (
-                    document.getElementsByClassName("submit-btn")[0].type ==
-                    "submit"
-                ) {
-                    this.is_final_step = 1;
+                var submitBtn = document.getElementsByClassName(
+                    "submit-btn"
+                )[0];
+                if (typeof submitBtn !== "undefined") {
+                    if (submitBtn.type == "submit") {
+                        this.is_final_step = 1;
+                        document.getElementById("is_final_step").value = this.is_final_step;
+                    }
                 }
             }
             return false;

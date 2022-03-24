@@ -76,13 +76,8 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             if(isset($data['portrait_session'])){
                 $oldDetailValue['portrait_session'] = PortraitSession::where(['schedule_id'=>Auth::user()->wedding_schedule->id])->first();
                 $oldDetailValue['portrait_session_location'] = PortraitSessionLocation::where(['portrait_session_id'=>$oldDetailValue['portrait_session']->id])->get()->toArray();
-            }
-            if($data['is_final_step'] == 1){
-                $oldDetailValue['schedule'] = Schedule::find(Auth::user()->wedding_schedule->id);
-            }
-            $redirectBack = intval($data['current_step']) + 1 <= 5;
-            $data['current_step'] = min(intval($data['current_step']) + 1, 5);
-
+            }   
+            
             if($data['button_type'] == "back"){
                 $redirectBack = intval($data['current_step']) + 1 <= 6;
                 $data['current_step'] = min(intval($data['current_step']) - 1, 5);
@@ -93,13 +88,26 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                 $redirectBack = intval($data['current_step']) + 1 <= 5;
                 $data['current_step'] = min(intval($data['current_step']) + 1, 5);
             }
-            
+            if($data['button_type'] == "back"){
+                $notifData['form_steps'] = $data['current_step'] + 2;
+
+            }elseif($data['button_type'] == "gotostep"){
+                $notifData['form_steps'] = $data['go_prev_step'] + 1;
+
+            }else{
+                $notifData['form_steps'] = ($data['is_final_step'] == 1 ? $data['current_step'] + 1: $data['current_step']);
+
+            }
+            // dd($notifData);
+            if($notifData['form_steps'] == 6){
+                $oldDetailValue['schedule'] = Schedule::find(Auth::user()->wedding_schedule->id);
+            }
             Auth::user()->wedding_schedule->fill($data)->save();
             $initially_complete = Auth::user()->wedding_schedule->initially_complete;
 
             //add Notification for edit
             if($initially_complete == '' || $initially_complete == 1){
-                $this->editFormNotification($data,$notifData,$oldDetailValue);
+                $this->editFormNotification($data,$notifData,$oldDetailValue); 
             }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
                 Auth::user()->wedding_schedule->update(['initially_complete'=>1]);
@@ -116,6 +124,9 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
     }
 
     public function editFormNotification($data,$notifData,$oldDetailValue){
+        unset($data['button_type']);
+        unset($data['go_step']);
+        unset($data['go_prev_step']);
         $getOldValue = $oldDetailValue;
         $newData = $fieldData = [];
         if(isset($data['first_newlywed_preparation'])){
@@ -165,14 +176,15 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                 $newData['portrait_session_location'][0]['address'] = [];
             }
         }
-        if($data['is_final_step'] == 1){
+        if($notifData['form_steps'] == 6){
             $fieldData['schedule'] = $data['field_data'];
             $newData['schedule'] = array_diff_key($data, array_flip(["field_data","_token","current_step","is_final_step"]));
         }
+       
         if(count($newData) > 0){
             $arrayValFields = ['ceremony_traditions','details'];
             $notifData['customer_type'] = Notification::OLD_CUSTOMER_TYPE;
-            $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
+            // $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
 
             foreach($newData as $newDataKey => $newDataVal){
 
@@ -254,7 +266,8 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                                 $notifData['old_data'] = $getOldValue[$newDataKey][$newKey];
                                 $notifData['new_data'] = $newVal;
                             }
-                        }
+                        } 
+                        
                         if($isEdit == 1){
                             \App\Customer\Helper\Data::saveNotification($notifData);
                         }

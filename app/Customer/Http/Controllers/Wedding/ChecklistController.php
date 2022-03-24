@@ -35,7 +35,7 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
-
+            // dd($data);
             $oldDetailValue['oldChecklistData'] = Auth::user()->wedding_checklist;
             $oldDetailValue['oldSongList'] = '';
             if(Auth::user()->wedding_checklist){
@@ -74,6 +74,7 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
             }
 
         } catch (\Exception $e) {
+            // dd($e);
             Alert::addError('Something went wrong. Please try again later');
             Alert::addError($e->getMessage());
         }
@@ -81,12 +82,25 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
     }
 
     public function editFormNotification($data,$notifData,$oldDetailValue){
-
         $getOldValue = $oldDetailValue['oldChecklistData'];
         $notifData['customer_type'] = Notification::OLD_CUSTOMER_TYPE;
-        $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
+        if($data['button_type'] == "back"){
+            $notifData['form_steps'] = $data['current_step'] + 2;
 
-        if($data['is_final_step'] == 0){
+        }elseif($data['button_type'] == "gotostep"){
+            $notifData['form_steps'] = $data['go_prev_step'] + 1;
+
+        }else{
+            $notifData['form_steps'] = ($data['is_final_step'] == 1 ? $data['current_step'] + 1: $data['current_step']);
+
+        }
+    
+        unset($data['button_type']);
+        unset($data['go_step']);
+        unset($data['go_prev_step']);
+
+        if($data['is_final_step'] == 0 && $notifData['form_steps'] != 7){
+       
             $newData = $fieldData = [];
 
             if(isset($data['preparation'])){
@@ -208,6 +222,7 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
                 }
             }
         }else{
+            // dd('else');
             $oldCommentValue = $getOldValue->comment;
             $oldFileValue = $getOldValue->file;
             if(trim($oldCommentValue) !== trim($data['comment'])){
