@@ -20,7 +20,7 @@ class Grid extends \WFN\Admin\Block\Widget\AbstractGrid
         $this->addColumn('form_type', 'Form Name');
         $this->addColumn('id', 'Notification Details','select', false, \App\Notification\Model\Source\Notifications::getInstance());
         //parent::_beforeRender();
-        array_shift($this->buttons);
+        //array_shift($this->buttons);
         return $this;
     }
 
