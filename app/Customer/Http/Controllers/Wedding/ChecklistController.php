@@ -93,7 +93,7 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
                 $newData['reception'] = $data['reception'];
                 $fieldData['field_data'] =  $data["field_data"];
             }else if(isset($data['music'])){
-                $newData['music'] = array_diff_key($data, array_flip(["_token", "field_data","current_step","is_final_step"]));
+                $newData['music'] = array_diff_key($data, array_flip(["_token", "field_data","current_step","is_final_step","q"]));
                 $fieldData['field_data'] =  $data["field_data"];
             }else if(isset($data['vendors'])){
                 $newData['vendors'] = $data['vendors'];
@@ -228,6 +228,9 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
                 if($songNewDataVal['song_name'] != ''){
                     $newData['name'][$songNewDataKey] = $songNewDataVal['song_name'];
                     $newData['type'][$songNewDataKey] = key_exists('type',$songNewDataVal)?$songNewDataVal['type']:'';
+                }else{
+                    $newData['name'][] = '';
+                    $newData['type'][] = '';
                 }
             }
         }
