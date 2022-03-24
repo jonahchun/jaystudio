@@ -50,7 +50,7 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
 
             Auth::user()->newlywed_detail->fill($data)->save();
             //add Notification for edit
-            if($initially_complete != 0){
+            if($initially_complete == '' || $initially_complete == 1){
                 $this->editFormNotification($data,$notifData,$oldDetailValue);
             }
             $answerExist = $this->checkAnswerExist();
