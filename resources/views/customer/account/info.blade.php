@@ -155,7 +155,7 @@
             </div>
         </div>
     </section> -->
-    
+
     <div class="personal-info__form-submit">
         <button class="btn-primary wide lowercase" type="submit">{{ __('Save') }}</button>
     </div>

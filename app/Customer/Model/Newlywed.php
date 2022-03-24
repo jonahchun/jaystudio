@@ -20,7 +20,7 @@ class Newlywed extends Detail
         if($field == 'type') {
             return true;
         }
-        
+
         if(strpos($field, '_' . $this->type) !== false) {
             $field = str_replace('_' . $this->type, '', $field);
             return in_array($field, $this->fillable);
@@ -49,7 +49,7 @@ class Newlywed extends Detail
         $this->fillOriginalNames = true;
         parent::fill($preparedAttributes);
         $this->fillOriginalNames = false;
-        
+
         return $this;
     }
 
@@ -63,7 +63,7 @@ class Newlywed extends Detail
             $key = str_replace('_' . $this->type, '', $key);
             return parent::getAttribute($key);
         }
-        
+
         return parent::getAttribute($key);
     }
 

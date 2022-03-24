@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Alert;
 class IndexController extends \WFN\Admin\Http\Controllers\Crud\Controller
 {
-    
+
     protected function _init(Request $request)
     {
         $this->gridBlock   = new \App\Payments\Block\Admin\Invoice\Grid($request);
@@ -113,7 +113,7 @@ class IndexController extends \WFN\Admin\Http\Controllers\Crud\Controller
         $this->entity = $this->entity->findOrFail($id);
         return $this->formBlock->setInstance($this->entity)->render();
     }
-    
+
     public function printAll($customer_id){
         $invoice_all = $this->entity->where('customer_id',$customer_id)->get();
 
