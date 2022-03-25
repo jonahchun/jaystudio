@@ -15,6 +15,7 @@
                             <th class="align-top"><strong>{{ __('Date') }}</strong></th>    
                             <th class="align-top"><strong>{{ __('File') }}</strong></th>
                             <th class="align-top"><strong>{{ __('Status') }}</strong></th>
+                            <th class="align-top"><strong>{{ __('Action') }}</strong></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,12 @@
                             <td>{{ $upload->created_at->format('d M Y') }}</td>
                             <td><a href="{{ $upload->file_url }}" target="_blank">{{ $upload->file_title }}</a></td>
                             <td>{{ $upload->status_label }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger waves-effect waves-light ml-2 btn-sm" onclick="confirmSetLocation('{{route('admin.customer.service.uploads.delete',$upload)}}')" title="Delete">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

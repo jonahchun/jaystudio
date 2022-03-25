@@ -31,6 +31,7 @@ Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
             Route::get('/', '\App\Services\Http\Controllers\Admin\Service\UploadsController@index')->name('admin.customer.service.uploads');
             Route::get('new/{service}', '\App\Services\Http\Controllers\Admin\Service\UploadsController@create')->name('admin.customer.service.uploads.create');
             Route::get('edit/{upload}', '\App\Services\Http\Controllers\Admin\Service\UploadsController@edit')->name('admin.customer.service.uploads.edit');
+            Route::get('delete/{upload}', '\App\Services\Http\Controllers\Admin\Service\UploadsController@delete')->name('admin.customer.service.uploads.delete');
             Route::post('save', '\App\Services\Http\Controllers\Admin\Service\UploadsController@save')->name('admin.customer.service.uploads.save');
         });
 

@@ -3,7 +3,14 @@
 @section('content')
 	<header class="intro-heading row">
         <div class="col-12 col-sm-8">
-            <h2>{{ __('Online Gallery Detail') }}</h2>
+            @if($gallery_name == App\Services\Model\Source\Type::ENGAGEMENT_SESSION)
+                <h2>{{ __('Engagement Photo') }}</h2>
+            @endif
+            @if($gallery_name == App\Services\Model\Source\Type::PHOTO)
+                <h2>{{ __('Wedding Photo') }}</h2>
+            @endif
+
+            
         </div>
         @if(count($online_gallery) > 0)
 	        <div class="col-12 col-sm-4 text-sm-right">
