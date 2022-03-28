@@ -11,9 +11,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="gallery in this.online_gallery">
-                        <td width="30%">{{ gallery.gallery_name }}</td>
-                        <td width="30%">{{ gallery.access_code }}</td>
-                        <td width="30%">{{ gallery.password }}</td>
+                        <td width="50%">{{ gallery.gallery_name }}</td>
+                        <td width="25%">{{ gallery.access_code }}</td>
+                        <td width="25%">{{ gallery.password }}</td>
                     </tr>
                 </tbody>
             </table>

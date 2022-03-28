@@ -34,9 +34,9 @@
                     <tbody>
                         @foreach($online_gallery as $link)
                             <tr>
-                                <td width="30%">{{ $link['gallery_name'] }}</td>
-                                <td width="30%">{{ $link['access_code'] }}</td>
-                                <td width="30%">{{ $link['password'] }}</td>
+                                <td width="50%">{{ $link['gallery_name'] }}</td>
+                                <td width="25%">{{ $link['access_code'] }}</td>
+                                <td width="25%">{{ $link['password'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
