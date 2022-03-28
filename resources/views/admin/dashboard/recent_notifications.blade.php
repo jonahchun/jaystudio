@@ -44,9 +44,14 @@
                                 }else{
                                     $fieldName = (is_array($fieldName)?implode(",",$fieldName):$fieldName);
                                 }
-                                
+
                                 $notifDetail = $step[$notification->form_steps - 1].' | '.(is_array($fieldName)?implode(",",$fieldName):$fieldName);
-                                //dd($step);
+                                $acoountName = '';
+                                if($notification->customer->first_newlywed->first_name == '' && $notification->customer->second_newlywed->first_name == ''){
+                                    $acoountName = '-';
+                                }else{
+                                    $acoountName = $notification->customer->first_newlywed->first_name.' & '.$notification->customer->second_newlywed->first_name;
+                                }
                             }
                         ?>
                             <tr>
@@ -54,8 +59,7 @@
                                     <span class="badge bg-secondary text-white">{{ $notification->customer->account_id }}</span>
                                 </td>
                                 <td>
-                                    {{ $notification->customer->first_newlywed->first_name }} &
-                                    {{ $notification->customer->second_newlywed->first_name }}
+                                    {{ $acoountName }}
                                 </td>
                                 <td>{{ ($notification->form_types) }}</td>
                                 <td>
