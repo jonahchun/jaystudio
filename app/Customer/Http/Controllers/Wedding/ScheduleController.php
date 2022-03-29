@@ -106,7 +106,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             $initially_complete = Auth::user()->wedding_schedule->initially_complete;
 
             //add Notification for edit
-            if($initially_complete === '' || $initially_complete === 1){
+            if($initially_complete === NULL || $initially_complete === 1){
                 $this->editFormNotification($data,$notifData,$oldDetailValue);
             }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
