@@ -15,9 +15,9 @@
             :value="is_final_step"
             id="is_final_step"
         />
-        <input type="hidden" name="button_type" id="btn_type"/>
-        <input type="hidden" name="go_step" id="go_step"/>
-        <input type="hidden" name="go_prev_step" id="go_prev_step"/>
+        <input type="hidden" name="button_type" id="btn_type" />
+        <input type="hidden" name="go_step" id="go_step" />
+        <input type="hidden" name="go_prev_step" id="go_prev_step" />
         <header class="intro-heading row">
             <div class="col-9">
                 <h2>Wedding Schedule</h2>
@@ -35,14 +35,31 @@
                         'is-active': index == current_step
                     }"
                 >
-                    <a @click="(event)=>goToStep(event,index)" href="">{{ step }}</a>
+                    <a @click="event => goToStep(event, index)" href="">{{
+                        step
+                    }}</a>
                 </li>
             </ol>
         </nav>
         <div v-if="current_step < 2 || !current_step" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    v-if="current_step != 0"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
             <div class="schedule-form__section full-width">
                 <h3 class="schedule-form__title">General Details:</h3>
@@ -348,15 +365,44 @@
                 </div>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" v-if="current_step != 0" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    v-if="current_step != 0"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
         </div>
 
         <div v-if="current_step == 2" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
             <div class="schedule-form__section">
                 <div class="schedule-form__section-inner">
@@ -649,15 +695,43 @@
                 </div>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
         </div>
 
         <div v-if="current_step == 3" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
             <div class="schedule-form__section">
                 <div class="schedule-form__section-inner">
@@ -1097,15 +1171,43 @@
                 />
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
         </div>
 
         <div v-if="current_step == 4" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
             <div class="schedule-form__section full-width radio-group">
                 <h3>
@@ -1205,15 +1307,43 @@
                 </div>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary" @click="submit" type="submit" style="width:59px;">Next</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
             </div>
         </div>
 
         <div v-if="current_step == 5" class="schedule-forms">
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary submit-btn" @click="submit" type="submit" style="width:59px;">Submit</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary submit-btn"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Submit
+                </button>
             </div>
             <p class="h3 mb-4">
                 Now that you filled all information, please share with us your
@@ -1256,8 +1386,22 @@
                 ></file-uploader>
             </div>
             <div class="schedule-form__action mb-4" v-if="!readonly">
-                <button class="btn-primary" @click="back" type="submit" style="width:59px;">Back</button>
-                <button class="btn-primary submit-btn" @click="submit" type="submit" style="width:59px;">Submit</button>
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
+                    class="btn-primary submit-btn"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Submit
+                </button>
             </div>
         </div>
     </form>
@@ -1419,9 +1563,9 @@ export default {
             return JSON.stringify(Object.assign({}, fieldInfo));
         },
         back() {
-            $('#btn_type').val('back');
+            $("#btn_type").val("back");
             this.form.validate();
-            if(!this.form.valid()) {
+            if (!this.form.valid()) {
                 event.preventDefault();
             }
             return false;
@@ -1472,18 +1616,18 @@ export default {
         getCurrentRelationName: function() {
             return this.relations[this.current_step];
         },
-        goToStep: function(event,step) {
+        goToStep: function(event, step) {
             document.getElementById("go_prev_step").value = this.current_step;
-            if(step >= this.current_step && !this.readonly) {
+            if (step >= this.current_step && !this.readonly) {
                 return false;
-            }else{
-                $('#btn_type').val('gotostep');
-                $('#go_step').val(step);
+            } else {
+                $("#btn_type").val("gotostep");
+                $("#go_step").val(step);
                 this.form.validate();
-                if(!this.form.valid()) {
+                if (!this.form.valid()) {
                     event.preventDefault();
-                }else{
-                    $('#wedding-schedule-form').submit();
+                } else {
+                    $("#wedding-schedule-form").submit();
                 }
             }
         },
@@ -1498,7 +1642,9 @@ export default {
                 if (typeof submitBtn !== "undefined") {
                     if (submitBtn.type == "submit") {
                         this.is_final_step = 1;
-                        document.getElementById("is_final_step").value = this.is_final_step;
+                        document.getElementById(
+                            "is_final_step"
+                        ).value = this.is_final_step;
                     }
                 }
             }

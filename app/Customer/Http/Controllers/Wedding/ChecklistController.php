@@ -60,7 +60,7 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
             $initially_complete = Auth::user()->wedding_checklist->initially_complete;
 
             //add Notification for edit
-            if($initially_complete == '' || $initially_complete == 1){
+            if($initially_complete === '' || $initially_complete === 1){
                 $this->editFormNotification($data,$notifData,$oldDetailValue);
             }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
@@ -94,13 +94,13 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
             $notifData['form_steps'] = ($data['is_final_step'] == 1 ? $data['current_step'] + 1: $data['current_step']);
 
         }
-    
+
         unset($data['button_type']);
         unset($data['go_step']);
         unset($data['go_prev_step']);
 
         if($data['is_final_step'] == 0 && $notifData['form_steps'] != 7){
-       
+
             $newData = $fieldData = [];
 
             if(isset($data['preparation'])){
@@ -159,7 +159,13 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
                                         $oldDataArray[$oldDataKey][$vendKey] = $vendVal;
                                     }
                                 }else{
-                                    $oldDataArray[$oldDataKey] = is_array($oldDataVal)?$oldDataVal['value']:$oldDataVal;
+                                    if(is_array($oldDataVal)){
+                                        if(array_key_exists('value',$oldDataVal)){
+                                            $oldDataArray[$oldDataKey] = $oldDataVal['value'];
+                                        }
+                                    }else{
+                                        $oldDataArray[$oldDataKey] = $oldDataVal;
+                                    }
                                 }
                             }
                         }
@@ -170,7 +176,13 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
                                         $newDataArray[$newDataValKey][$vendKey] = $vendVal;
                                     }
                                 }else{
-                                   $newDataArray[$newDataValKey] = is_array($newDataValVal)?$newDataValVal['value']:$newDataValVal;
+                                    if(is_array($newDataValVal)){
+                                        if(array_key_exists('value',$newDataValVal)){
+                                            $newDataArray[$newDataValKey] = $newDataValVal['value'];
+                                        }
+                                    }else{
+                                        $newDataArray[$newDataValKey] = $newDataValVal;
+                                    }
                                 }
                             }
                         }
@@ -253,8 +265,10 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
                     $newData['name'][$songNewDataKey] = $songNewDataVal['song_name'];
                     $newData['type'][$songNewDataKey] = key_exists('type',$songNewDataVal)?$songNewDataVal['type']:'';
                 }else{
-                    $newData['name'][] = '';
-                    $newData['type'][] = '';
+                    if($songNewDataKey < 1){
+                        $newData['name'][] = '';
+                        $newData['type'][] = '';
+                    }
                 }
             }
         }
@@ -268,12 +282,14 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
             $oldData['type'][] = '';
         }
 
-        if(count($newData['name']) > count($oldData['name'])){
-            $compareArr1 = $newData;
-            $compareArr2 = $oldData;
-        }else{
-            $compareArr1 = $oldData;
-            $compareArr2 = $newData;
+        if(array_key_exists('name',$newData)){
+            if(count($newData['name']) > count($oldData['name'])){
+                $compareArr1 = $newData;
+                $compareArr2 = $oldData;
+            }else{
+                $compareArr1 = $oldData;
+                $compareArr2 = $newData;
+            }
         }
 
         $isChanged = 0;
@@ -287,7 +303,6 @@ class ChecklistController extends \WFN\Customer\Http\Controllers\Controller
         $result['newData'] = json_encode($newData);
         $result['oldData'] = json_encode($oldData);
         $result['isChanged'] = $isChanged;
-
         return $result;
     }
 }

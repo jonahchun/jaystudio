@@ -9,10 +9,15 @@
     >
         <input type="hidden" name="_token" :value="csrf" />
         <input type="hidden" name="current_step" :value="current_step" />
-        <input type="hidden" name="is_final_step" :value="is_final_step" id="is_final_step"/>
-        <input type="hidden" name="button_type" id="btn_type"/>
-        <input type="hidden" name="go_step" id="go_step"/>
-        <input type="hidden" name="go_prev_step" id="go_prev_step"/>
+        <input
+            type="hidden"
+            name="is_final_step"
+            :value="is_final_step"
+            id="is_final_step"
+        />
+        <input type="hidden" name="button_type" id="btn_type" />
+        <input type="hidden" name="go_step" id="go_step" />
+        <input type="hidden" name="go_prev_step" id="go_prev_step" />
         <header class="intro-heading row">
             <div class="col-9">
                 <h2>{{ content.title }}</h2>
@@ -31,7 +36,9 @@
                         'is-active': index == current_step
                     }"
                 >
-                    <a @click="(event)=>goToStep(event,index)" href="">{{ step }}</a>
+                    <a @click="event => goToStep(event, index)" href="">{{
+                        step
+                    }}</a>
                 </li>
             </ol>
         </nav>
@@ -193,8 +200,18 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="form_fields" :value="form_fields" />
-        <input type="hidden" name="form_field_type" :value="form_field_type" />
+        <input
+            type="hidden"
+            name="form_fields"
+            :value="form_fields"
+            id="form_fields"
+        />
+        <input
+            type="hidden"
+            name="form_field_type"
+            :value="form_field_type"
+            id="form_field_type"
+        />
     </form>
 </template>
 
@@ -232,6 +249,7 @@ export default {
         getFieldData() {
             var form_que = [];
             var form_field_type = [];
+
             if (this.questions[this.current_step]) {
                 for (
                     var j = 0;
@@ -241,6 +259,7 @@ export default {
                     form_que.push(
                         this.questions[this.current_step][j].question
                     );
+
                     if (this.current_step != 3) {
                         var myEle = document.getElementById(
                             "question_" +
@@ -258,9 +277,10 @@ export default {
             this.form_fields = JSON.stringify(Object.assign({}, form_que));
         },
         back() {
-            $('#btn_type').val('back');
+            this.getFieldData();
+            $("#btn_type").val("back");
             this.form.validate();
-            if(!this.form.valid()) {
+            if (!this.form.valid()) {
                 event.preventDefault();
             }
             return false;
@@ -274,18 +294,21 @@ export default {
                 ? questions.slice(0, Math.round(questions.length / 2))
                 : questions.slice(Math.round(questions.length / 2));
         },
-        goToStep: function(event,step) {
+        goToStep: function(event, step) {
             document.getElementById("go_prev_step").value = this.current_step;
-            if(step >= this.current_step && !this.readonly) {
+            if (step >= this.current_step && !this.readonly) {
                 return false;
-            }else{
-                $('#btn_type').val('gotostep');
-                $('#go_step').val(step);
+            } else {
+                this.getFieldData();
+                $("#form_fields").val(this.form_fields);
+                $("#form_field_type").val(this.form_field_type);
+                $("#btn_type").val("gotostep");
+                $("#go_step").val(step);
                 this.form.validate();
-                if(!this.form.valid()) {
+                if (!this.form.valid()) {
                     event.preventDefault();
-                }else{
-                    $('#newlywed-details-form').submit();
+                } else {
+                    $("#newlywed-details-form").submit();
                 }
             }
         },
@@ -300,7 +323,9 @@ export default {
                 if (typeof submitBtn !== "undefined") {
                     if (submitBtn.type == "submit") {
                         this.is_final_step = 1;
-                        document.getElementById("is_final_step").value = this.is_final_step;
+                        document.getElementById(
+                            "is_final_step"
+                        ).value = this.is_final_step;
                     }
                 }
             }
