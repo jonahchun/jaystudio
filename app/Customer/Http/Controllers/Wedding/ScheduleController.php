@@ -30,7 +30,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
     {
         try {
             $data = $request->all();
-            
+
             if(isset($data['portrait_session'])){
                 $data['portrait_session']['when'] = json_encode($data['portrait_session']['when']);
             }
@@ -76,8 +76,8 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             if(isset($data['portrait_session'])){
                 $oldDetailValue['portrait_session'] = PortraitSession::where(['schedule_id'=>Auth::user()->wedding_schedule->id])->first();
                 $oldDetailValue['portrait_session_location'] = PortraitSessionLocation::where(['portrait_session_id'=>$oldDetailValue['portrait_session']->id])->get()->toArray();
-            }   
-            
+            }
+
             if($data['button_type'] == "back"){
                 $redirectBack = intval($data['current_step']) + 1 <= 6;
                 $data['current_step'] = min(intval($data['current_step']) - 1, 5);
@@ -106,8 +106,8 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             $initially_complete = Auth::user()->wedding_schedule->initially_complete;
 
             //add Notification for edit
-            if($initially_complete == '' || $initially_complete == 1){
-                $this->editFormNotification($data,$notifData,$oldDetailValue); 
+            if($initially_complete === '' || $initially_complete === 1){
+                $this->editFormNotification($data,$notifData,$oldDetailValue);
             }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
                 Auth::user()->wedding_schedule->update(['initially_complete'=>1]);
@@ -129,6 +129,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
         unset($data['go_prev_step']);
         $getOldValue = $oldDetailValue;
         $newData = $fieldData = [];
+
         if(isset($data['first_newlywed_preparation'])){
             $newFirstNewlywedPreValue = $data['first_newlywed_preparation'];
             $fieldData['address'] = $newFirstNewlywedPreValue['field_data']['address'];
@@ -180,14 +181,12 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             $fieldData['schedule'] = $data['field_data'];
             $newData['schedule'] = array_diff_key($data, array_flip(["field_data","_token","current_step","is_final_step"]));
         }
-       
+
         if(count($newData) > 0){
             $arrayValFields = ['ceremony_traditions','details'];
             $notifData['customer_type'] = Notification::OLD_CUSTOMER_TYPE;
-            // $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
 
             foreach($newData as $newDataKey => $newDataVal){
-
                 if($newDataKey == 'portrait_session_location' && isset($data['portrait_session'])){
 
                     $newFillableData = $newDataVal;
@@ -229,6 +228,19 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                         }
                     }
                 }else{
+                    if(isset($data['first_newlywed_preparation']) || isset($data['second_newlywed_preparation'])){
+                        if($newDataKey == 'address'){
+                            if(isset($newData['preparation']['hair_makeup']) && $newData['preparation']['hair_makeup'] == 1){
+                                unset($newDataVal['hair_makeup_name']);
+                                unset($newDataVal['hair_makeup_address_line_1']);
+                                unset($newDataVal['hair_makeup_address_line_2']);
+                                unset($newDataVal['hair_makeup_city']);
+                                unset($newDataVal['hair_makeup_state']);
+                                unset($newDataVal['hair_makeup_zip']);
+                            }
+                        }
+                    }
+
                     foreach($newDataVal as $newKey => $newVal){
                         $isEdit = 0;
                         if(in_array($newKey,$arrayValFields)){
@@ -266,8 +278,8 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                                 $notifData['old_data'] = $getOldValue[$newDataKey][$newKey];
                                 $notifData['new_data'] = $newVal;
                             }
-                        } 
-                        
+                        }
+
                         if($isEdit == 1){
                             \App\Customer\Helper\Data::saveNotification($notifData);
                         }

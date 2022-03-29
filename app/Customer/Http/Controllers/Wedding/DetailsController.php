@@ -55,10 +55,10 @@ class DetailsController extends \WFN\Customer\Http\Controllers\Controller
                 $redirectBack = intval($data['current_step']) + 1 <= 3;
                 $data['current_step'] = min(intval($data['current_step']) + 1, 3);
             }
-            
+
             Auth::user()->newlywed_detail->fill($data)->save();
             //add Notification for edit
-            if($initially_complete == '' || $initially_complete == 1){
+            if($initially_complete === '' || $initially_complete === 1){
                 $this->editFormNotification($data,$notifData,$oldDetailValue);
             }
             $answerExist = $this->checkAnswerExist();

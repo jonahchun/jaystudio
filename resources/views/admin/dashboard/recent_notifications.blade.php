@@ -22,6 +22,12 @@
                         @foreach(\App\Notification\Model\Notification::orderBy('created_at', 'desc')->limit(5)->get() as $notification)
                         <?php
                             $notifDetail = '';
+                            $acoountName = '';
+                            if($notification->customer->first_newlywed->first_name == '' && $notification->customer->second_newlywed->first_name == ''){
+                                $acoountName = '-';
+                            }else{
+                                $acoountName = $notification->customer->first_newlywed->first_name.' & '.$notification->customer->second_newlywed->first_name;
+                            }
                             if($notification->customer_type == \App\Notification\Model\Notification::NEW_CUSTOMER_TYPE){
                                 $notifDetail = \App\Notification\Model\Notification::NOTIF_MSG_1;
                             }else{
@@ -44,9 +50,9 @@
                                 }else{
                                     $fieldName = (is_array($fieldName)?implode(",",$fieldName):$fieldName);
                                 }
-                                
+
                                 $notifDetail = $step[$notification->form_steps - 1].' | '.(is_array($fieldName)?implode(",",$fieldName):$fieldName);
-                                //dd($step);
+
                             }
                         ?>
                             <tr>
@@ -54,8 +60,7 @@
                                     <span class="badge bg-secondary text-white">{{ $notification->customer->account_id }}</span>
                                 </td>
                                 <td>
-                                    {{ $notification->customer->first_newlywed->first_name }} &
-                                    {{ $notification->customer->second_newlywed->first_name }}
+                                    {{ $acoountName }}
                                 </td>
                                 <td>{{ ($notification->form_types) }}</td>
                                 <td>
