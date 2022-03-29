@@ -129,6 +129,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
         unset($data['go_prev_step']);
         $getOldValue = $oldDetailValue;
         $newData = $fieldData = [];
+
         if(isset($data['first_newlywed_preparation'])){
             $newFirstNewlywedPreValue = $data['first_newlywed_preparation'];
             $fieldData['address'] = $newFirstNewlywedPreValue['field_data']['address'];
@@ -184,10 +185,8 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
         if(count($newData) > 0){
             $arrayValFields = ['ceremony_traditions','details'];
             $notifData['customer_type'] = Notification::OLD_CUSTOMER_TYPE;
-            // $notifData['form_steps'] = ($data['is_final_step'] == 1)?($data['current_step'] + 1):$data['current_step'];
 
             foreach($newData as $newDataKey => $newDataVal){
-
                 if($newDataKey == 'portrait_session_location' && isset($data['portrait_session'])){
 
                     $newFillableData = $newDataVal;
@@ -229,6 +228,19 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                         }
                     }
                 }else{
+                    if(isset($data['first_newlywed_preparation']) || isset($data['second_newlywed_preparation'])){
+                        if($newDataKey == 'address'){
+                            if(isset($newData['preparation']['hair_makeup']) && $newData['preparation']['hair_makeup'] == 1){
+                                unset($newDataVal['hair_makeup_name']);
+                                unset($newDataVal['hair_makeup_address_line_1']);
+                                unset($newDataVal['hair_makeup_address_line_2']);
+                                unset($newDataVal['hair_makeup_city']);
+                                unset($newDataVal['hair_makeup_state']);
+                                unset($newDataVal['hair_makeup_zip']);
+                            }
+                        }
+                    }
+
                     foreach($newDataVal as $newKey => $newVal){
                         $isEdit = 0;
                         if(in_array($newKey,$arrayValFields)){
