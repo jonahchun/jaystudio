@@ -127,6 +127,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
         unset($data['button_type']);
         unset($data['go_step']);
         unset($data['go_prev_step']);
+        unset($data['q']);
         $getOldValue = $oldDetailValue;
         $newData = $fieldData = [];
 
