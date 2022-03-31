@@ -79,10 +79,12 @@
         $preparation_address = $customer->{$type . '_newlywed_preparation'};
         $wed_address = $customer->{$type . '_newlywed_address'};
 
-        $address = $wed_address->address_line_1 . (!empty($wed_address->address_line_1) ? ",".$wed_address->address_line_1 : '') ."," .$wed_address->state .",". $wed_address->city ."-".$wed_address->zip;
-      
+        $address = $wed_address->address_line_1 . (!empty($wed_address->address_line_2) ? ",".$wed_address->address_line_2 : '') ."," .$wed_address->state .",". $wed_address->city ."-".$wed_address->zip;
+        
+        $location = $preparation_address->preparation->title;
+
         if($preparation_address->hair_makeup == 0){
-            $hair_makeup_address = $wed_address->hair_makeup_address_line_1 . (!empty($wed_address->hair_makeup_address_line_1) ? ",".$wed_address->hair_makeup_address_line_1 : '') . (!empty($wed_address->hair_makeup_state) ? "," .$wed_address->hair_makeup_state: '') . (!empty($wed_address->hair_makeup_city)? ",". $wed_address->hair_makeup_city:'') . (!empty($wed_address->hair_makeup_zip) ? "-".$wed_address->hair_makeup_zip : '');
+            $hair_makeup_address = $wed_address->hair_makeup_address_line_1 . (!empty($wed_address->hair_makeup_address_line_2) ? ",".$wed_address->hair_makeup_address_line_2 : '') . (!empty($wed_address->hair_makeup_state) ? "," .$wed_address->hair_makeup_state: '') . (!empty($wed_address->hair_makeup_city)? ",". $wed_address->hair_makeup_city:'') . (!empty($wed_address->hair_makeup_zip) ? "-".$wed_address->hair_makeup_zip : '');
         }else{
             $hair_makeup_address = "Same as above";
         }
@@ -98,7 +100,15 @@
             <h5 for="Groom" class="m-0 pl-2"> Groom Preparation</h5>
           </div>
         </div>
-        <div class="d-flex align-items-center ml-2">
+        <div class="row align-items-center mb-2">
+          <div class="col-4">
+            <label for="JLS" class="m-0">Location Option:</label>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control" id="location_option" aria-describedby="emailHelp" value="{{$location}}">
+          </div> 
+        </div>
+        <div class="d-flex align-items-center mb-1">
             <label class="mr-2">Hair/make up in the same location:</label>
             <input type="checkbox" id="Yes" name="Yes" value="Yes" @if($preparation_address->hair_makeup == 1) checked @endif>
             <label for="Yes" class="m-0 pr-2 pl-2"> Yes </label>
@@ -379,6 +389,14 @@
       </div>
       <div class="col-7">
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->cake_cutting_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
+      </div>
+    </div> 
+    <div class="row align-items-center py-1">
+      <div class="col-5">
+      <label for="cake_cutting_time" class="m-0">Who Will Give Speech/Toast: </label>
+      </div>
+      <div class="col-7">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->toast_givers}}">
       </div>
     </div> 
   </div>

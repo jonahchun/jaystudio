@@ -30,7 +30,7 @@
       <div class="col-12">
         <div class="d-flex justify-content-between">
             @foreach(NewlywedType::getInstance()->getOptions() as $type => $label)
-            <?php 
+            <?php
                 $customer_data = $customer->{$type . '_newlywed'};
             ?>
 
@@ -50,7 +50,7 @@
       </div>
     </div>
     <hr>
-    
+
     <form>
         <?php $c=0;?>
         @foreach($customer->newlywed_detail->question_answers as $questionId => $answer)
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">{{$c}}. {{ $question->question }}</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $answer }}</textarea>
-                </div> 
+                </div>
             @endif
         @endforeach
     </form>
