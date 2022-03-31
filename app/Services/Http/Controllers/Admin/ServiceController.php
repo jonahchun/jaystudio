@@ -47,17 +47,17 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         $this->entity->customer_id = $customer->id;
         return $this->formBlock->setInstance($this->entity)->render();
     }
-    
+
     public function delete($id)
     {
         $customerId = $this->entity->findOrFail($id)->customer->id;
-        
+
         $teaser_photo_del = Image::where('service_id',$id)->delete();
         $service_link_del = Link::where('service_id',$id)->delete();
         $online_gallery_del = OnlineGallery::where('service_id',$id)->delete();
 
         parent::delete($id);
-        
+
         return redirect()->route('admin.customer.edit', ['id' => $customerId]);
     }
 
@@ -210,7 +210,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         if($this->oldStatus != $this->entity->status) {
             $this->entity->addStatusHistoryComment();
         }
-       
+
         return $this;
     }
 
@@ -219,7 +219,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         if(!in_array($this->entity->type, [ServiceType::PHOTO, ServiceType::VIDEO,ServiceType::ENGAGEMENT_SESSION])) {
             return $this;
         }
-        
+
         if(!$uploadLink) {
             return $this;
         }
@@ -264,20 +264,20 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             if(!empty($new_arr_type)){
                 foreach ($new_arr_type as $t_key => $t_value) {
                     $this->arr[$t_key] = $all_data;
-                    $this->arr[$t_key]['type'] = $t_value; 
+                    $this->arr[$t_key]['type'] = $t_value;
                 }
                 // dd($this->arr);
                 foreach ($this->arr as $key => $value) {
                     if($value['id']) {
                         $this->entity = $this->entity->findOrFail($value['id']);
                     }else{
-                        $this->entity = new \App\Services\Model\Service();      
+                        $this->entity = new \App\Services\Model\Service();
                     }
 
                     $this->validator($value)->validate();
 
                     $data = $this->_prepareData($value);
-                   
+
                     $this->entity->fill($data)->save();
 
                     // Code for after save
@@ -293,7 +293,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                         $this->entity->addStatusHistoryComment();
                     }
                 }
-                
+
             }
 
             Alert::addSuccess($this->entityTitle . ' has been saved');
@@ -328,7 +328,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                         $link->customer_id = $request->input('customer_id');
                         $link->type = $link_data['type'];
                         $link->link = $link_data['link'];
-                        
+
                         $link->save();
                     }
                 }
@@ -342,7 +342,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                         $gallery->gallery_name = $gallery_data['gallery_name'];
                         $gallery->access_code = $gallery_data['access_code'];
                         $gallery->password = $gallery_data['password'];
-                        
+
                         $gallery->save();
                     }
                 }
@@ -373,7 +373,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
 
     public function teaserPhotoDelete(Request $request){
         $data = $request->all();
-        
+
         $count_img = Image::find($data['id']);
 
         if(!empty($count_img)){
@@ -386,7 +386,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
     public function edit($id = false)
     {
         $this->entity = $this->entity->with('teaser_photos')->findOrFail($id);
-        
+
         return $this->formBlock->setInstance($this->entity)->render();
     }
 }

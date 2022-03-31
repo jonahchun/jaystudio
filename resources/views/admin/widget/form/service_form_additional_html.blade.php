@@ -71,18 +71,23 @@ window.serviceHoldPopup = function(urlLink) {
     </div>
 </div>
 <script type="text/javascript">
-window.serviceCompletePopup = function(urlLink) {
-    $("#complete-popup").modal('show');
-    $('#delivery-location').change(function() {
-        if($(this).val()) {
-            $('#complete-tracking-link-container').hide();
-        } else {
-            $('#complete-tracking-link-container').show();
-        }
-    });
-    $("#complete-popup .btn-primary").click(function() {
-        $(this).parents('form').attr('action', urlLink).submit();
-    });
+window.serviceCompletePopup = function(urlLink,completeModalShow) {
+
+    if(completeModalShow == 1){
+        $("#complete-popup").modal('show');
+        $('#delivery-location').change(function() {
+            if($(this).val()) {
+                $('#complete-tracking-link-container').hide();
+            } else {
+                $('#complete-tracking-link-container').show();
+            }
+        });
+        $("#complete-popup .btn-primary").click(function() {
+            $(this).parents('form').attr('action', urlLink).submit();
+        });
+    }else{
+        $('#complete-popup .btn-primary').parents('form').attr('action', urlLink).submit();
+    }
 };
 </script>
 

@@ -16,13 +16,13 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         /* Add Form Fields */
         $this->addField('general', 'id', 'ID', 'hidden', ['required' => false]);
         $this->addField('general', 'customer_id', 'Customer ID', 'hidden', ['required' => true]);
-        
+
         $this->addField('general', 'type', 'Type', 'select', [
             'required' => true,
             'source'   => Type::class,
             'readonly' => $this->getInstance()->id
         ]);
-        
+
         if(\Auth::guard('admin')->user()->role->id == config('common.role.superadmin')){
             $this->addField('general', 'status', 'Status', 'select', [
                 'readonly' => false,
@@ -94,7 +94,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             $this->addField('uploads', 'uploads', 'Uploads', 'service_uploads');
             $this->addField('edit_requests', 'edit_requests', 'Edit Requests', 'service_edit_requests');
         }
-        
+
         $this->addField('comments_history', 'service_comments', 'Comments', 'service_comments');
 
         /* Add Form Buttons */
@@ -174,9 +174,13 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             switch($this->getInstance()->status) {
                 case Status::PROCESSING:
                 case Status::EDITS_COMPLETE:
+                    $completeModalShow = 1;
+                    if(in_array($this->getInstance()->type, [Type::PHOTO,Type::ENGAGEMENT_SESSION])){
+                        $completeModalShow = 0;
+                    }
                     $this->buttons[] = [
                         'label'    => 'Complete',
-                        'jsaction' => 'serviceCompletePopup(\'' . route('admin.customer.service.complete', ['id' => $this->getInstance()->id]) . '\')',
+                        'jsaction' => 'serviceCompletePopup(\'' . route('admin.customer.service.complete', ['id' => $this->getInstance()->id]) . '\','.$completeModalShow.')',
                         'class'    => 'success',
                         'route'    => 'admin.customer.service.complete'
                     ];
@@ -287,7 +291,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'source'   => \App\Album\Model\Source\Sizes::class,
         ]);
         $this->addField('album_information', 'other_size', 'Other Size', 'text');
-        
+
         /* Luxe - Leather Tab */
         $this->addField('leather_luxe_type', 'leather_text', 'Text', 'textarea');
 
