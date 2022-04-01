@@ -1368,7 +1368,7 @@
                     </p>
                     <textarea
                         :name="'comment'"
-                        :value="comment"
+                        v-model="comment"
                         id="comment"
                         cols="30"
                         rows="10"
