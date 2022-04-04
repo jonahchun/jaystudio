@@ -38,8 +38,8 @@ class CustomerController extends \WFN\Admin\Http\Controllers\Controller
         // dd($wedding_reception);
         $all_files = explode('|',$wedding_reception->timeline_file);
         $file = $all_files[$index];
-        
-        $files = explode('/',$file); 
+
+        $files = explode('/',$file);
         $file_name = array_pop($files);
         if($files[0] == 'tmp'){
             $file_url = storage_path().'/app/public/'.$file;

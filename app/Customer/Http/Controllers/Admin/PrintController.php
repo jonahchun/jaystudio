@@ -29,4 +29,10 @@ class PrintController extends \WFN\Admin\Http\Controllers\Controller
         return view('admin.customer.print.newlywed_details', compact('customer'));
     }
 
+    public function printFileDownload($file)
+    {
+        $fileUrl = 'storage/'.base64_decode($file);
+        return response()->download($fileUrl);
+    }
+
 }

@@ -18,4 +18,5 @@ class Data
     public static function saveNotification($notifData){
         Auth::user()->notifications()->create($notifData);
     }
+
 }

@@ -91,6 +91,7 @@ Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
             Route::get('/wedding-checklist/{customer}', '\App\Customer\Http\Controllers\Admin\PrintController@printWeddingChecklist')->name('admin.customer.print.wedding-checklist');
             Route::get('/wedding-schedule/{customer}', '\App\Customer\Http\Controllers\Admin\PrintController@printWeddingSchedule')->name('admin.customer.print.wedding-schedule');
             Route::get('/newlywed-details/{customer}', '\App\Customer\Http\Controllers\Admin\PrintController@printNewlywedDetails')->name('admin.customer.print.newlywed-details');
+            Route::get('/file/download/{file}', '\App\Customer\Http\Controllers\Admin\PrintController@printFileDownload')->name('admin.customer.print.file-download');
         });
     });
 });
