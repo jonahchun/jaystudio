@@ -74,7 +74,7 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
         $photos = [];
 
         foreach ($photos_data as $photo_key => $photo_value) {
-            if($photo_value['services']['status'] == ServiceStatus::COMPLETE){
+            if($photo_value['services']['status'] == ServiceStatus::PROCESSING){
                 $photos[] = $photo_value; 
             }
         }
