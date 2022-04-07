@@ -5,7 +5,9 @@
             ><svg class="icon icon-back">
                 <use xlink:href="#icon-back"></use></svg
         ></a>
-        <img :src="photos.image_url" />
+        <div class="lightbox_img" @click="closeLightbox()">
+            <img :src="photos.image_url" />
+        </div>
         <a href="javascript:;" @click="handledownload(photos.image_url)"
             ><svg class="icon icon-download">
                 <use xlink:href="#icon-download"></use></svg
@@ -53,6 +55,28 @@ export default {
 </script>
 
 <style>
+.teaser_title {
+    float: left;
+}
+.teaser_download_all {
+    float: right;
+}
+.lightbox_img {
+    max-width: 90%;
+    margin: 0 auto;
+    height: 93%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox_img img {
+    margin: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 .lightbox {
     position: fixed;
     top: 0;
@@ -75,7 +99,5 @@ export default {
 }
 .lightbox img {
     margin: 100px;
-    max-width: 70%;
-    max-height: 70%;
 }
 </style>

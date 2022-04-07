@@ -49,6 +49,7 @@ Route::prefix('customer')->group(function() {
 
         Route::prefix('teaser-photo')->group(function() {
             Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\TeaserPhotoController::class . '@index')->name('customer.teaser_photo.index');
+            Route::get('/zip/file/download/{file}/{form}','\\'. App\Customer\Http\Controllers\Wedding\TeaserPhotoController::class . '@zipFileDownload')->name('customer.teaser_photo.zip-file-download');
         });
 
         Route::prefix('online-gallery')->group(function() {
