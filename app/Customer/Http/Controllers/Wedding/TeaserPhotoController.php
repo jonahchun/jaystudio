@@ -5,7 +5,7 @@ namespace App\Customer\Http\Controllers\Wedding;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Model\Source\Status;
-use Chumper\Zipper\Facades\Zipper;
+use Chumper\Zipper\Zipper;
 
 class TeaserPhotoController extends \WFN\Customer\Http\Controllers\Controller
 {
@@ -29,27 +29,31 @@ class TeaserPhotoController extends \WFN\Customer\Http\Controllers\Controller
         $formName = $form;
         $fileList= base64_decode($file);
         $fileListArray = explode('|',$fileList);
-        $dowaloadFile = [];
+
+        $folder_name = $formName;
+        if($formName == 'teaser_photo'){
+            $folder_name = 'teaser_photo';
+        }
+        $zipName = $folder_name.'-'.time().'.zip';
+        $zipPath = storage_path('app/public/downloaded-zip/') .$folder_name.'/'.$zipName;
+
         if(count($fileListArray)>0){
+            $zipper = new Zipper();
+            $zipper->zip($zipPath);
             foreach($fileListArray as $file){
                 $fileUrl = explode('/',$file);
                 if($fileUrl[0] == 'tmp'){
                     $file_url = 'storage/'.$file;
                 }else{
-                    if($formName == 'teaser_photo'){
-                        $folder_name = 'teaser_photo';
-                    }
                     $file_url = ltrim($file,'/');
                 }
-                $dowaloadFile[] =  $file_url;
+                $zipper->add($file_url);
             }
+            $zipper->close();
         }
+
         $headers = ["Content-Type"=>"application/zip"];
-        $zipName = $folder_name.'-'.time().'.zip';
-        $zipPath = 'downloaded-zip/'.$folder_name.'/'.$zipName;
+        return response()->download($zipPath,$zipName,$headers);
 
-
-        Zipper::make(public_path($zipPath))->add($dowaloadFile)->close();
-        return response()->download(public_path($zipPath),$zipName,$headers);
     }
 }
