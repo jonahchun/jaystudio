@@ -5,13 +5,16 @@
             ><svg class="icon icon-back">
                 <use xlink:href="#icon-back"></use></svg
         ></a>
-        <div class="lightbox_img" @click="closeLightbox()">
+        <div class="lightbox_img position-relative" @click="closeLightbox()">
             <img :src="photos.image_url" />
+            <a
+                class="download-icon"
+                href="javascript:;"
+                @click="handledownload(photos.image_url)"
+                ><svg class="icon icon-download">
+                    <use xlink:href="#icon-download"></use></svg
+            ></a>
         </div>
-        <a href="javascript:;" @click="handledownload(photos.image_url)"
-            ><svg class="icon icon-download">
-                <use xlink:href="#icon-download"></use></svg
-        ></a>
     </div>
 </template>
 
@@ -55,6 +58,9 @@ export default {
 </script>
 
 <style>
+.position-relative {
+    position: relative;
+}
 .teaser_title {
     float: left;
 }
@@ -85,19 +91,25 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     text-align: center;
+    z-index: 9;
 }
 .lightbox a {
-    position: fixed;
-    right: 171px;
-    top: 8px;
+    position: absolute;
+    right: -20px;
+    top: 0;
     display: flex;
     color: #ffffff;
-    padding: 15px 20px;
+    padding: 0;
     border-radius: 10px;
     align-items: center;
     justify-content: center;
 }
 .lightbox img {
     margin: 100px;
+}
+@media screen and (max-width: 767px) {
+    .lightbox a {
+        right: 0;
+    }
 }
 </style>
