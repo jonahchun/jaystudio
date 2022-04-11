@@ -46,5 +46,5 @@
     @endif
 
     @include('payments.invoice.upcoming')
-    
+
 @endsection

@@ -20,7 +20,7 @@
                 <a class="link-primary" href="{{ route('customer.teaser_photo.index') }}" target="_blank">{{ __('See all') }}</a>
             </div>
         </header>
-        <teaser-photo 
+        <teaser-photo
         :photos="{{ json_encode($photos) }}"
         ></teaser-photo>
     @endif
@@ -59,5 +59,5 @@
     @endif
 
     @include('payments.invoice.upcoming')
-    
+
 @endsection
