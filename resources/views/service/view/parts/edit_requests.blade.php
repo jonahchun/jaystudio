@@ -1,9 +1,15 @@
 <div class="info-block__head">
     <h3 class="info-block__title">{{ __('Edit Requests') }}</h3>
     @if($service->canCreateEditRequest())
-    <a class="link-primary" href="{{ route('service.edit-request.new', ['service' => $service]) }}">
-        {{ __('Create New') }}
-    </a>
+        @if(in_array($service->type, [\App\Services\Model\Source\Type::PHOTO, \App\Services\Model\Source\Type::VIDEO]))
+            <a href="javascript::void(0)" class="link-primary" data-toggle="modal" data-target="#photography_cinematography_edit_request">
+                {{ __('Create New') }}
+            </a>
+        @else
+            <a class="link-primary" href="{{ route('service.edit-request.new', ['service' => $service]) }}">
+                {{ __('Create New') }}
+            </a>
+        @endif
     @endif
 </div>
 <div class="info-block__table-wrap">
@@ -44,6 +50,21 @@
         </tbody>
     </table>
 </div>
+<div id="photography_cinematography_edit_request" class="modal fade p-0">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pb-4 px-4 pt-0">
+                Please contact us at <a class="text-primary cursor-pointer " href = "mailto:support@jaylimstudio.com"><b>support@jaylimstudio.com</b></a> for edit requests.
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="info-block__note">
-    @include('service.parts.status.edit_requests')    
+    @include('service.parts.status.edit_requests')
 </div>

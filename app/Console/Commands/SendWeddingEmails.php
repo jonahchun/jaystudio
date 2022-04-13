@@ -24,7 +24,7 @@ class SendWeddingEmails extends Command
         $customers = \Customer::whereHas('detail', function($query) {
             $query->where('wedding_date', Carbon::now()->subDay()->format('Y-m-d'));
         })->get();
-        
+
         foreach($customers as $customer) {
             \MandrillMail::send('congratulations', $customer->email, [
                 'first_newlywed_name'  => $customer->first_newlywed->first_name,
