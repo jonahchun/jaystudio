@@ -17,7 +17,7 @@ class TeaserPhotoController extends \WFN\Customer\Http\Controllers\Controller
         $photos = [];
 
     	foreach ($photos_data as $photo_key => $photo_value) {
-    		if($photo_value['services']['status'] == Status::PROCESSING){
+    		if($photo_value['services']['status'] == Status::PROCESSING || $photo_value['services']['status'] == Status::COMPLETE){
 	    		$photos[] = $photo_value;
     		}
     	}
