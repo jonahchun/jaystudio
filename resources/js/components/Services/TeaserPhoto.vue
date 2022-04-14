@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="!photos.length">
+        <div v-if="!photos.length" class="float-left">
             It’s not available yet! It takes 2-3 weeks for teaser photos and we
             ask that you check back.
         </div>
