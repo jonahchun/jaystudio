@@ -50,7 +50,7 @@
         </tbody>
     </table>
 </div>
-<div id="photography_cinematography_edit_request" class="modal fade p-0">
+<div id="photography_cinematography_edit_request" class="modal fade p-0" style="background: #0000006b;">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
@@ -59,7 +59,7 @@
                 </button>
             </div>
             <div class="modal-body pb-4 px-4 pt-0">
-                Please contact us at <a class="text-primary cursor-pointer " href = "mailto:support@jaylimstudio.com"><b>support@jaylimstudio.com</b></a> for edit requests.
+                Please contact us at <a class="text-primary cursor-pointer " href = "mailto:support@jaylimstudio.com"><b style="cursor: pointer">support@jaylimstudio.com</b></a> for edit requests.
             </div>
         </div>
     </div>

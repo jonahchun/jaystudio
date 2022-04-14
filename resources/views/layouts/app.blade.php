@@ -13,6 +13,9 @@
     <meta name="msapplication-TileColor" content="#f3e5da">
     <meta name="theme-color" content="#f3e5da">
     <link href="{{ mix('css/main.css') }}" rel="stylesheet">
+    <style>
+        body.modal-open{padding-right: 0px !important;}
+    </style>
 </head>
 <body>
     <div style="position: absolute; height: 0; overflow: hidden;" class="icons-sprite">
