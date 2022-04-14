@@ -17,6 +17,10 @@ Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
             Route::post('/save', '\App\Core\Http\Controllers\Admin\QuestionsController@save')->name('admin.questions.save');
             Route::get('/delete/{id}', '\App\Core\Http\Controllers\Admin\QuestionsController@delete')->name('admin.questions.delete');
         });
+        Route::prefix('gallery-link')->group(function() {
+            Route::get('/', '\App\Core\Http\Controllers\Admin\OnlineGalleryController@index')->name('admin.gallery-link');
+            Route::post('/save', '\App\Core\Http\Controllers\Admin\OnlineGalleryController@save')->name('admin.gallery-link.save');
+        });
     });
 });
 

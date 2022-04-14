@@ -29,4 +29,6 @@ class PrintController extends \WFN\Admin\Http\Controllers\Controller
         return view('admin.customer.print.newlywed_details', compact('customer'));
     }
 
+
+
 }

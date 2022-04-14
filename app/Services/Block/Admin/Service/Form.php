@@ -3,6 +3,8 @@ namespace App\Services\Block\Admin\Service;
 
 use App\Services\Model\Source\Status;
 use App\Services\Model\Source\Type;
+use App\Services\Model\Source\Gallery;
+use App\Services\Model\Source\EngagementSessionGallery;
 
 class Form extends \WFN\Admin\Block\Widget\AbstractForm
 {
@@ -14,27 +16,85 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         /* Add Form Fields */
         $this->addField('general', 'id', 'ID', 'hidden', ['required' => false]);
         $this->addField('general', 'customer_id', 'Customer ID', 'hidden', ['required' => true]);
-        
+
         $this->addField('general', 'type', 'Type', 'select', [
             'required' => true,
             'source'   => Type::class,
             'readonly' => $this->getInstance()->id
         ]);
-        
-        $this->addField('general', 'status', 'Status', 'select', [
-            'readonly' => true,
-            'source'   => Status::class,
-        ]);
 
+        if(\Auth::guard('admin')->user()->role->id == config('common.role.superadmin')){
+            $this->addField('general', 'status', 'Status', 'select', [
+                'readonly' => false,
+                'source'   => Status::class,
+            ]);
+        }else{
+            $this->addField('general', 'status', 'Status', 'select', [
+                'readonly' => true,
+                'source'   => Status::class,
+            ]);
+
+        }
+        // dd($this->instance);
+        if(isset($this->instance->id) && $this->instance->type == "videography"){
+            $this->addField('general', 'links', 'Link', 'rows', [
+                'columns' => [
+                    'type' => [
+                        'label' => 'Type',
+                        'type'  => 'text',
+                    ],
+                    'link' => [
+                        'label' => 'Link',
+                        'type'  => 'text',
+                    ],
+                ],
+            ]);
+        }
+        if($this->getInstance()->type == Type::PHOTO || $this->getInstance()->type == Type::ENGAGEMENT_SESSION) {
+            if($this->getInstance()->type == Type::PHOTO){
+                $gallery = new Gallery;
+            }else{
+                $gallery = new EngagementSessionGallery;
+            }
+
+            $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
+                'columns' => [
+                    'gallery_name' => [
+                        'label' => 'Gallery Name',
+                        'type'  => 'select',
+                        'source'   => $gallery
+                    ],
+                    'access_code' => [
+                        'label' => 'Access Code',
+                        'type'  => 'text',
+                    ],
+                    'password' => [
+                        'label' => 'Password',
+                        'type'  => 'text',
+                    ],
+                ],
+            ]);
+        }
+        if($this->getInstance()->type == Type::PHOTO) {
+                $is_readonly = true;
+            if($this->getInstance()->status == Status::PROCESSING){
+                $is_readonly = false;
+            }
+            if(count($this->instance->teaser_photos) > 0){
+                $last_date = date('m-d-Y H:i:s',strtotime($this->instance->teaser_photos[count($this->instance->teaser_photos)-1]['updated_at']));
+                $this->addField('general', 'updated_date', '', 'info',['text'=>'Last Updated Date:','val'=>$last_date]);
+            }
+            $this->addField('general', 'teaser_photos', 'Teaser Photos', 'multifile', ['required' => true,'disabled'=>$is_readonly]);
+        }
         if($this->instance->type && $this->instance->detail) {
-            $this->addField('general', 'completion', 'Completion', 'date');
+            // $this->addField('general', 'completion', 'Completion', 'date');
             $additionalFieldsCallback = '_add_' . $this->instance->type . '_fields';
             $this->$additionalFieldsCallback();
 
             $this->addField('uploads', 'uploads', 'Uploads', 'service_uploads');
             $this->addField('edit_requests', 'edit_requests', 'Edit Requests', 'service_edit_requests');
         }
-        
+
         $this->addField('comments_history', 'service_comments', 'Comments', 'service_comments');
 
         /* Add Form Buttons */
@@ -60,12 +120,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         }
 
         if($this->getInstance()->type == Type::PHOTO) {
-            $this->buttons[] = [
-                'label'    => 'Send Teaser',
-                'jsaction' => 'teaserEmailPopup(\'' . route('admin.customer.service.send-teaser', ['id' => $this->getInstance()->id]) . '\')',
-                'class'    => 'info',
-                'route'    => 'admin.customer.service.send-teaser'
-            ];
+            // $this->buttons[] = [
+            //     'label'    => 'Send Teaser',
+            //     'jsaction' => 'teaserEmailPopup(\'' . route('admin.customer.service.send-teaser', ['id' => $this->getInstance()->id]) . '\')',
+            //     'class'    => 'info',
+            //     'route'    => 'admin.customer.service.send-teaser'
+            // ];
             $this->buttons[] = [
                 'label'    => 'Send Engagement Session Gallery',
                 'jsaction' => 'engagementSessionEmailPopup(\'' . route('admin.customer.service.send-engagement-session', ['id' => $this->getInstance()->id]) . '\')',
@@ -74,7 +134,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             ];
         }
 
-        if(!in_array($this->getInstance()->type, [Type::PHOTO, Type::VIDEO])) {
+        if(!in_array($this->getInstance()->type, [Type::PHOTO, Type::VIDEO,Type::ENGAGEMENT_SESSION])) {
             switch($this->getInstance()->status) {
                 case Status::ORDER_FORM_SUBMITTED:
                     $this->buttons[] = [
@@ -114,9 +174,13 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             switch($this->getInstance()->status) {
                 case Status::PROCESSING:
                 case Status::EDITS_COMPLETE:
+                    $completeModalShow = 1;
+                    if(in_array($this->getInstance()->type, [Type::PHOTO,Type::ENGAGEMENT_SESSION])){
+                        $completeModalShow = 0;
+                    }
                     $this->buttons[] = [
                         'label'    => 'Complete',
-                        'jsaction' => 'serviceCompletePopup(\'' . route('admin.customer.service.complete', ['id' => $this->getInstance()->id]) . '\')',
+                        'jsaction' => 'serviceCompletePopup(\'' . route('admin.customer.service.complete', ['id' => $this->getInstance()->id]) . '\','.$completeModalShow.')',
                         'class'    => 'success',
                         'route'    => 'admin.customer.service.complete'
                     ];
@@ -148,7 +212,12 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'readonly' => true
         ]);
     }
-
+    protected function _add_engagement_session_fields()
+    {
+        $this->addField('details', 'upload', 'Upload', 'text', [
+            'readonly' => true
+        ]);
+    }
     protected function _add_videography_fields()
     {
         $this->_add_photography_fields();
@@ -222,7 +291,7 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
             'source'   => \App\Album\Model\Source\Sizes::class,
         ]);
         $this->addField('album_information', 'other_size', 'Other Size', 'text');
-        
+
         /* Luxe - Leather Tab */
         $this->addField('leather_luxe_type', 'leather_text', 'Text', 'textarea');
 

@@ -8,8 +8,8 @@ Route::post('register', function() {
 });
 
 Route::get('dashboard', '\\' . App\Customer\Http\Controllers\IndexController::class . '@dashboard')->name('customer.account');
-
 Route::get('insurance/download/file/{id}', '\\' . App\Customer\Http\Controllers\IndexController::class . '@downloadInsuranceFile')->name('downloadInsuranceFile');
+Route::get('/file/download/{file}', '\App\Customer\Http\Controllers\Admin\DownloadController@printFileDownload')->name('admin.customer.print.file-download');
 
 Route::prefix('customer')->group(function() {
 
@@ -36,19 +36,39 @@ Route::prefix('customer')->group(function() {
         Route::prefix('schedule')->group(function() {
             Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\ScheduleController::class . '@index')->name('customer.wedding.schedule');
             Route::post('save', '\\' . App\Customer\Http\Controllers\Wedding\ScheduleController::class . '@save')->name('customer.wedding.schedule.save');
-            
+
         });
 
         Route::prefix('details')->group(function() {
             Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\DetailsController::class . '@index')->name('customer.details.form');
             Route::post('save', '\\' . App\Customer\Http\Controllers\Wedding\DetailsController::class . '@save')->name('customer.details.save');
         });
+
+        Route::prefix('cinematography')->group(function() {
+            Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\CinematographyController::class . '@index')->name('customer.cinematography.form');
+        });
+
+        Route::prefix('teaser-photo')->group(function() {
+            Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\TeaserPhotoController::class . '@index')->name('customer.teaser_photo.index');
+            Route::get('/zip/file/download/{file}/{form}','\\'. App\Customer\Http\Controllers\Wedding\TeaserPhotoController::class . '@zipFileDownload')->name('customer.teaser_photo.zip-file-download');
+        });
+
+        Route::prefix('online-gallery')->group(function() {
+            Route::get('/{gallery_name}', '\\' . App\Customer\Http\Controllers\Wedding\OnlineGalleryController::class . '@index')->name('customer.online-gallery.index');
+        });
     });
 });
 
 Route::prefix(env('ADMIN_PATH', 'admin'))->group(function() {
     Route::get('downloadfile/{key}/{id}', '\App\Customer\Http\Controllers\Admin\CustomerController@downloadFile')->name('admin.downloadfile');
-    
+
+    Route::prefix('notification')->group(function() {
+        Route::get('/', '\\' . '\App\Notification\Http\Controllers\Admin\NotificationController@index')->name('admin.notification');
+        Route::get('new/{customer_id?}', '\App\Notification\Http\Controllers\Admin\NotificationController@new')->name('admin.notification.new');
+        Route::get('edit/{id}', '\App\Notification\Http\Controllers\Admin\NotificationController@edit')->name('admin.notification.edit');
+        Route::get('delete/{id}', '\App\Notification\Http\Controllers\Admin\NotificationController@delete')->name('admin.notification.delete');
+    });
+
     Route::prefix('customer')->group(function() {
         Route::prefix('contact')->group(function() {
             Route::get('/', '\App\Customer\Http\Controllers\Admin\ContactController@index')->name('admin.customer.contact');

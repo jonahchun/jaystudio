@@ -6,6 +6,7 @@ node_modules
 /public/css
 /public/images/
 /public/favicon/
+/public/downloaded-zip/
 /public/mix-manifest.json
 /storage/*.key
 /vendor

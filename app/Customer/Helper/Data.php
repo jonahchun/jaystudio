@@ -3,7 +3,7 @@
 namespace App\Customer\Helper;
 
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 class Data
 {
 
@@ -13,6 +13,10 @@ class Data
             $query->where('wedding_date', '>=', Carbon::now()->format('Y-m-d'))
                 ->orderBy('wedding_date', 'asc');
         })->limit(5)->get();
+    }
+
+    public static function saveNotification($notifData){
+        Auth::user()->notifications()->create($notifData);
     }
 
 }

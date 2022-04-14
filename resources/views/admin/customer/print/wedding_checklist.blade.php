@@ -26,7 +26,7 @@
 
 <div class="row py-2 mt-3">
    @foreach(NewlywedType::getInstance()->getOptions() as $type => $label)
-   <?php 
+   <?php
      $customer_data = $customer->{$type . '_newlywed'};
    ?>
    <div class="col-6">
@@ -45,8 +45,8 @@
         </div>
         <div class="col-8">
           <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First & Last Name" value="{{$customer_data->first_name .' '. $customer_data->last_name}}">
-        </div> 
-      </div> 
+        </div>
+      </div>
    </div>
    @endforeach
    <div class="col-6">
@@ -60,7 +60,7 @@
          </div>
          <div class="col-8">
           <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="(MM/DD/YYYY)" value="{{date('m/d/Y',strtotime($customer->wedding_date))}}">
-         </div> 
+         </div>
       </div>
    </div>
    <div class="col-6">
@@ -81,7 +81,7 @@
                 </div>
               @endforeach
             </div>
-         </div> 
+         </div>
       </div>
    </div>
 </div>
@@ -92,7 +92,7 @@
       <div class="row">
           <div class="col-12">
             <div class="row">
-               <h5> Cinematography</h5> 
+               <h5> Cinematography</h5>
             </div>
           </div>
           <div class="col-6">
@@ -103,7 +103,7 @@
                   <input type="radio" name="music_by" value="studio" @if($value->music == 1) checked @endif>
                   <label for="cg1" class="m-0 pl-2"> JAYLim Studio </label>
                 </div>
-              </div> 
+              </div>
             </div>
             <div class="row align-items-center py-1">
               <div class="col-12 pr-0">
@@ -111,7 +111,7 @@
                   <input type="radio" name="music_by" value="myself" @if($value->music == 2) checked @endif>
                   <label for="cg2" class="m-0 pl-2"> Myself </label>
                 </div>
-              </div> 
+              </div>
             </div>
             <div class="row align-items-center py-1">
               <div class="col-12 pr-0">
@@ -119,7 +119,7 @@
                   <input type="radio" name="music_by" value="Myself & the rest can be picked by JAYlim Studio" @if($value->music == 4) checked @endif>
                   <label for="cg2" class="m-0 pl-2"> Myself & the rest can be picked by JAYlim Studio </label>
                 </div>
-              </div> 
+              </div>
             </div>
             <br>
             @if(count($value->music_songs) > 0)
@@ -152,11 +152,17 @@
             @endif
           </div>
         </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <h5> Other Comments</h5>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ !empty($value['music_comment']) ? $value['music_comment'] : '' }}</textarea>
+          </div>
+        </div>
    @elseif($_value !== \App\WeddingChecklist\Model\Source\Steps::VENDORS)
       <div class="row">
          <div class="row">
            <div class="col-12">
-             <h5> {{ $label }}</h5> 
+             <h5> {{ $label }}</h5>
            </div>
         </div>
          <div class="row align-items-center py-1">
@@ -165,8 +171,14 @@
                   <input type="checkbox" id="{{ $entity->title }}" name="{{ $entity->title }}" value="{{ $entity->title }}" @if(!empty($value[$_value][$entity->id]['value'])) checked @endif>
                   <label for="{{ $entity->title }}" class="m-0 pl-2"> {{ $entity->title }} </label>
                </div>
-            @endforeach  
+            @endforeach
          </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <h5> Other Comments</h5>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ !empty($value[$_value]['comment']) ? $value[$_value]['comment'] : '' }}</textarea>
+        </div>
       </div>
    @else
       <div class="row">
@@ -183,16 +195,71 @@
            </div>
            <div class="col-4">
              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name / Company" value="{{ !empty($value->vendors[$vendor->id]['company']) ? $value->vendors[$vendor->id]['company'] : '' }}">
-           </div> 
+           </div>
            <div class="col-4">
              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Instagram / SNS Handle" value="{{ !empty($value->vendors[$vendor->id]['socials']) ? $value->vendors[$vendor->id]['socials'] : '' }}">
-           </div> 
+           </div>
          </div>
       @endforeach
    @endif
 <div class="row"><hr class="w-100"></div>
 @endforeach
+<div class="row mb-5">
+  <div class="col-12">
+    <h5> Comments</h5>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8">{{ $customer->wedding_checklist->comment }}</textarea>
+  </div>
+</div>
+<div class="row mb-5">
+    <div class="col-12">
+      <h5> Files</h5>
+      @php
+        $fileArray = [];
+        if($customer->wedding_checklist->file != ''){
+            $fileArray = explode('|',$customer->wedding_checklist->file);
+        }
 
+      @endphp
+      <?php
+      if(count($fileArray)>0)
+      {?>
+         <table class="table table-bordered">
+            <thead>
+               <tr>
+                   <th>File</th>
+                   <th>Download</th>
+               </tr>
+            </thead>
+            <tbody>
+            <?php
+                $file_name = '';
+                foreach($fileArray as $file){
+                    $files = explode('/',$file);
+                    $file_name = array_pop($files);
+                    if($files[0] == 'tmp'){
+                        $file_url = $file;
+                    }else{
+                        $file_url = 'customer-wedding-checklist/'.$file;
 
+                    }
+                    $fileData = explode(".",$file_url);
+            ?>
+            <tr>
+                <td>{{ $file_name }}</td>
+                <td>
+                    <a href="{{route('admin.customer.print.file-download',['file'=>base64_encode($file_url)])}}" >
+                        <i class="fa fa-download file_download" aria-hidden="true" style="cursor: pointer"></i>
+                    </a>
+                </td>
+            </tr>
+
+        <?php } ?>
+            </tbody>
+        </table>
+        <?php }
+      ?>
+    </div>
+</div>
+<div class="row"><hr class="w-100"></div>
 <p class="mt-5">*Please remember to save all written information before submitting. Once completed, please send via email as an attachment to support@jaylimstudio.com</p>
 @endsection

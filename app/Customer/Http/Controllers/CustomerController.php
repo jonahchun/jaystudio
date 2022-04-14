@@ -57,7 +57,7 @@ class CustomerController extends ResetPasswordController
         $all_data = $request->all();
 
         $temp_customer_data = TempCustomer::where('customer_id',$all_data['customer_id'])->first();
-        
+
         $temp_customer = TempCustomer::findOrNew($temp_customer_data['id']);
         $temp_customer->customer_id = $all_data['customer_id'];
         $temp_customer->json = json_encode($all_data['form_data']);

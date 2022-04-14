@@ -7,6 +7,7 @@
     <meta name="msapplication-TileColor" content="#f3e5da">
     <meta name="theme-color" content="#f3e5da">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('adminhtml/css/icons.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/main.css') }}" rel="stylesheet"> -->
 </head>
 <body>
@@ -21,7 +22,7 @@
                         <a class="logo" href="{{ route('dashboard') }}">
                             <img class="logo__img print" src="{{ \Settings::getConfigValueUrl('app/logo') ?: asset('images/logo-big.svg') }}" width="170" alt="JAY LIM STUDIO">
                         </a>
-                    </div>    
+                    </div>
                 </div>
             </div>
             @include('admin.customer.print.newlyweds_info')
@@ -31,6 +32,6 @@
     <script type="text/javascript">
         window.print();
     </script>
-    
+
 </body>
 </html>

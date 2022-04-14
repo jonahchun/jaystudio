@@ -142,6 +142,10 @@ return [
                 'route' => 'admin.questions',
                 'label' => 'Details about you - Questions',
             ],
+            'gallery_link' => [
+                'route' => 'admin.gallery-link',
+                'label' => 'Online Gallery Link',
+            ],
         ],
     ],
 ];

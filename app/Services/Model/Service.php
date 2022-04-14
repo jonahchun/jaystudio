@@ -4,6 +4,9 @@ namespace App\Services\Model;
 use App\Services\Model\Source\Type;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Model\Service\Link;
+use App\Services\Model\Service\OnlineGallery;
+use App\Services\Model\Service\EngagementSessionDetail;
 
 class Service extends Model
 {
@@ -11,6 +14,8 @@ class Service extends Model
     protected $table = 'services';
 
     protected $fillable = ['customer_id', 'type' , 'status', 'pickup_location_id', 'tracking_link'];
+
+    protected $_teaser_photos = [];
 
     public function getAttribute($key)
     {
@@ -71,7 +76,7 @@ class Service extends Model
 
     public function canCreateEditRequest()
     {
-        if(in_array($this->type, [Type::PHOTO, Type::VIDEO]) && $this->customer->wedding_date->gt(Carbon::now())) {
+        if(in_array($this->type, [Type::PHOTO, Type::VIDEO,Type::ENGAGEMENT_SESSION]) && $this->customer->wedding_date->gt(Carbon::now())) {
             return false;
         }
         $lastUpload = $this->uploads()->orderBy('created_at', 'desc')->first();
@@ -105,5 +110,56 @@ class Service extends Model
     {
         return $this->hasOne(Service\PhotoAlbumDetail::class);
     }
+    protected function _engagement_session_detail()
+    {
+        return $this->hasOne(Service\EngagementSessionDetail::class);
+    }
 
+    public function links()
+    {
+        return $this->hasMany(\App\Services\Model\Service\Link::class, 'service_id');
+    }
+
+    public function online_gallery()
+    {
+        return $this->hasMany(\App\Services\Model\Service\OnlineGallery::class, 'service_id');
+    }
+
+    public function teaser_photos()
+    {
+        return $this->hasMany(\App\Services\Model\Service\Image::class, 'service_id');
+    }
+    public function fill(array $attributes)
+    {
+        foreach($attributes as $key => $value) {
+
+            if($key == 'teaser_photos') {
+                $this->_teaser_photos = $value;
+            }
+
+            if($key == 'image' && !empty($value['file']) && $value['file'] instanceof \Illuminate\Http\UploadedFile) {
+                // dd($value);
+                $value = $this->_uploadFile($value['file']);
+                $attributes[$key] = $value;
+            }
+        }
+        return parent::fill($attributes);
+    }
+    public function save(array $options = [])
+    {
+        parent::save($options);
+
+        if(is_array($this->_teaser_photos))
+        {
+            foreach($this->_teaser_photos as $data) {
+                $image = new \App\Services\Model\Service\Image();
+
+                $data['customer_id'] = $this->customer_id;
+                $data['service_id'] = $this->id;
+                
+                $image->fill($data)->save();
+            }
+        }
+        return $this;
+    }
 }

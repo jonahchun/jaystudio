@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Services\Model\Source\Status as ServiceStatus;
 use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\EditRequest\Status as EditRequestStatus;
+use Illuminate\Validation\ValidationException;
+use Alert;
 
 class UploadsController extends \WFN\Admin\Http\Controllers\Crud\Controller
 {
@@ -47,4 +49,17 @@ class UploadsController extends \WFN\Admin\Http\Controllers\Crud\Controller
         return Validator::make($data, []);
     }
 
+    public function delete($upload){
+        try {
+            $this->entity = $this->entity->findOrFail($upload);
+            
+            $this->_beforeDelete();
+            $this->entity->delete();
+            
+            Alert::addSuccess($this->entityTitle . ' has been deleted');
+        } catch (\Exception $e) {
+            Alert::addError('Something went wrong. Please, try again');
+        }
+        return redirect()->route('admin.customer.service.edit',$this->entity->service_id);
+    }
 }

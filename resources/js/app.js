@@ -42,6 +42,7 @@ Vue.component('wedding-schedule-form-start-time', require('./components/WeddingI
 Vue.component('wedding-schedule-form-end-time', require('./components/WeddingInformation/Schedule/EndTime.vue').default);
 Vue.component('wedding-schedule-form-time', require('./components/WeddingInformation/Schedule/Time.vue').default);
 Vue.component('wedding-schedule-availabilities', require('./components/WeddingInformation/Schedule/Availabilities.vue').default);
+Vue.component('wedding-cinematography', require('./components/WeddingInformation/Cinematography.vue').default);
 
 Vue.component('save-the-date-form', require('./components/Services/SaveTheDate.vue').default);
 Vue.component('photo-album-form', require('./components/Services/PhotoAlbum.vue').default);
@@ -51,10 +52,15 @@ Vue.component('order-form-templates-step', require('./components/Services/Parts/
 Vue.component('order-form-comment-step', require('./components/Services/Parts/CommentStep.vue').default);
 Vue.component('order-form-luxe-type-images', require('./components/Services/Parts/LuxeImages.vue').default);
 Vue.component('order-form-photo-album-sizes', require('./components/Services/Parts/PhotoAlbumSizes.vue').default);
+Vue.component('teaser-photo', require('./components/Services/TeaserPhoto.vue').default);
+Vue.component('photo', require('./components/Services/Photo.vue').default);
+Vue.component('photo', require('./components/Services/Photo.vue').default);
+Vue.component('online-gallery', require('./components/Services/OnlineGallery.vue').default);
 
 Vue.component('order-form-image-edit', require('./components/Services/Parts/ImageEdit.vue').default);
 Vue.component('order-form-comment-edit', require('./components/Services/Parts/CommentEdit.vue').default);
 
+Vue.component('engagement_session-edit-request', require('./components/Services/EditRequests/Engagement_session.vue').default);
 Vue.component('photography-edit-request', require('./components/Services/EditRequests/Photography.vue').default);
 Vue.component('videography-edit-request', require('./components/Services/EditRequests/Videography.vue').default);
 Vue.component('card-edit-request', require('./components/Services/EditRequests/Card.vue').default);

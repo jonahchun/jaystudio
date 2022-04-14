@@ -12,13 +12,13 @@
           <h5 class="m-0">Wedding Schedule</h5>
         </div>
     </div>
-</div> 
+</div>
 @php
     $weddingSchedule = $customer->wedding_schedule
 @endphp
 <div class="row py-2 mt-3">
     @foreach(NewlywedType::getInstance()->getOptions() as $type => $label)
-   <?php 
+   <?php
      $customer_data = $customer->{$type . '_newlywed'};
    ?>
       <div class="col-6">
@@ -37,7 +37,7 @@
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First & Last Name" value="{{$customer_data->first_name .' '. $customer_data->last_name}}">
-          </div> 
+          </div>
         </div>
     </div>
     @endforeach
@@ -48,13 +48,13 @@
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="(MM/DD/YYYY)" value="{{date('m/d/Y',strtotime($customer->wedding_date))}}">
-          </div> 
+          </div>
         </div>
     </div>
     <div class="col-6"></div>
     <?php $c = 0;?>
     @foreach(NewlywedType::getInstance()->getOptions() as $type => $label)
-      <?php 
+      <?php
        $customer_data = $customer->{$type . '_newlywed'};
       ?>
       <div class="col-6">
@@ -64,7 +64,7 @@
             </div>
             <div class="col-8">
               <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ring Boys, Jr. Groomsman, etc." value="{{$c+1}}">
-            </div> 
+            </div>
           </div>
           <?php $c = $c + 1;?>
       </div>
@@ -73,16 +73,18 @@
 <hr>
 <div class="row">
     @foreach(NewlywedType::getInstance()->getOptions() as $type => $label)
-   <?php 
+   <?php
         $customer_datas = $customer->{$type . '_newlywed'};
 
         $preparation_address = $customer->{$type . '_newlywed_preparation'};
         $wed_address = $customer->{$type . '_newlywed_address'};
 
-        $address = $wed_address->address_line_1 . (!empty($wed_address->address_line_1) ? ",".$wed_address->address_line_1 : '') ."," .$wed_address->state .",". $wed_address->city ."-".$wed_address->zip;
-      
+        $address = $wed_address->address_line_1 . (!empty($wed_address->address_line_2) ? ",".$wed_address->address_line_2 : '') ."," .$wed_address->state .",". $wed_address->city ."-".$wed_address->zip;
+
+        $location = $preparation_address->preparation->title;
+
         if($preparation_address->hair_makeup == 0){
-            $hair_makeup_address = $wed_address->hair_makeup_address_line_1 . (!empty($wed_address->hair_makeup_address_line_1) ? ",".$wed_address->hair_makeup_address_line_1 : '') . (!empty($wed_address->hair_makeup_state) ? "," .$wed_address->hair_makeup_state: '') . (!empty($wed_address->hair_makeup_city)? ",". $wed_address->hair_makeup_city:'') . (!empty($wed_address->hair_makeup_zip) ? "-".$wed_address->hair_makeup_zip : '');
+            $hair_makeup_address = $wed_address->hair_makeup_address_line_1 . (!empty($wed_address->hair_makeup_address_line_2) ? ",".$wed_address->hair_makeup_address_line_2 : '') . (!empty($wed_address->hair_makeup_state) ? "," .$wed_address->hair_makeup_state: '') . (!empty($wed_address->hair_makeup_city)? ",". $wed_address->hair_makeup_city:'') . (!empty($wed_address->hair_makeup_zip) ? "-".$wed_address->hair_makeup_zip : '');
         }else{
             $hair_makeup_address = "Same as above";
         }
@@ -98,7 +100,15 @@
             <h5 for="Groom" class="m-0 pl-2"> Groom Preparation</h5>
           </div>
         </div>
-        <div class="d-flex align-items-center ml-2">
+        <div class="row align-items-center mb-2">
+          <div class="col-4">
+            <label for="JLS" class="m-0">Location Option:</label>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control" id="location_option" aria-describedby="emailHelp" value="{{$location}}">
+          </div>
+        </div>
+        <div class="d-flex align-items-center mb-1">
             <label class="mr-2">Hair/make up in the same location:</label>
             <input type="checkbox" id="Yes" name="Yes" value="Yes" @if($preparation_address->hair_makeup == 1) checked @endif>
             <label for="Yes" class="m-0 pr-2 pl-2"> Yes </label>
@@ -119,7 +129,7 @@
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->jls_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-          </div> 
+          </div>
         </div>
         <div class="row align-items-center">
           <div class="col-4">
@@ -127,7 +137,7 @@
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->jls_end_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-          </div> 
+          </div>
         </div>
         <div class="row align-items-center">
           <div class="col-4">
@@ -135,7 +145,7 @@
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if(($time = $preparation_address->transportation_start_time) && strpos($time, ':') !== false){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-          </div> 
+          </div>
         </div>
         <div class="row align-items-center">
           <div class="col-4">
@@ -143,7 +153,7 @@
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($preparation_address->contact){{ optional($preparation_address->contact)->first_name }}{{ optional($preparation_address->contact)->last_name }}({{ optional($preparation_address->contact)->telephone }})@else {{ $preparation_address->contact_name }}({{ $preparation_address->contact_phone }})@endif">
-          </div> 
+          </div>
         </div>
         <small>(Name, Phone, & Relation) - Member of Wedding Party Suggested</small>
     </div>
@@ -154,7 +164,7 @@
   <div class="col-6">
     <h5> Ceremony</h5>
     <p class="m-0">Name of the Location & Address :</p>
-    <?php 
+    <?php
         $ceremony_address = optional($weddingSchedule->ceremony->address)->address_line_1.(!empty($weddingSchedule->ceremony->address->address_line_2) ? ",".optional($weddingSchedule->ceremony->address)->address_line_2 : '').",".optional($weddingSchedule->ceremony->address)->state.",".optional($weddingSchedule->ceremony->address)->city."-".optional($weddingSchedule->ceremony->address)->zip;
 
         $details = [];
@@ -182,7 +192,7 @@
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->ceremony->invitation_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-      </div> 
+      </div>
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
@@ -190,7 +200,7 @@
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->ceremony->ceremony_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-      </div> 
+      </div>
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
@@ -198,7 +208,7 @@
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->ceremony->ceremony_end_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-      </div> 
+      </div>
     </div>
     <div class="row align-items-center">
       <div class="col-4">
@@ -206,7 +216,7 @@
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->reception_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif @if($time = $weddingSchedule->reception->reception_end_time) - {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-      </div> 
+      </div>
     </div>
     <small>(Only note if same day as wedding)</small>
   </div>
@@ -322,7 +332,7 @@
   </div>
 </div>
 <hr>
-<?php 
+<?php
     $reception_address = optional($weddingSchedule->reception->address)->address_line_1.(!empty($weddingSchedule->reception->address->address_line_2) ? ",".optional($weddingSchedule->reception->address)->address_line_2 : '').",".optional($weddingSchedule->reception->address)->state.",".optional($weddingSchedule->reception->address)->city."-".optional($weddingSchedule->reception->address)->zip;
     // dd($weddingSchedule->reception);
     ?>
@@ -337,7 +347,7 @@
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_name}}">
-      </div> 
+      </div>
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
@@ -345,7 +355,7 @@
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_email}}">
-      </div> 
+      </div>
     </div>
     <div class="row align-items-center py-1">
       <div class="col-4">
@@ -353,7 +363,7 @@
       </div>
       <div class="col-8">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->venue_coordinator_phone}}">
-      </div> 
+      </div>
     </div>
   </div>
   <div class="col-6">
@@ -364,7 +374,7 @@
       <div class="col-7">
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->cocktails_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif - @if($time = $weddingSchedule->reception->cocktails_end_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
       </div>
-    </div> 
+    </div>
     <div class="row align-items-center py-1">
       <div class="col-5">
       <label for="Reception_time" class="m-0"> Reception Start & End Time: </label>
@@ -372,7 +382,7 @@
       <div class="col-7">
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->reception_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif @if($time = $weddingSchedule->reception->reception_end_time) - {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
       </div>
-    </div> 
+    </div>
     <div class="row align-items-center py-1">
       <div class="col-5">
       <label for="cake_cutting_time" class="m-0"> Cake Cutting Time: </label>
@@ -380,7 +390,15 @@
       <div class="col-7">
         <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $weddingSchedule->reception->cake_cutting_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
       </div>
-    </div> 
+    </div>
+    <div class="row align-items-center py-1">
+      <div class="col-5">
+      <label for="cake_cutting_time" class="m-0">Who Will Give Speech/Toast: </label>
+      </div>
+      <div class="col-7">
+        <input type="text" class="form-control ml-2" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$weddingSchedule->reception->toast_givers}}">
+      </div>
+    </div>
   </div>
 </div>
 <hr>
@@ -400,7 +418,7 @@
           </div>
           <div class="col-8">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="@if($time = $location->portrait_start_time){{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif @if($time = $location->portrait_end_time) - {{ Illuminate\Support\Carbon::createFromFormat('H:i', $time)->format('g:i A') }}@endif">
-          </div> 
+          </div>
         </div>
         <small>(Feel free to leave blank & JLS will discuss with you)</small>
       </div>
@@ -452,5 +470,56 @@
     <h5> Comments</h5>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="8">{{ $customer->wedding_schedule->comment }}</textarea>
   </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+      <h5> Files</h5>
+      @php
+        $fileArray = [];
+        if($customer->wedding_schedule->file != ''){
+            $fileArray = explode('|',$customer->wedding_schedule->file);
+        }
+
+      @endphp
+      <?php
+      if(count($fileArray)>0)
+      {?>
+         <table class="table table-bordered">
+            <thead>
+               <tr>
+                   <th>File</th>
+                   <th>Download</th>
+               </tr>
+            </thead>
+            <tbody>
+            <?php
+                $file_name = '';
+                foreach($fileArray as $file){
+                    $files = explode('/',$file);
+                    $file_name = array_pop($files);
+                    if($files[0] == 'tmp'){
+                        $file_url = $file;
+                    }else{
+                        $file_url = 'customer-wedding-schedule/'.$file;
+
+                    }
+                    $fileData = explode(".",$file_url);
+            ?>
+            <tr>
+                <td>{{ $file_name }}</td>
+                <td>
+                    <a href="{{route('admin.customer.print.file-download',['file'=>base64_encode($file_url)])}}" >
+                        <i class="fa fa-download file_download" aria-hidden="true" style="cursor: pointer"></i>
+                    </a>
+                </td>
+            </tr>
+
+        <?php } ?>
+            </tbody>
+        </table>
+        <?php }
+      ?>
+    </div>
 </div>
 @endsection
