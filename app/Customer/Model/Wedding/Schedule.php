@@ -32,7 +32,8 @@ class Schedule extends Model
                 if(!empty($value['file']) && $value['file'] instanceof \Illuminate\Http\UploadedFile) {
                     $value = $this->_uploadFile($value['file']);
                     $attributes[$key] = $value;
-                } elseif(strpos($value, 'tmp/') === 0) {
+                }
+                elseif(strpos($value, 'tmp/') === 0) {
                     $value = $this->_moveFromTmp($value);
                     $attributes[$key] = $value;
                 }

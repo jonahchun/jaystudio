@@ -248,7 +248,9 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                             $oldDataVal = $getOldValue[$newDataKey][$newKey];
                             $newDataVal = $newVal;
                             sort($oldDataVal);
-                            sort($newDataVal);
+                            if(is_array($newDataVal)){
+                                sort($newDataVal);
+                            }
 
                             if (($oldDataVal) !== ($newDataVal)){
                                 $isEdit = 1;
