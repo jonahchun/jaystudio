@@ -33,10 +33,10 @@ class Schedule extends Model
                     $value = $this->_uploadFile($value['file']);
                     $attributes[$key] = $value;
                 }
-                elseif(strpos($value, 'tmp/') === 0) {
-                    $value = $this->_moveFromTmp($value);
-                    $attributes[$key] = $value;
-                }
+                // elseif(strpos($value, 'tmp/') === 0) {
+                //     $value = $this->_moveFromTmp($value);
+                //     $attributes[$key] = $value;
+                // }
             }
         }
         return parent::fill($attributes);
