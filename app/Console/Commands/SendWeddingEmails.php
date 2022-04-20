@@ -14,10 +14,10 @@ class SendWeddingEmails extends Command
 
     public function handle()
     {
-        $this->_sendWeddingFormAvailableEmail();exit;
         $this->_sendCongradulationEmails();
         $this->_sendWeddingInfoReminders(\Settings::getConfigValue('email/wedding_information_reminder_first'));
         $this->_sendWeddingInfoReminders(\Settings::getConfigValue('email/wedding_information_reminder_second'));
+        $this->_sendWeddingFormAvailableEmail();
     }
 
     protected function _sendCongradulationEmails()
