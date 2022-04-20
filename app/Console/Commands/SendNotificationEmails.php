@@ -15,7 +15,8 @@ class SendNotificationEmails extends Command
 
     public function handle()
     {
-        $historyComments = \App\Services\Model\Service\StatusHistory::where('is_customer_notified', 0)->get();
+        $historyComments = \App\Services\Model\Service\StatusHistory::where('is_customer_notified', 0)
+                            ->orderBy('id','DESC')->get()->unique('service_id');
         foreach($historyComments as $historyComment) {
             try {
                 switch($historyComment->status) {
