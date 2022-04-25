@@ -17,7 +17,7 @@ class SendWeddingEmails extends Command
         $this->_sendCongradulationEmails();
         $this->_sendWeddingInfoReminders(\Settings::getConfigValue('email/wedding_information_reminder_first'));
         $this->_sendWeddingInfoReminders(\Settings::getConfigValue('email/wedding_information_reminder_second'));
-        $this->_sendWeddingFormAvailableEmail();
+        //$this->_sendWeddingFormAvailableEmail();
     }
 
     protected function _sendCongradulationEmails()
