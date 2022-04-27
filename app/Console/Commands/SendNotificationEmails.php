@@ -63,10 +63,10 @@ class SendNotificationEmails extends Command
 
     protected function _sendCompleteEmail($historyComment)
     {
-        if(!$historyComment->service->pickup_location) {
-            $this->_sendShippedEmail($historyComment);
-            return $this;
-        }
+        // if(!$historyComment->service->pickup_location) {
+        //     $this->_sendShippedEmail($historyComment);
+        //     return $this;
+        // }
         switch($historyComment->service->type) {
             case Type::PHOTO:
                 $this->_sendPhotoCompleteEmail($historyComment);
