@@ -12,6 +12,14 @@
                         :options="selectTimeOptions"
                         :required="required"
                     />
+                    <label
+                        :id="
+                            `${relationName}_${fieldName}_start_time_input` +
+                                '-error'
+                        "
+                        class="error"
+                        :for="`${relationName}_${fieldName}_start_time_input`"
+                    ></label>
                     <!--<input
                             :name="`${relationName}_${fieldName}_start_time_input`"
                             type="text" class="form-control"
@@ -51,6 +59,14 @@
                         :options="selectTimeOptions"
                         :required="required"
                     />
+                    <label
+                        :id="
+                            `${relationName}_${fieldName}_end_time_input` +
+                                '-error'
+                        "
+                        class="error"
+                        :for="`${relationName}_${fieldName}_end_time_input`"
+                    ></label>
                     <!--<input
                             :name="`${relationName}_${fieldName}_end_time_input`"
                             type="text" class="form-control"

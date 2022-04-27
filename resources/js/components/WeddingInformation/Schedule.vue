@@ -864,6 +864,10 @@
                             <input
                                 class="form-control js-form-input"
                                 type="text"
+                                :id="
+                                    getCurrentRelationName() +
+                                        '[venue_coordinator_name]'
+                                "
                                 :name="
                                     getCurrentRelationName() +
                                         '[venue_coordinator_name]'
@@ -907,6 +911,10 @@
                             <input
                                 class="form-control js-form-input"
                                 type="text"
+                                :id="
+                                    getCurrentRelationName() +
+                                        '[venue_coordinator_email]'
+                                "
                                 :name="
                                     getCurrentRelationName() +
                                         '[venue_coordinator_email]'
@@ -950,6 +958,10 @@
                             <input
                                 class="form-control js-form-input"
                                 type="text"
+                                :id="
+                                    getCurrentRelationName() +
+                                        '[venue_coordinator_phone]'
+                                "
                                 :name="
                                     getCurrentRelationName() +
                                         '[venue_coordinator_phone]'

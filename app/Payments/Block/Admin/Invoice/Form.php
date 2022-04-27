@@ -18,12 +18,14 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         if(\Auth::guard('admin')->user()->role->id == config('common.role.superadmin')){
             $this->addField('general', 'status', 'Status', 'select', [
                 'readonly' => false,
+                'required' => true,
                 'source'   => Status::class,
             ]);
 
         }else{
             $this->addField('general', 'status', 'Status', 'select', [
                 'readonly' => true,
+                'required' => true,
                 'source'   => Status::class,
             ]);
 
