@@ -166,14 +166,36 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
     {
         try {
             $service = $this->entity->findOrFail($id);
+            $getPrivousStatus = $this->entity->findOrFail($id);
             $service->update(['status' => $status]);
             $service->addStatusHistoryComment($comment);
+            if($service->type == ServiceType::ENGAGEMENT_SESSION && $status == 3){
+                if($getPrivousStatus->status != $service->status){
+                    $this->sendEngagementSessionCompleteEmail($service);
+                }
+            }
             Alert::addSuccess('Status has been updated successfully');
         } catch (\Exception $e) {
             Alert::addError('Something went wrong. Please, try again later');
             return redirect()->route('admin.customer.service');
         }
         return redirect()->route('admin.customer.service.edit', ['id' => $service->id]);
+    }
+
+    public function sendEngagementSessionCompleteEmail ($service){
+        try {
+            $customer = $service->customer;
+            $stdService = $customer->services()->where('type', ServiceType::STDC)->first();
+
+            \MandrillMail::send('engagement-session-done', $customer->email, [
+                'first_newlywed_name'  => $customer->first_newlywed->first_name,
+                'second_newlywed_name' => $customer->second_newlywed->first_name,
+                'save_the_date_link'   => $stdService ? url(route('service.view', ['service' => $stdService])) : '',
+                'service_detail_link'  => url(route('service.view', ['service' => $service])),
+            ], \Settings::getConfigValue('email/engagement-session-done_email_recipients'));
+        } catch (\Exception $e) {
+            Alert::addError('Something went wrong. Please, try again later');
+        }
     }
 
     protected function _prepareData($data)
@@ -318,6 +340,7 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
         try {
             if($request->input('id')) {
                 $this->entity = $this->entity->findOrFail($request->input('id'));
+                $getPrivousStatus =  $this->entity->findOrFail($request->input('id'));
 
                 Link::whereIn('service_id', [$request->input('id')])->delete();
                 if(!empty($request->input('links'))){
@@ -354,6 +377,11 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             // dd($data);
             $this->entity->fill($data)->save();
 
+            if($this->entity->type == ServiceType::ENGAGEMENT_SESSION && $request->input('status') == 3){
+                if($getPrivousStatus->status != $this->entity->status){
+                    $this->sendEngagementSessionCompleteEmail($this->entity);
+                }
+            }
             $this->_afterSave($request);
 
             Alert::addSuccess($this->entityTitle . ' has been saved');
