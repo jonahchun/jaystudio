@@ -12,6 +12,14 @@
                         :options="selectTimeOptions"
                         :required="required"
                     />
+                    <label
+                        :id="
+                            `${relationName}_${fieldName}_start_time_input` +
+                                '-error'
+                        "
+                        class="error"
+                        :for="`${relationName}_${fieldName}_start_time_input`"
+                    ></label>
                     <!--<input
                             :name="`${relationName}_${fieldName}_start_time_input`"
                             type="text" class="form-control"
@@ -30,7 +38,13 @@
                         :options="selectOptions"
                         :id="`${relationName}_${fieldName}_start_time`"
                     />
-
+                    <label
+                        :id="
+                            `${relationName}_${fieldName}_start_time` + '-error'
+                        "
+                        class="error"
+                        :for="`${relationName}_${fieldName}_start_time`"
+                    ></label>
                     <input
                         type="text"
                         :name="`${relationName}[${fieldName}_start_time]`"
@@ -51,6 +65,14 @@
                         :options="selectTimeOptions"
                         :required="required"
                     />
+                    <label
+                        :id="
+                            `${relationName}_${fieldName}_end_time_input` +
+                                '-error'
+                        "
+                        class="error"
+                        :for="`${relationName}_${fieldName}_end_time_input`"
+                    ></label>
                     <!--<input
                             :name="`${relationName}_${fieldName}_end_time_input`"
                             type="text" class="form-control"
@@ -69,7 +91,11 @@
                         :options="selectOptions"
                         :id="`${relationName}_${fieldName}_end_time`"
                     />
-
+                    <label
+                        :id="`${relationName}_${fieldName}_end_time` + '-error'"
+                        class="error"
+                        :for="`${relationName}_${fieldName}_end_time`"
+                    ></label>
                     <input
                         type="text"
                         :name="`${relationName}[${fieldName}_end_time]`"

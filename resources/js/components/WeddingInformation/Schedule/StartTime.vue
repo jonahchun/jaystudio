@@ -22,6 +22,7 @@
                     :options="selectTimeOptions"
                     :required="required"
                 />
+                <label id="-error" class="error" for=""></label>
             </div>
             <div class="datepicker-group__inner select">
                 <Select2
