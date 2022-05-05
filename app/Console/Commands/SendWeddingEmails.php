@@ -14,7 +14,7 @@ class SendWeddingEmails extends Command
 
     public function handle()
     {
-        $this->_sendCongradulationEmails();
+        //$this->_sendCongradulationEmails();
         $this->_sendWeddingInfoReminders(\Settings::getConfigValue('email/wedding_information_reminder_first'));
         $this->_sendWeddingInfoReminders(\Settings::getConfigValue('email/wedding_information_reminder_second'));
     }
@@ -37,7 +37,7 @@ class SendWeddingEmails extends Command
     protected function _sendWeddingInfoReminders($daysBefore)
     {
         $customers = \Customer::whereHas('detail', function($query) use ($daysBefore) {
-            $query->where('wedding_date', Carbon::now()->subDays($daysBefore)->format('Y-m-d'));
+            $query->where('wedding_date', Carbon::now()->addDays($daysBefore)->format('Y-m-d'));
         })->get();
 
         foreach($customers as $customer) {
