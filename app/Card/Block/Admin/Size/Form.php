@@ -1,7 +1,7 @@
 <?php
 namespace App\Card\Block\Admin\Size;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.card.size';

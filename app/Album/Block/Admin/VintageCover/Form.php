@@ -1,7 +1,7 @@
 <?php
 namespace App\Album\Block\Admin\VintageCover;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.album.vintage-cover';

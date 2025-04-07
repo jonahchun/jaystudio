@@ -70,12 +70,18 @@
                         </a>
                     </li>
                     <li class="main-nav__item">
+                        <a href="{{ route('customer.online-gallery.link') }}">
+                            <svg class="icon icon-camera"><use xlink:href="#icon-camera"></use></svg>
+                            <span class="main-nav__item-text">{{ __('Online Gallery Link') }}</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item">
                         <a href="{{ route('paymets.invoice.list') }}">
                             <svg class="icon icon-invoices"><use xlink:href="#icon-invoices"></use></svg>
                             <span class="main-nav__item-text">{{ __('Invoices') }}</span>
                         </a>
                     </li>
-                    
+
                     <li class="main-nav__item">
                         <a href="{{ url('faq') }}" target="_blank">
                             <svg class="icon icon-help"><use xlink:href="#icon-help"></use></svg>

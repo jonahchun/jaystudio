@@ -54,6 +54,7 @@ Route::prefix('customer')->group(function() {
         });
 
         Route::prefix('online-gallery')->group(function() {
+            Route::get('/', '\\' . App\Customer\Http\Controllers\Wedding\OnlineGalleryController::class . '@link')->name('customer.online-gallery.link');
             Route::get('/{gallery_name}', '\\' . App\Customer\Http\Controllers\Wedding\OnlineGalleryController::class . '@index')->name('customer.online-gallery.index');
         });
     });

@@ -1,12 +1,14 @@
 <?php
 namespace App\Services\Block\Admin\Service;
 
+use App\Customer\Model\Source\OnlineGalleryLinkSource;
+use App\Services\Model\Source\LinkTypeSource;
 use App\Services\Model\Source\Status;
 use App\Services\Model\Source\Type;
 use App\Services\Model\Source\Gallery;
 use App\Services\Model\Source\EngagementSessionGallery;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.customer.service';
@@ -37,11 +39,13 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         }
         // dd($this->instance);
         if(isset($this->instance->id) && $this->instance->type == "videography"){
+            $linkTypeSource = new LinkTypeSource;
             $this->addField('general', 'links', 'Link', 'rows', [
                 'columns' => [
                     'type' => [
                         'label' => 'Type',
-                        'type'  => 'text',
+                        'type'  => 'select_tags',
+                        'source'   => $linkTypeSource
                     ],
                     'link' => [
                         'label' => 'Link',

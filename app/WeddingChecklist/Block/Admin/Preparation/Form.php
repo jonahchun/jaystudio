@@ -1,7 +1,7 @@
 <?php
 namespace App\WeddingChecklist\Block\Admin\Preparation;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.wedding.checklist.preparation';

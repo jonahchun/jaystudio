@@ -79,14 +79,14 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             }
 
             if($data['button_type'] == "back"){
-                $redirectBack = intval($data['current_step']) + 1 <= 6;
-                $data['current_step'] = min(intval($data['current_step']) - 1, 5);
+                $redirectBack = intval($data['current_step']) + 1 <= 7;
+                $data['current_step'] = min(intval($data['current_step']) - 1, 6);
             }elseif($data['button_type'] == "gotostep"){
                 $redirectBack = true;
                 $data['current_step'] = $data['go_step'];
             }else{
-                $redirectBack = intval($data['current_step']) + 1 <= 5;
-                $data['current_step'] = min(intval($data['current_step']) + 1, 5);
+                $redirectBack = intval($data['current_step']) + 1 <= 6;
+                $data['current_step'] = min(intval($data['current_step']) + 1, 6);
             }
             if($data['button_type'] == "back"){
                 $notifData['form_steps'] = $data['current_step'] + 2;
@@ -99,7 +99,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
 
             }
             // dd($notifData);
-            if($notifData['form_steps'] == 6){
+            if($notifData['form_steps'] == 7){
                 $oldDetailValue['schedule'] = Schedule::find(Auth::user()->wedding_schedule->id);
             }
             Auth::user()->wedding_schedule->fill($data)->save();
@@ -109,7 +109,12 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             if($initially_complete === NULL || $initially_complete === 1){
                 $this->editFormNotification($data,$notifData,$oldDetailValue);
             }
+
+            if($data['is_final_step'] == 1){
+                Auth::user()->update(['is_disable_update'=>'Yes']);
+            }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
+
                 Auth::user()->wedding_schedule->update(['initially_complete'=>1]);
                  //add Notification
                  $notifData['customer_type'] = Notification::NEW_CUSTOMER_TYPE;

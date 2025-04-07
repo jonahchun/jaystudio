@@ -5,7 +5,7 @@ use App\Services\Model\Source\Status;
 use App\Services\Model\Source\Type;
 use App\Services\Model\Service;
 
-class multiForm extends \WFN\Admin\Block\Widget\AbstractForm
+class multiForm extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.customer.multi-service';
@@ -15,13 +15,13 @@ class multiForm extends \WFN\Admin\Block\Widget\AbstractForm
     	$customer_id = $this->instance->customer->id;
 
     	$selected_type = Service::select('type')->where('customer_id',$customer_id)->get()->toArray();
-    	
+
     	$selected_type_arr = [];
 
     	foreach ($selected_type as $key => $value) {
     		$selected_type_arr[] = $value['type'];
     	}
-    	
+
     	$this->addField('general', 'id', 'ID', 'hidden', ['required' => false]);
         $this->addField('general', 'customer_id', 'Customer ID', 'hidden', ['required' => true]);
     	$this->addField('general', 'type', 'Type', 'multiselect', [
