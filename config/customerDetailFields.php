@@ -3,6 +3,7 @@
 use App\Customer\Model\Source\NewlywedPosition;
 use App\Customer\Model\Source\NewlywedType;
 use App\Customer\Model\Source\IsBlock;
+use App\Customer\Model\Source\OnlineGalleryLinkSource;
 
 function getNewlywedFields($newlywedPosition) {
     return [
@@ -126,6 +127,14 @@ return [
             'options'  => [
                 'required' => false,
             ],
+        ],
+        'online_gallery_link_id' => [
+            'type'     => 'select',
+            'label'    => 'Online Gallery Link',
+            'options'  => [
+                'required' => true,
+                'source'   => OnlineGalleryLinkSource::class,
+            ]
         ],
     ],
     NewlywedType::FIRST . '_newlywed'  => getNewlywedFields(NewlywedType::FIRST),

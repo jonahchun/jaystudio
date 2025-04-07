@@ -3,7 +3,7 @@ namespace App\Services\Block\Admin\Service\EditRequests;
 
 use App\Services\Model\Source\EditRequest\Status;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.customer.service.edit_request';

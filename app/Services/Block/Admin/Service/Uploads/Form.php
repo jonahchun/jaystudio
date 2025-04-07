@@ -3,7 +3,7 @@ namespace App\Services\Block\Admin\Service\Uploads;
 
 use App\Services\Model\Source\Upload\Status;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.customer.service.uploads';
@@ -12,10 +12,10 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
     {
         $this->addField('general', 'id', 'ID', 'hidden', ['required' => false]);
         $this->addField('general', 'service_id', 'Service ID', 'hidden', ['required' => true]);
-        
+
         $this->addField('general', 'file', 'File', 'file');
         $this->addField('general', 'url_link', 'URL Link', 'text');
-        
+
         $this->addField('general', 'status', 'Status', 'select', [
             'readonly' => true,
             'source'   => Status::class,

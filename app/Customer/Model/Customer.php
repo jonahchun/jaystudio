@@ -2,6 +2,7 @@
 
 namespace App\Customer\Model;
 
+use App\Core\Model\OnlineGalleryLink;
 use App\Customer\Model\Newlywed;
 use App\Customer\Model\Address;
 use App\Customer\Model\Contact;
@@ -26,7 +27,7 @@ class Customer extends \WFN\Customer\Model\Customer
     const MEDIA_PATH = 'insurance_certificate' . DIRECTORY_SEPARATOR;
 
     protected $fillable = [
-        'id', 'email', 'password', 'api_token', 'account_id','is_disable_update','insurance_certificate_file'
+        'id', 'email', 'password', 'api_token', 'account_id','is_disable_update','insurance_certificate_file', 'online_gallery_link_id'
     ];
     protected $mediaFields = ['insurance_certificate_file'];
     public static function getAvailableRelations()
@@ -120,6 +121,11 @@ class Customer extends \WFN\Customer\Model\Customer
     public function online_gallery()
     {
         return $this->hasMany(OnlineGallery::class, 'customer_id');
+    }
+
+    public function onlineGalleryLink()
+    {
+        return $this->hasOne(OnlineGalleryLink::class, 'id','online_gallery_link_id');
     }
 
     public function teaser_photos()
