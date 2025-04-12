@@ -8,7 +8,7 @@
             <h2>Wedding Information</h2>
             <p>{{ \Settings::getConfigValue('wedding_info/description') }}</p>
         </div>
-        <div class="col-sm-4 text-sm-right">Deadline: {{ Auth::user()->wedding_date->subWeek()->format('F jS') }}</div>
+        <div class="col-sm-4 text-sm-right">Deadline: {{ Auth::user()->wedding_date->subWeeks(4)->format('F jS') }}</div>
     </header>
 </section>
 

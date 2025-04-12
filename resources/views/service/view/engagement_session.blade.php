@@ -2,15 +2,8 @@
 
 @section('content')
 
-    @include('service.view.parts.header', ['title' => __('Engagement Session')])
-    <div class="info-blocks">
-        <div class="info-block">
-            @include('service.view.parts.uploads', ['title' => __('Your Prototype Draft')])
-        </div>
-        <div class="info-block">
-        @include('service.view.parts.edit_requests')
-        </div>
-    </div>
+    @include('service.view.parts.header2', ['title' => __('Engagement Session')])
+
     @if(count($online_gallery) > 0)
         <header class="intro-heading row">
             <div class="col-12 col-sm-8">

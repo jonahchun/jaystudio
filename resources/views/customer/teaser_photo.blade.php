@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="teaser_content_wrap">
-        <h2 class="teaser_title">Teaser Photo</h2>
+        <h2 class="teaser_title">Wedding Teaser Photo</h2>
         @php
             $photoes_str = '';
             $photoes_arr = [];
