@@ -1,12 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $isEngagement = true;
+    @endphp
 	<header class="intro-heading row">
         <div class="col-12 col-sm-8">
             @if($gallery_name == App\Services\Model\Source\Type::ENGAGEMENT_SESSION)
                 <h2>{{ __('Engagement Photo') }}</h2>
             @endif
             @if($gallery_name == App\Services\Model\Source\Type::PHOTO)
+                    @php
+                        $isEngagement = false;
+                    @endphp
                 <h2>{{ __('Wedding Photo') }}</h2>
             @endif
 
@@ -22,6 +28,7 @@
         @endif
     </header>
 	<online-gallery
+        :is_engagement="{{ json_encode($isEngagement) }}"
         :online_gallery="{{ json_encode($online_gallery) }}"
         :online_gallery_link="{{ json_encode($online_gallery_link) }}"
         ></online-gallery>

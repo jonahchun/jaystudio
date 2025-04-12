@@ -29,10 +29,10 @@
                 <td class="text-center">
                     @include('service.parts.status')
                 </td>
-                <td class="text-center">
-                    @if(in_array($service->type, [\App\Services\Model\Source\Type::PHOTO, \App\Services\Model\Source\Type::VIDEO,\App\Services\Model\Source\Type::ENGAGEMENT_SESSION]))
+                <td class="text-right">
+                    @if(in_array($service->type, [\App\Services\Model\Source\Type::PHOTO, \App\Services\Model\Source\Type::VIDEO]))
                     <a class="btn-default--alt mb-2 mb-xl-0 mr-xl-2" href="{{ route('customer.wedding.info') }}">{{ __('Wedding Info') }}</a>
-                    @else
+                    @elseif(!in_array($service->type, [\App\Services\Model\Source\Type::ENGAGEMENT_SESSION]))
                     <a class="btn-default--alt mb-2 mb-xl-0 mr-xl-2" href="{{ route('service.order-form.view', ['service' => $service]) }}">{{ __('Order Form') }}</a>
                     @endif
                     <a class="btn-default--alt" href="{{ route('service.view', ['service' => $service]) }}">{{ __('View') }}</a>

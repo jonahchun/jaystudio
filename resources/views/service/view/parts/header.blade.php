@@ -9,7 +9,7 @@
 </div>
 
 <div class="col-xl-5 mt-2 mb-4 pl-0">
-    @include('service.parts.status.short')    
+    @include('service.parts.status.short')
 </div>
 
 <div class="col-9 pl-0">

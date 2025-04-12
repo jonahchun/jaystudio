@@ -81,7 +81,7 @@ class Customer extends \WFN\Customer\Model\Customer
 
     public function invoices()
     {
-        return $this->hasMany(Invoice::class)->orderBy('due_date', 'desc');
+        return $this->hasMany(Invoice::class)->orderBy('due_date', 'asc');
     }
 
     public function upcoming_invoices()

@@ -1,8 +1,7 @@
 <template>
     <div>
         <div v-if="!photos.length" class="float-left">
-            It’s not available yet! It takes 2-3 weeks for teaser photos and we
-            ask that you check back.
+            It’s not available yet! It takes up to 3 weeks for teaser photos and we will send you an email when it’s ready! Thank you for your patience.
         </div>
         <div class="gallery">
             <div class="gallery-panel" v-for="photo in photos" :key="photo.id">
