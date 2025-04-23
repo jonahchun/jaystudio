@@ -41,7 +41,7 @@ export default {
     data() {
         return {
             columns: [
-                {label: 'Description', width: '28'},
+                {label: 'Number', width: '28'},
                 {label: 'Type', width: '17'},
                 {label: 'Due Date', width: '20'},
                 {label: 'Total', width: '17'},
