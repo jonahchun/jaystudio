@@ -7,13 +7,13 @@
 	<header class="intro-heading row">
         <div class="col-12 col-sm-8">
             @if($gallery_name == App\Services\Model\Source\Type::ENGAGEMENT_SESSION)
-                <h2>{{ __('Engagement Photo') }}</h2>
+                <h2>{{ __('Engagement Photos') }}</h2>
             @endif
             @if($gallery_name == App\Services\Model\Source\Type::PHOTO)
                     @php
                         $isEngagement = false;
                     @endphp
-                <h2>{{ __('Wedding Photo') }}</h2>
+                <h2>{{ __('Wedding Photos') }}</h2>
             @endif
 
 

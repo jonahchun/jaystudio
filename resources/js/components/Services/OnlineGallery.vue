@@ -30,8 +30,8 @@
             </p>
         </div>
         <div v-else>
-            <p>It’s not available yet! It takes up to 12 weeks for teaser photos and we will send you an email when it’s
-                ready! Thank you for your patience.</p>
+            <p>It’s not available yet! It takes up to 12 weeks for wedding photos and we will send you an email when
+                it’s ready! Thank you for your patience.</p>
         </div>
     </div>
 
