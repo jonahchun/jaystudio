@@ -12,6 +12,7 @@ use App\Customer\Model\Wedding\Schedule as WeddingSchedule;
 use App\Customer\Model\Source\NewlywedType;
 use App\Customer\Model\Source\AddressType;
 use App\Payments\Model\Invoice;
+use App\Payments\Model\Source\Status;
 use Illuminate\Support\Carbon;
 use App\Core\Model\Traits\HasUploads;
 use App\Notification\Model\Notification;
@@ -86,7 +87,7 @@ class Customer extends \WFN\Customer\Model\Customer
 
     public function upcoming_invoices()
     {
-        return $this->invoices()->where('due_date', '<', Carbon::now()->addMonth());
+        return $this->invoices()->whereIn('status', [Status::DUE, Status::OVERDUE]);
     }
 
     public function newlywed_detail()
