@@ -1,7 +1,7 @@
 <?php
 namespace App\Customer\Block\Admin\Contact;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.customer.contact';

@@ -31,7 +31,7 @@
                     :key="index"
                     :class="{
                         'steps__list-item': true,
-                        'is-complete': current_step > index && !readonly,
+                        'is-complete': current_step > index || readonly,
                         'is-active': index == current_step
                     }"
                 >
@@ -1349,12 +1349,12 @@
                     Back
                 </button>
                 <button
-                    class="btn-primary submit-btn"
+                    class="btn-primary"
                     @click="submit"
                     type="submit"
                     style="width:59px;"
                 >
-                    Submit
+                    Next
                 </button>
             </div>
             <p class="h3 mb-4">
@@ -1407,6 +1407,26 @@
                     Back
                 </button>
                 <button
+                    class="btn-primary"
+                    @click="submit"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+        <div v-if="current_step == 6" class="schedule-forms">
+            <div class="schedule-form__action mb-4" v-if="!readonly">
+                <button
+                    class="btn-primary"
+                    @click="back"
+                    type="submit"
+                    style="width:59px;"
+                >
+                    Back
+                </button>
+                <button
                     class="btn-primary submit-btn"
                     @click="submit"
                     type="submit"
@@ -1415,6 +1435,13 @@
                     Submit
                 </button>
             </div>
+
+            <div class="alert alert-warning mb-4">
+                <strong>Important:</strong> Once you submit the forms, you are unable to add/change the information.
+                For further updates, please email us at <a style="color: blue; text-decoration: underline;"
+                                                           href="mailto:support@jaylimstudio.com">support@jaylimstudio.com</a>.
+            </div>
+
         </div>
     </form>
 </template>
@@ -1575,6 +1602,11 @@ export default {
             return JSON.stringify(Object.assign({}, fieldInfo));
         },
         back() {
+            if (this.readonly) {
+                this.current_step = Math.max(0, this.current_step - 1);
+                return false;
+            }
+
             $("#btn_type").val("back");
             this.form.validate();
             if (!this.form.valid()) {
@@ -1607,56 +1639,60 @@ export default {
         },
 
         getCurrentRelation: function() {
-            if (
-                !this.schedule[this.getCurrentRelationName(this.current_step)]
-            ) {
-                this.schedule[
-                    this.getCurrentRelationName(this.current_step)
-                ] = {};
+            if (!this.schedule[this.getCurrentRelationName(this.current_step)]) {
+                this.schedule[this.getCurrentRelationName(this.current_step)] = {
+                    address: {
+                        address_line_1: "",
+                        address_line_2: "",
+                        country: "",
+                        state: "",
+                        city: "",
+                        zip: ""
+                    }
+                };
             }
-            let currentRelation = this.schedule[
-                this.getCurrentRelationName(this.current_step)
-            ];
-            if (
-                !currentRelation.address ||
-                !currentRelation.address.address_line_1
-            ) {
-                currentRelation.address = this.schedule.first_newlywed_preparation.address;
-            }
-            return currentRelation;
+            return this.schedule[this.getCurrentRelationName(this.current_step)];
         },
         getCurrentRelationName: function() {
             return this.relations[this.current_step];
         },
         goToStep: function(event, step) {
+            event.preventDefault();
+
+            // In readonly mode, just update the current_step without submitting
+            if (this.readonly) {
+                this.current_step = step;
+                return false;
+            }
+
+            // Submit Form
             document.getElementById("go_prev_step").value = this.current_step;
-            if (step >= this.current_step && !this.readonly) {
+            if (step >= this.current_step) {
                 return false;
             } else {
                 $("#btn_type").val("gotostep");
                 $("#go_step").val(step);
                 this.form.validate();
-                if (!this.form.valid()) {
-                    event.preventDefault();
-                } else {
+                if (this.form.valid()) {
                     $("#wedding-schedule-form").submit();
                 }
             }
         },
         submit: function(event) {
+            if (this.readonly) {
+                event.preventDefault();
+                return false;
+            }
+
             this.form.validate();
             if (!this.form.valid()) {
                 event.preventDefault();
             } else {
-                var submitBtn = document.getElementsByClassName(
-                    "submit-btn"
-                )[0];
+                var submitBtn = document.getElementsByClassName("submit-btn")[0];
                 if (typeof submitBtn !== "undefined") {
                     if (submitBtn.type == "submit") {
                         this.is_final_step = 1;
-                        document.getElementById(
-                            "is_final_step"
-                        ).value = this.is_final_step;
+                        document.getElementById("is_final_step").value = this.is_final_step;
                     }
                 }
             }
@@ -1695,6 +1731,11 @@ export default {
                 currentRelation.address.hair_makeup_address_line_2 = null;
                 currentRelation.address.hair_makeup_address_line_1 = null;
             }
+        }
+    },
+    computed: {
+        isReadonly() {
+            return this.readonly;
         }
     }
 };

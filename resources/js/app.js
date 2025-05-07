@@ -56,6 +56,7 @@ Vue.component('teaser-photo', require('./components/Services/TeaserPhoto.vue').d
 Vue.component('photo', require('./components/Services/Photo.vue').default);
 Vue.component('photo', require('./components/Services/Photo.vue').default);
 Vue.component('online-gallery', require('./components/Services/OnlineGallery.vue').default);
+Vue.component('online-gallery-link', require('./components/WeddingInformation/OnlineGalleryLink.vue').default);
 
 Vue.component('order-form-image-edit', require('./components/Services/Parts/ImageEdit.vue').default);
 Vue.component('order-form-comment-edit', require('./components/Services/Parts/CommentEdit.vue').default);

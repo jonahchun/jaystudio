@@ -58,9 +58,9 @@
                             <span class="main-nav__item-text">{{ __('Photography') }}</span>
                         </a>
                         <ul class="main-nav__inner-nav">
-                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.online-gallery.index',App\Services\Model\Source\Type::ENGAGEMENT_SESSION) }}">{{ __('Engagement Photo') }}</a></li>
-                            <li class="main-nav__inner-nav-item"><a href=" {{ route('customer.teaser_photo.index') }}">{{ __('Teaser Photo') }}</a></li>
-                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.online-gallery.index',App\Services\Model\Source\Type::PHOTO) }}">{{ __('Wedding Photo') }}</a></li>
+                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.online-gallery.index',App\Services\Model\Source\Type::ENGAGEMENT_SESSION) }}">{{ __('Engagement Photos') }}</a></li>
+                            <li class="main-nav__inner-nav-item"><a href=" {{ route('customer.teaser_photo.index') }}">{{ __('Teaser Photos') }}</a></li>
+                            <li class="main-nav__inner-nav-item"><a href="{{ route('customer.online-gallery.index',App\Services\Model\Source\Type::PHOTO) }}">{{ __('Wedding Photos') }}</a></li>
                         </ul>
                     </li>
                     <li class="main-nav__item">
@@ -70,12 +70,18 @@
                         </a>
                     </li>
                     <li class="main-nav__item">
+                        <a href="{{ route('customer.online-gallery.link') }}">
+                            <svg class="icon icon-camera"><use xlink:href="#icon-camera"></use></svg>
+                            <span class="main-nav__item-text">{{ __('Online Gallery Link') }}</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item">
                         <a href="{{ route('paymets.invoice.list') }}">
                             <svg class="icon icon-invoices"><use xlink:href="#icon-invoices"></use></svg>
                             <span class="main-nav__item-text">{{ __('Invoices') }}</span>
                         </a>
                     </li>
-                    
+
                     <li class="main-nav__item">
                         <a href="{{ url('faq') }}" target="_blank">
                             <svg class="icon icon-help"><use xlink:href="#icon-help"></use></svg>

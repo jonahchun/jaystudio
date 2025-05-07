@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <tr v-for="invoice in this.invoices.data">
-                    <td>{{ invoice.invoice_id }}</td>
+                    <td>{{ invoice.item_description }}</td>
                     <td>
                         <svg v-show="invoice.type == 1" class="icon icon-card"><use xlink:href="#icon-card"></use></svg>
                         <svg v-show="invoice.type == 2" class="icon icon-cash"><use xlink:href="#icon-cash"></use></svg>
@@ -35,7 +35,7 @@
 
 <script>
 import axios from "axios";
-    
+
 export default {
     props: ['initial_invoices', 'detail_url', 'is_listing'],
     data() {

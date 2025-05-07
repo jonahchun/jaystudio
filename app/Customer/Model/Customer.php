@@ -2,6 +2,7 @@
 
 namespace App\Customer\Model;
 
+use App\Core\Model\OnlineGalleryLink;
 use App\Customer\Model\Newlywed;
 use App\Customer\Model\Address;
 use App\Customer\Model\Contact;
@@ -11,6 +12,7 @@ use App\Customer\Model\Wedding\Schedule as WeddingSchedule;
 use App\Customer\Model\Source\NewlywedType;
 use App\Customer\Model\Source\AddressType;
 use App\Payments\Model\Invoice;
+use App\Payments\Model\Source\Status;
 use Illuminate\Support\Carbon;
 use App\Core\Model\Traits\HasUploads;
 use App\Notification\Model\Notification;
@@ -26,7 +28,7 @@ class Customer extends \WFN\Customer\Model\Customer
     const MEDIA_PATH = 'insurance_certificate' . DIRECTORY_SEPARATOR;
 
     protected $fillable = [
-        'id', 'email', 'password', 'api_token', 'account_id','is_disable_update','insurance_certificate_file'
+        'id', 'email', 'password', 'api_token', 'account_id','is_disable_update','insurance_certificate_file', 'online_gallery_link_id'
     ];
     protected $mediaFields = ['insurance_certificate_file'];
     public static function getAvailableRelations()
@@ -80,12 +82,12 @@ class Customer extends \WFN\Customer\Model\Customer
 
     public function invoices()
     {
-        return $this->hasMany(Invoice::class)->orderBy('due_date', 'desc');
+        return $this->hasMany(Invoice::class)->orderBy('due_date', 'asc');
     }
 
     public function upcoming_invoices()
     {
-        return $this->invoices()->where('due_date', '<', Carbon::now()->addMonth());
+        return $this->invoices()->whereIn('status', [Status::DUE, Status::OVERDUE]);
     }
 
     public function newlywed_detail()
@@ -120,6 +122,11 @@ class Customer extends \WFN\Customer\Model\Customer
     public function online_gallery()
     {
         return $this->hasMany(OnlineGallery::class, 'customer_id');
+    }
+
+    public function onlineGalleryLink()
+    {
+        return $this->hasOne(OnlineGalleryLink::class, 'id','online_gallery_link_id');
     }
 
     public function teaser_photos()

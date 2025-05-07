@@ -16,18 +16,26 @@ use App\Services\Model\Source\Type as ServiceType;
 class OnlineGalleryController extends \WFN\Customer\Http\Controllers\Controller
 {
 
+    public function link(Request $request)
+    {
+        $user = Auth::user();
+        $name = $user->onlineGalleryLink->name;
+        $link = $user->onlineGalleryLink->url;
+        return view('customer.online-gallery.link', ['link' => $link, 'name' => $name]);
+    }
+
     public function index($gallery_name)
     {
         // Online Gallery Detail
         $link_count = OnlineGalleryLink::count();
 
         $online_gallery_link = '';
-        
+
         if($link_count > 0){
             $gallery_links = OnlineGalleryLink::first();
-            $online_gallery_link = $gallery_links->url; 
+            $online_gallery_link = $gallery_links->url;
         }
-        
+
         $online_gallery_data = Auth::user()->online_gallery()->with('services')->get()->toArray();
 
         $online_gallery = [];
@@ -38,12 +46,12 @@ class OnlineGalleryController extends \WFN\Customer\Http\Controllers\Controller
             if($link_value['services']['status'] == ServiceStatus::COMPLETE){
                 if($link_value['services']['type'] == ServiceType::PHOTO){
                     $config_file = new Gallery;
-                    $online_gallery_photo[$link_key] = $link_value; 
-                    $online_gallery_photo[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']); 
+                    $online_gallery_photo[$link_key] = $link_value;
+                    $online_gallery_photo[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']);
                 }
                 if($link_value['services']['type'] == ServiceType::ENGAGEMENT_SESSION){
                     $config_file = new EngagementSessionGallery;
-                    $online_gallery_engage[$link_key] = $link_value; 
+                    $online_gallery_engage[$link_key] = $link_value;
                     $online_gallery_engage[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']);
                 }
 

@@ -1,10 +1,11 @@
 <?php
 namespace App\Payments\Block\Admin\Invoice;
 
+use App\Payments\Model\Source\DescriptionSource;
 use App\Payments\Model\Source\Status;
 use App\Payments\Model\Source\Type;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     const PAYPAL_INVOICE_LINK = 'https://www.paypal.com/invoice/p/#';
@@ -47,7 +48,18 @@ class Form extends \WFN\Admin\Block\Widget\AbstractForm
         $this->addField('general', 'paypal_invoice_id', 'Paypal ', 'text', ['readonly' => true]);
 
         $this->addField('general', 'due_date', 'Due Date', 'date', ['format'   => config('app.date_format'),'required' => true]);
-        $this->addField('general', 'item_description', 'Item Description', 'text', ['required' => true]);
+
+        $this->addField(
+            'general',
+            'item_description',
+            'Item Description',
+            'select_tags',
+            [
+                'required' => true,
+                'source' => DescriptionSource::class,
+            ]
+        );
+
         $this->addField('general', 'amount', 'Amount', 'text', ['required' => true]);
         // $this->addField('general', 'tax_amount', 'Tax Amount', 'text', ['required' => true]);
         $this->buttons[] = [

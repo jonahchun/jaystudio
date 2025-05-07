@@ -1,7 +1,7 @@
 <?php
 namespace App\Core\Block\Admin\Question;
 
-class Form extends \WFN\Admin\Block\Widget\AbstractForm
+class Form extends \App\Core\Block\Admin\BaseForm
 {
 
     protected $adminRoute = 'admin.questions';

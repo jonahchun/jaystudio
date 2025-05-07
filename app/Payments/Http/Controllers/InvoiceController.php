@@ -5,6 +5,7 @@ namespace App\Payments\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Payments\Model\Invoice;
+use App\Payments\Model\Source\Status;
 
 class InvoiceController extends \WFN\Customer\Http\Controllers\Controller
 {
