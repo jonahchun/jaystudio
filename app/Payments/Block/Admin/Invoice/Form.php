@@ -57,6 +57,7 @@ class Form extends \App\Core\Block\Admin\BaseForm
             [
                 'required' => true,
                 'source' => DescriptionSource::class,
+                'current' => $this->instance->item_description ?? null,
             ]
         );
 
@@ -107,6 +108,44 @@ class Form extends \App\Core\Block\Admin\BaseForm
         $invoiceId = str_replace('INV2-', '', $invoiceId);
         $invoiceId = str_replace('-', '', $invoiceId);
         return self::PAYPAL_INVOICE_LINK . $invoiceId;
+    }
+
+    public function addField($group, $index, $label, $type = 'text', $options = [])
+    {
+        if(!empty($this->fields[$group][$index])) {
+            return false;
+        }
+
+        $fieldData = [
+            'name'     => $index,
+            'label'    => $label,
+            'type'     => $type,
+            'value'    => $this->getInstance()->getAttribute($index)
+        ];
+
+        $fieldData = array_merge($fieldData, $options);
+
+        if(!empty($fieldData['source'])) {
+            $sourceClass = $fieldData['source'];
+            $source = new $sourceClass();
+            if(!$source instanceof \WFN\Admin\Model\Source\AbstractSource) {
+                throw new \Exception('Source class "' . $sourceClass . '" should be instance of \WFN\Admin\Model\Source\AbstractSource');
+            }
+
+            if (isset($options['current'])){
+                $source->current = $options['current'];
+            }
+            $fieldData['source'] = $source;
+        } elseif($type == 'select') {
+            throw new \Exception('Source class required for "select" field');
+        }
+
+        if(!isset($this->fields[$group])) {
+            $this->fields[$group] = [];
+        }
+
+        $this->fields[$group][$index] = $fieldData;
+        return $this;
     }
 
 }

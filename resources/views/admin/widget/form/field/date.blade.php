@@ -35,11 +35,13 @@
         });
 
         let isProcessing = false;
-        elem.on('input', function () {
+        elem.on('input paste change', function (e) {
             if (isProcessing) return;
 
+            const delay = e.type === 'paste' ? 500 : 0;
+
             clearTimeout($(this).data('timeout'));
-            $(this).data('timeout', setTimeout(validateInput, 500));
+            $(this).data('timeout', setTimeout(() => validateInput(elem), delay));
         });
 
         function validateInput() {

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Block\Admin\Service;
 
+use App\Core\Model\OnlineGalleryLink;
 use App\Customer\Model\Source\OnlineGalleryLinkSource;
 use App\Services\Model\Source\LinkTypeSource;
 use App\Services\Model\Source\Status;
@@ -61,23 +62,47 @@ class Form extends \App\Core\Block\Admin\BaseForm
                 $gallery = new EngagementSessionGallery;
             }
 
-            $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
-                'columns' => [
-                    'gallery_name' => [
-                        'label' => 'Gallery Name',
-                        'type'  => 'select',
-                        'source'   => $gallery
+            if ($this->instance->customer->onlineGalleryLink === OnlineGalleryLink::ZENFOLIO) {
+                $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
+                    'columns' => [
+                        'gallery_name' => [
+                            'label' => 'Gallery Name',
+                            'type'  => 'select',
+                            'source'   => $gallery
+                        ],
+                        'access_code' => [
+                            'label' => 'Access Code',
+                            'type'  => 'text',
+                        ],
+                        'password' => [
+                            'label' => 'Password',
+                            'type'  => 'text',
+                        ],
                     ],
-                    'access_code' => [
-                        'label' => 'Access Code',
-                        'type'  => 'text',
+                ]);
+            } else {
+                $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
+                    'columns' => [
+                        'gallery_name' => [
+                            'label' => 'Gallery Name',
+                            'type'  => 'select',
+                            'source'   => $gallery
+                        ],
+                        'collection_url' => [
+                            'label' => 'Collection URL',
+                            'type'  => 'text',
+                        ],
+                        'collection_password' => [
+                            'label' => 'Collection Password',
+                            'type'  => 'text',
+                        ],
+                        'download_pin' => [
+                            'label' => 'Download PIN',
+                            'type'  => 'text',
+                        ],
                     ],
-                    'password' => [
-                        'label' => 'Password',
-                        'type'  => 'text',
-                    ],
-                ],
-            ]);
+                ]);
+            }
         }
         if($this->getInstance()->type == Type::PHOTO) {
                 $is_readonly = true;

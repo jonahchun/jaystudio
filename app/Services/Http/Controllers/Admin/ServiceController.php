@@ -363,8 +363,11 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                         $gallery->service_id = $request->input('id');
                         $gallery->customer_id = $request->input('customer_id');
                         $gallery->gallery_name = $gallery_data['gallery_name'];
-                        $gallery->access_code = $gallery_data['access_code'];
-                        $gallery->password = $gallery_data['password'];
+                        $gallery->access_code = $gallery_data['access_code'] ?? null;
+                        $gallery->password = $gallery_data['password'] ?? null;
+                        $gallery->collection_url = $gallery_data['collection_url'] ?? null;
+                        $gallery->collection_password = $gallery_data['collection_password'] ?? null;
+                        $gallery->download_pin = $gallery_data['download_pin'] ?? null;
 
                         $gallery->save();
                     }

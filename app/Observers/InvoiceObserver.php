@@ -18,14 +18,14 @@ class InvoiceObserver
     protected function sendPaymentReceivedEmail(Invoice $invoice)
     {
         $data = [
-            'first_newlywed_name'   => $invoice->customer->first_newlywed->first_name,
-            'second_newlywed_name'  => $invoice->customer->second_newlywed->first_name,
+            'first_newlywed_name' => $invoice->customer->first_newlywed->first_name,
+            'second_newlywed_name' => $invoice->customer->second_newlywed->first_name,
             'id' => $invoice->id,
             'amount' => $invoice->amount,
         ];
 
         Log::info('Email sent: "Payment received". Data: ' . print_r($data, true));
 
-        \MandrillMail::send('payment_received', $invoice->customer->email, $data);
+        \MandrillMail::send('payment-received', $invoice->customer->email, $data);
     }
 }
