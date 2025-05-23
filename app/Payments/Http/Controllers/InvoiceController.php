@@ -12,7 +12,7 @@ class InvoiceController extends \WFN\Customer\Http\Controllers\Controller
 
     public function index(Request $request)
     {
-        $invoices = Auth::user()->invoices()->where('status', Status::DUE)->paginate(7);
+        $invoices = Auth::user()->invoices()->paginate(7);
         return $request->ajax() ? $invoices : view('payments.invoice.list', compact('invoices'));
     }
 

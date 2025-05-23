@@ -267,7 +267,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                                 $notifData['field_type'] = $fieldInfo['type'];
                             }
                         }else{
-                            $oldDataVal = trim($getOldValue[$newDataKey][$newKey]);
+                            $oldDataVal = isset($getOldValue[$newDataKey][$newKey]) ? trim($getOldValue[$newDataKey][$newKey]) : '';
                             $newDataVal = trim($newVal);
                             if($newKey == 'comment' || $newKey == 'file'){
                                 $notifData['field_name'] = ($newKey == 'comment')?Notification::COMMENT_FIELD:Notification::FILE_FIELD;
@@ -283,7 +283,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
                             }
                             if(strcasecmp($newDataVal,$oldDataVal) != 0 ){
                                 $isEdit = 1;
-                                $notifData['old_data'] = $getOldValue[$newDataKey][$newKey];
+                                $notifData['old_data'] = isset($getOldValue[$newDataKey][$newKey]) ? trim($getOldValue[$newDataKey][$newKey]) : '';
                                 $notifData['new_data'] = $newVal;
                             }
                         }

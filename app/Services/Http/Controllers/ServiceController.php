@@ -34,26 +34,26 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
 
         // LINKS
         $old_links = Link::with('services')->where('service_id',$service->id)->get()->toArray();
-        
+
         $links = [];
 
         foreach ($old_links as $link_key => $link_value) {
             if($link_value['services']['status'] == ServiceStatus::COMPLETE){
-                $links[] = $link_value; 
+                $links[] = $link_value;
             }
         }
-        
+
         // Online Gallery Detail
         $link_count = OnlineGalleryLink::count();
 
         $online_gallery_link = '';
-        
+
         if($link_count > 0){
             $gallery_links = OnlineGalleryLink::first();
-            $online_gallery_link = $gallery_links->url; 
+            $online_gallery_link = $gallery_links->url;
         }
-        
-        $online_gallery_data = OnlineGallery::with('services')->where('service_id',$service->id)->get()->toArray();
+
+        $online_gallery_data = OnlineGallery::with('services', 'customer.onlineGalleryLink')->where('service_id',$service->id)->get()->toArray();
 
         $online_gallery = [];
 
@@ -65,17 +65,18 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
                     $config_file = new EngagementSessionGallery;
                 }
 
-                $online_gallery[$link_key] = $link_value; 
-                $online_gallery[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']); 
+                $data = $link_value;
+                $data['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']);;
+                $online_gallery[] = $data;
             }
         }
         $photos_data = Auth::user()->teaser_photos()->with('services')->take(4)->get()->toArray();
-        
+
         $photos = [];
 
         foreach ($photos_data as $photo_key => $photo_value) {
             if($photo_value['services']['status'] == ServiceStatus::PROCESSING){
-                $photos[] = $photo_value; 
+                $photos[] = $photo_value;
             }
         }
         return view('service.view.' . $service->type, compact('service','links','online_gallery_link','online_gallery','photos'));
@@ -99,7 +100,7 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
         if(!$service->detail) {
             return redirect()->route('service.order-form.new', ['service' => $service]);
         }
-        
+
         return view('service.order-form.view.' . $service->type, compact('service'));
     }
 
@@ -113,7 +114,7 @@ class ServiceController extends \WFN\Customer\Http\Controllers\Controller
             } else {
                 $service->detail->fill($data)->save();
             }
-            
+
             $service->setAttribute('status', ServiceStatus::ORDER_FORM_SUBMITTED)->save();
             $service->addStatusHistoryComment();
         } catch (\Exception $e) {
