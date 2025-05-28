@@ -62,7 +62,7 @@ class Form extends \App\Core\Block\Admin\BaseForm
                 $gallery = new EngagementSessionGallery;
             }
 
-            if ($this->instance->customer->onlineGalleryLink === OnlineGalleryLink::ZENFOLIO) {
+            if ($this->instance->customer->onlineGalleryLink->name === OnlineGalleryLink::ZENFOLIO) {
                 $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
                     'columns' => [
                         'gallery_name' => [
