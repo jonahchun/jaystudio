@@ -62,47 +62,72 @@ class Form extends \App\Core\Block\Admin\BaseForm
                 $gallery = new EngagementSessionGallery;
             }
 
-            if ($this->instance->customer->onlineGalleryLink->name === OnlineGalleryLink::ZENFOLIO) {
-                $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
-                    'columns' => [
-                        'gallery_name' => [
-                            'label' => 'Gallery Name',
-                            'type'  => 'select',
-                            'source'   => $gallery
+            switch ($this->instance->customer->onlineGalleryLink->name) {
+                case OnlineGalleryLink::ZENFOLIO:
+                    $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
+                        'columns' => [
+                            'gallery_name' => [
+                                'label' => 'Gallery Name',
+                                'type'  => 'select',
+                                'source'   => $gallery
+                            ],
+                            'access_code' => [
+                                'label' => 'Access Code',
+                                'type'  => 'text',
+                            ],
+                            'password' => [
+                                'label' => 'Password',
+                                'type'  => 'text',
+                            ],
                         ],
-                        'access_code' => [
-                            'label' => 'Access Code',
-                            'type'  => 'text',
+                    ]);
+                    break;
+
+                case OnlineGalleryLink::PIXIESET:
+                    $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
+                        'columns' => [
+                            'collection_url' => [
+                                'label' => 'Collection URL',
+                                'type'  => 'text',
+                            ],
+                            'collection_password' => [
+                                'label' => 'Collection Password',
+                                'type'  => 'text',
+                            ],
+                            'download_pin' => [
+                                'label' => 'Download PIN',
+                                'type'  => 'text',
+                            ],
                         ],
-                        'password' => [
-                            'label' => 'Password',
-                            'type'  => 'text',
+                    ]);
+                    break;
+
+                default:
+                    $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
+                        'columns' => [
+                            'gallery_name' => [
+                                'label' => 'Gallery Name',
+                                'type'  => 'select',
+                                'source'   => $gallery
+                            ],
+                            'collection_url' => [
+                                'label' => 'Collection URL',
+                                'type'  => 'text',
+                            ],
+                            'collection_password' => [
+                                'label' => 'Collection Password',
+                                'type'  => 'text',
+                            ],
+                            'download_pin' => [
+                                'label' => 'Download PIN',
+                                'type'  => 'text',
+                            ],
                         ],
-                    ],
-                ]);
-            } else {
-                $this->addField('general', 'online_gallery', 'Online Gallery', 'rows', [
-                    'columns' => [
-                        'gallery_name' => [
-                            'label' => 'Gallery Name',
-                            'type'  => 'select',
-                            'source'   => $gallery
-                        ],
-                        'collection_url' => [
-                            'label' => 'Collection URL',
-                            'type'  => 'text',
-                        ],
-                        'collection_password' => [
-                            'label' => 'Collection Password',
-                            'type'  => 'text',
-                        ],
-                        'download_pin' => [
-                            'label' => 'Download PIN',
-                            'type'  => 'text',
-                        ],
-                    ],
-                ]);
+                    ]);
+                    break;
+
             }
+
         }
         if($this->getInstance()->type == Type::PHOTO) {
                 $is_readonly = true;

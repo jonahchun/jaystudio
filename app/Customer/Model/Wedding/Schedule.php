@@ -14,13 +14,13 @@ class Schedule extends Model
 
     protected $table = 'customer_wedding_schedule';
 
-    protected $fillable = ['availability', 'comment','initially_complete', 'file', 'current_step', 'first_week', 'first_time', 'second_week', 'second_time', 'third_week', 'third_time' ];
+    protected $fillable = ['availability', 'comment','initially_complete', 'file', 'ws_file', 'current_step', 'first_week', 'first_time', 'second_week', 'second_time', 'third_week', 'third_time' ];
 
     protected $_relations = ['first_newlywed_preparation', 'second_newlywed_preparation',
         'ceremony', 'reception', 'portrait_session','first_newlywed_address','second_newlywed_address'
     ];
 
-    protected $mediaFields = ['file'];
+    protected $mediaFields = ['file', 'wedding_schedule'];
 
     public function fill(array $attributes)
     {
@@ -32,6 +32,10 @@ class Schedule extends Model
                 if(!empty($value['file']) && $value['file'] instanceof \Illuminate\Http\UploadedFile) {
                     $value = $this->_uploadFile($value['file']);
                     $attributes[$key] = $value;
+                }
+                if(!empty($value['ws-file']) && $value['ws-file'] instanceof \Illuminate\Http\UploadedFile) {
+                    $value = $this->_uploadFile($value['ws-file']);
+                    $attributes['ws_file'] = $value;
                 }
                 // elseif(strpos($value, 'tmp/') === 0) {
                 //     $value = $this->_moveFromTmp($value);

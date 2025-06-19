@@ -5,7 +5,6 @@
                 <table class="info-table">
                     <thead>
                     <tr>
-                        <td>Gallery Name</td>
                         <td>Collection URL</td>
                         <td>Collection Password</td>
                         <td>Download PIN</td>
@@ -13,7 +12,6 @@
                     </thead>
                     <tbody>
                     <tr v-for="gallery in this.online_gallery">
-                        <td width="30%">{{ gallery.gallery_name }}</td>
                         <td width="30%"><a style="color: blue;" target="_blank" :href="gallery.collection_url" >{{ gallery.collection_url }}</a></td>
                         <td width="20%">{{ gallery.collection_password }}</td>
                         <td width="20%">{{ gallery.download_pin }}</td>
