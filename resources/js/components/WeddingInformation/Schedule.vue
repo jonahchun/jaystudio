@@ -1436,14 +1436,14 @@
                 </button>
             </div>
 
-            <div v-if="!schedule.ws_file.length" class="alert alert-warning mb-4">
-                <p>Will be provided by our Team after the final call.</p>
+            <div v-if="!!!schedule.ws_file" class="alert alert-warning mb-4">
+                <p style="color:#393939;">Will be provided by our Team after the final call.</p>
                 <strong>Important:</strong> Once you submit the forms, you are unable to add/change the information.
                 For further updates, please email us at <a style="color: blue; text-decoration: underline;"
                                                            href="mailto:support@jaylimstudio.com">support@jaylimstudio.com</a>.
             </div>
 
-            <div v-if="schedule.ws_file.length" class="mb-4 mt-1" style="position: relative;z-index: 9999">
+            <div v-if="!!schedule.ws_file" class="mb-4 mt-1" style="position: relative;z-index: 9999">
                 <a :href="getDownloadLink(schedule.ws_file)" download target="_blank" class="h3" style="color:#393939;cursor:pointer">Download Wedding Schedule</a>
             </div>
 
