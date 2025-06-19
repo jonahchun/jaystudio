@@ -42,6 +42,9 @@
                             <a class="nav-link" data-toggle="tab" href="#schedule_other_information">Other
                                 Information</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#wedding_schedule">Wedding schedule</a>
+                        </li>
                     </ul>
 
                     <!-- Tabs Content -->
@@ -94,6 +97,32 @@
                                 'readonly'    => true,
                                 'publicValue' => $weddingSchedule->file ? $weddingSchedule->getAttributeUrl('file') : false
                             ])
+                        </div>
+                        <div id="wedding_schedule" class="container tab-pane">
+                            @php
+                                $readonly = $id = false;
+                                $name = 'wedding_schedule';
+                                $value = $weddingSchedule->ws_file;
+                                $publicValue = $weddingSchedule->ws_file ? $weddingSchedule->getAttributeUrl('file') : false;
+                            @endphp
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="hidden" @if(!empty($readonly)) disabled="disabled" @endif class="{{$name}}" name="{{ $name }}" value="{{ $value }}" />
+                                    <input type="file" @if(!empty($readonly)) disabled="disabled" @endif name="{{ $name }}[ws-file]" class="custom-file-input" id="{{ !empty($id) ? $id : $name }}FileInput" value="{{ $value }}" />
+                                    <label class="custom-file-label" for="{{ !empty($id) ? $id : $name }}FileInput">{{ $value ?: 'Choose file' }}</label>
+                                </div>
+                                @if(!empty($publicValue) || (!empty($form) && is_callable([$form->getInstance(), 'getAttributeUrl']) && $publicValue = $form->getInstance()->getAttributeUrl($name)))
+                                    <div class="input-group-append">
+                                        @if(($field['name'] == 'wedding_schedule' || $field['name'] == 'wedding_checklist' || $field['name'] =="file"))
+                                            @if($value != '')
+                                                <a href="/storage/customer-wedding-schedule/{{ $value }}" class="download_files" id="{{$name}}" data-attr="{{$field['name']}}">View</a>
+                                            @endif
+                                        @else
+                                            <a href="{{ $publicValue }}" target="_blank" class="download_files">View</a>
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
