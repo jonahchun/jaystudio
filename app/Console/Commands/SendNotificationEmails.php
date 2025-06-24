@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Services\Model\Source\Status;
 use App\Services\Model\Source\Type;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SendNotificationEmails extends Command
 {
@@ -69,7 +71,7 @@ class SendNotificationEmails extends Command
         // }
         switch($historyComment->service->type) {
             case Type::PHOTO:
-                $this->_sendPhotoCompleteEmail($historyComment);
+                // $this->_sendPhotoCompleteEmail($historyComment);
                 break;
             case Type::VIDEO:
                 $this->_sendVideoCompleteEmail($historyComment);

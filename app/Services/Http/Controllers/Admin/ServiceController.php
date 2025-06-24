@@ -2,6 +2,7 @@
 namespace App\Services\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Model\Source\Type as ServiceType;
 use App\Services\Model\Source\Status;
@@ -169,6 +170,11 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             $getPrivousStatus = $this->entity->findOrFail($id);
             $service->update(['status' => $status]);
             $service->addStatusHistoryComment($comment);
+            if($service->type == ServiceType::PHOTO && $status == Status::COMPLETE){
+                if($getPrivousStatus->status != $service->status){
+                    $this->sendPhotographyCompleteEmail($service, $comment);
+                }
+            }
             if($service->type == ServiceType::ENGAGEMENT_SESSION && $status == 3){
                 if($getPrivousStatus->status != $service->status){
                     $this->sendEngagementSessionCompleteEmail($service);
@@ -193,6 +199,27 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
                 'save_the_date_link'   => $stdService ? url(route('service.view', ['service' => $stdService])) : '',
                 'service_detail_link'  => url(route('service.view', ['service' => $service])),
             ], \Settings::getConfigValue('email/engagement-session-done_email_recipients'));
+        } catch (\Exception $e) {
+            Alert::addError('Something went wrong. Please, try again later');
+        }
+    }
+
+    public function sendPhotographyCompleteEmail ($service, $comment){
+        try {
+            $customer = $service->customer;
+            $query = $customer->invoices()->where('status', '!=', \App\Payments\Model\Source\Status::PAID);
+            $totalDue = $query->sum('amount') + $query->sum('tax_amount');
+            $data = [
+                'first_newlywed_name'  => $customer->first_newlywed->first_name,
+                'second_newlywed_name' => $customer->second_newlywed->first_name,
+                'location_name'        => optional($service->pickup_location)->title,
+                'balance_amount'       => '$' . number_format($totalDue, 2),
+                'service_detail_link'  => url(route('service.view', ['service' => $service])),
+                'comment'              => $comment ?: ' ',
+            ];
+            Log::info('Photography Complete Sent Successfully' . print_r($data, true));
+
+            \MandrillMail::send('photography-complete', $customer->email, $data, \Settings::getConfigValue('email/photography-complete_email_recipients'));
         } catch (\Exception $e) {
             Alert::addError('Something went wrong. Please, try again later');
         }
