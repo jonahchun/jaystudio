@@ -35,9 +35,9 @@
                         'is-active': index == current_step
                     }"
                 >
-                    <a @click="event => goToStep(event, index)" href="">{{
-                        step
-                    }}</a>
+                    <a @click="event => goToStep(event, index)" href="">
+                        <span v-html="step"></span><span v-if="current_step == 6 && index == 6" >. <span style="font-size:9px;">(Will be provided by our Team after final call.)</span></span>
+                    </a>
                 </li>
             </ol>
         </nav>
