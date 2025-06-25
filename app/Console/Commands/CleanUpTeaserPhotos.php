@@ -22,11 +22,12 @@ class CleanUpTeaserPhotos extends Command
             ->join('customer', 'customer.id', '=', 'service_teaser_photos.customer_id')
             ->join('services', 'services.customer_id', '=', 'service_teaser_photos.customer_id')
             ->join('customer_details', 'customer_details.customer_id', '=', 'service_teaser_photos.customer_id')
-            ->where('customer_details.wedding_date', '<', Carbon::now()->subYears(1)->format('Y-m-d'))
+            ->where('customer_details.wedding_date', '<', Carbon::now()->subDays(config('common.cleanPhotosSubDays'))->format('Y-m-d'))
             ->where('services.type', Type::PHOTO)
             ->whereIn('services.status', [Status::PROCESSING, Status::COMPLETE])
 //            ->where('customer.id', 73)
             ->limit(500)
+            ->orderBy('customer_details.wedding_date', 'desc')
             ->get();
 
         foreach ($photos as $photo) {
