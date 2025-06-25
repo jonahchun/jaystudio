@@ -24,8 +24,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $interval = config('common.sendNotificationEmailsCron');
+        if ($interval === '*') {
+            $schedule->command('customer:send_notification_emails')->everyMinute();
+        } else {
+            $schedule->command('customer:send_notification_emails')->cron($interval);
+        }
+
+        $interval = config('common.cleanPhotosCron');
+        if ($interval === '*') {
+            $schedule->command('customer:cleanUpTeaserPhotos')->everyMinute();
+        } else {
+            $schedule->command('customer:cleanUpTeaserPhotos')->cron($interval);
+        }
     }
 
     /**
