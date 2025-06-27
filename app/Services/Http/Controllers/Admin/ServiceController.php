@@ -170,11 +170,6 @@ class ServiceController extends \WFN\Admin\Http\Controllers\Crud\Controller
             $getPrivousStatus = $this->entity->findOrFail($id);
             $service->update(['status' => $status]);
             $service->addStatusHistoryComment($comment);
-            if($service->type == ServiceType::PHOTO && $status == Status::COMPLETE){
-                if($getPrivousStatus->status != $service->status){
-                    $this->sendPhotographyCompleteEmail($service, $comment);
-                }
-            }
             if($service->type == ServiceType::ENGAGEMENT_SESSION && $status == 3){
                 if($getPrivousStatus->status != $service->status){
                     $this->sendEngagementSessionCompleteEmail($service);
