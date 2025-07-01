@@ -18,14 +18,30 @@ class InvoiceObserver
     protected function sendPaymentReceivedEmail(Invoice $invoice)
     {
         $data = [
-            'first_newlywed_name'   => $invoice->customer->first_newlywed->first_name,
-            'second_newlywed_name'  => $invoice->customer->second_newlywed->first_name,
+            'first_newlywed_name' => $invoice->customer->first_newlywed->first_name,
+            'second_newlywed_name' => $invoice->customer->second_newlywed->first_name,
             'id' => $invoice->id,
             'amount' => $invoice->amount,
         ];
 
         Log::info('Email sent: "Payment received". Data: ' . print_r($data, true));
 
-        \MandrillMail::send('payment_received', $invoice->customer->email, $data);
+        try {
+            $result = \MandrillMail::send('payment-received', $invoice->customer->email, $data);
+
+            if ($result === true) {
+                Log::info('Mandrill send command returned true');
+            } elseif ($result === false) {
+                Log::warning('Mandrill send command returned false - email likely not sent');
+            } else {
+                Log::info('Mandrill response:', is_array($result) ? $result : ['response' => $result]);
+            }
+        } catch (\Exception $e) {
+            Log::error('Mandrill sending failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+        }
+
     }
 }

@@ -35,9 +35,9 @@
                         'is-active': index == current_step
                     }"
                 >
-                    <a @click="event => goToStep(event, index)" href="">{{
-                        step
-                    }}</a>
+                    <a @click="event => goToStep(event, index)" href="">
+                        <span v-html="step"></span><span v-if="current_step == 6 && index == 6" >. <span style="font-size:9px;">(Will be provided by our Team after final call.)</span></span>
+                    </a>
                 </li>
             </ol>
         </nav>
@@ -1416,7 +1416,7 @@
                 </button>
             </div>
         </div>
-        <div v-if="current_step == 6" class="schedule-forms">
+        <div v-if="current_step == 6" class="schedule-forms" style="pointer-events:auto">
             <div class="schedule-form__action mb-4" v-if="!readonly">
                 <button
                     class="btn-primary"
@@ -1436,11 +1436,17 @@
                 </button>
             </div>
 
-            <div class="alert alert-warning mb-4">
+            <div v-if="!!!schedule.ws_file" class="alert alert-warning mb-4">
+                <p style="color:#393939;">Will be provided by our Team after the final call.</p>
                 <strong>Important:</strong> Once you submit the forms, you are unable to add/change the information.
                 For further updates, please email us at <a style="color: blue; text-decoration: underline;"
                                                            href="mailto:support@jaylimstudio.com">support@jaylimstudio.com</a>.
             </div>
+
+            <div v-if="!!schedule.ws_file" class="mb-4 mt-1" style="position: relative;z-index: 9999">
+                <a :href="getDownloadLink(schedule.ws_file)" download target="_blank" class="h3" style="color:#393939;cursor:pointer">Download Wedding Schedule</a>
+            </div>
+
 
         </div>
     </form>
@@ -1594,6 +1600,9 @@ export default {
         }
     },
     methods: {
+        getDownloadLink: function(link) {
+            return '/storage/customer-wedding-schedule/' + link;
+        },
         getFieldInfo(fieldVal, fieldType) {
             var fieldInfo = [];
             fieldInfo["val"] = fieldVal;

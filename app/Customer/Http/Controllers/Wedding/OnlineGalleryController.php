@@ -36,7 +36,7 @@ class OnlineGalleryController extends \WFN\Customer\Http\Controllers\Controller
             $online_gallery_link = $gallery_links->url;
         }
 
-        $online_gallery_data = Auth::user()->online_gallery()->with('services')->get()->toArray();
+        $online_gallery_data = Auth::user()->online_gallery()->with('services', 'customer.onlineGalleryLink')->get()->toArray();
 
         $online_gallery = [];
         $online_gallery_engage = [];
@@ -46,13 +46,15 @@ class OnlineGalleryController extends \WFN\Customer\Http\Controllers\Controller
             if($link_value['services']['status'] == ServiceStatus::COMPLETE){
                 if($link_value['services']['type'] == ServiceType::PHOTO){
                     $config_file = new Gallery;
-                    $online_gallery_photo[$link_key] = $link_value;
-                    $online_gallery_photo[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']);
+                    $data = $link_value;
+                    $data['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']);
+                    $online_gallery_photo[] = $data;
                 }
                 if($link_value['services']['type'] == ServiceType::ENGAGEMENT_SESSION){
                     $config_file = new EngagementSessionGallery;
-                    $online_gallery_engage[$link_key] = $link_value;
-                    $online_gallery_engage[$link_key]['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']);
+                    $data = $link_value;
+                    $data['gallery_name'] = $config_file->getOptionLabel($link_value['gallery_name']);
+                    $online_gallery_engage[0] = $data;
                 }
 
             }

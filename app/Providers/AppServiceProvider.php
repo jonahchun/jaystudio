@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Observers\InvoiceObserver;
+use App\Observers\PhotographyCompleteObserver;
 use App\Payments\Model\Invoice;
+use App\Services\Model\Service;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -34,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Invoice::observe(InvoiceObserver::class);
+        Service::observe(PhotographyCompleteObserver::class);
     }
 }

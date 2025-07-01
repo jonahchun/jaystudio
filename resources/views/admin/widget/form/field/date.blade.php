@@ -24,7 +24,6 @@
     $format = str_replace('d', 'dd', $format);
 @endphp
 <script type="text/javascript">
-
     $(function () {
         const elem = $('input[name="{{ $name }}"]');
 
@@ -32,27 +31,34 @@
             format: 'mm/dd/yyyy',
             autoclose: true,
             todayHighlight: true
+        }).on('changeDate', function(e) {
+            elem.datepicker('hide');
         });
 
         let isProcessing = false;
-        elem.on('input', function () {
+        elem.on('input paste change', function (e) {
             if (isProcessing) return;
 
-            clearTimeout($(this).data('timeout'));
-            $(this).data('timeout', setTimeout(validateInput, 500));
+            const isPasteEvent = e.type === 'paste';
+            validateInput(elem, isPasteEvent)
+
         });
 
-        function validateInput() {
-            const $input = elem;
-            const inputDate = $input.val().trim();
-
+        function validateInput(inputElem, shouldOpenPicker = false) {
+            const inputDate = inputElem.val().trim();
             if (!inputDate) return;
+
             isProcessing = true;
 
             if (isValidDateFormat(inputDate)) {
                 const parsedDate = parseMultiFormatDate(inputDate);
                 if (parsedDate) {
-                    $input.datepicker('setDate', parsedDate);
+                    inputElem.datepicker('update', parsedDate);
+                    if (shouldOpenPicker) {
+                        setTimeout(() => {
+                            inputElem.datepicker('show');
+                        }, 50);
+                    }
                 }
             }
 
@@ -65,12 +71,10 @@
 
         function parseMultiFormatDate(dateStr) {
             if (!dateStr) return null;
-
             dateStr = dateStr.trim();
 
             const separator = dateStr.includes('/') ? '/' :
                 dateStr.includes('-') ? '-' : null;
-
             if (!separator) return null;
 
             const parts = dateStr.split(separator);
@@ -82,9 +86,7 @@
             }
 
             const date = new Date(year, month - 1, day);
-            if (isNaN(date.getTime())) return null;
-            return date;
+            return isNaN(date.getTime()) ? null : date;
         }
     });
-
 </script>

@@ -1,3 +1,6 @@
+<?php
+    use App\Core\Model\OnlineGalleryLink;
+    ?>
 @extends('layouts.app')
 
 @section('content')
@@ -18,7 +21,8 @@
 
 
         </div>
-        @if(count($online_gallery) > 0)
+        @if(count($online_gallery) > 0 && isset($online_gallery[0]['customer']['online_gallery_link']['name'])
+            && $online_gallery[0]['customer']['online_gallery_link']['name'] === OnlineGalleryLink::ZENFOLIO)
 	        <div class="col-12 col-sm-4 text-sm-right">
 	            <a class="link-primary" href="{{$online_gallery_link}}" target="_blank">{{ __('Online Gallery') }}</a>
 	        </div>

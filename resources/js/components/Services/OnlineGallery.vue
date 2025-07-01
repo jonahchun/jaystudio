@@ -1,23 +1,46 @@
 <template>
     <div v-if="GalleryLength != 0">
-        <div class="table-responsive">
-            <table class="info-table">
-                <thead>
-                <tr>
-                    <td>Gallery Name</td>
-                    <td>Access Code</td>
-                    <td>Password</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="gallery in this.online_gallery">
-                    <td width="50%">{{ gallery.gallery_name }}</td>
-                    <td width="25%">{{ gallery.access_code }}</td>
-                    <td width="25%">{{ gallery.password }}</td>
-                </tr>
-                </tbody>
-            </table>
+        <div v-if="this.online_gallery[0].customer.online_gallery_link.name === 'Pixieset'">
+            <div class="table-responsive">
+                <table class="info-table">
+                    <thead>
+                    <tr>
+                        <td>Collection URL</td>
+                        <td>Collection Password</td>
+                        <td>Download PIN</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="gallery in this.online_gallery">
+                        <td width="30%"><a style="color: blue;" target="_blank" :href="gallery.collection_url" >{{ gallery.collection_url }}</a></td>
+                        <td width="20%">{{ gallery.collection_password }}</td>
+                        <td width="20%">{{ gallery.download_pin }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <div v-if="this.online_gallery[0].customer.online_gallery_link.name === 'Zenfolio'">
+            <div class="table-responsive">
+                <table class="info-table">
+                    <thead>
+                    <tr>
+                        <td>Gallery Name</td>
+                        <td>Access Code</td>
+                        <td>Password</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="gallery in this.online_gallery">
+                        <td width="50%">{{ gallery.gallery_name }}</td>
+                        <td width="25%">{{ gallery.access_code }}</td>
+                        <td width="25%">{{ gallery.password }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
     <div v-else>
         <div v-if="is_engagement">
