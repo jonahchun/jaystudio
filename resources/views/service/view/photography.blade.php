@@ -70,7 +70,6 @@ use App\Core\Model\OnlineGalleryLink;
                     <table class="info-table">
                         <thead>
                         <tr>
-                            <td>Gallery Name</td>
                             <td>Collection URL</td>
                             <td>Collection Password</td>
                             <td>Download PIN</td>
@@ -79,10 +78,9 @@ use App\Core\Model\OnlineGalleryLink;
                         <tbody>
                         @foreach($online_gallery as $link)
                             <tr>
-                                <td width="30%">{{ $link['gallery_name'] }}</td>
-                                <td width="30%"><a style="color: blue; text-decoration: underline;" target="_blank" href="{{ $link['collection_url'] }}" >{{ $link['collection_url'] }}</a></td>
-                                <td width="20%">{{ $link['collection_password'] }}</td>
-                                <td width="20%">{{ $link['download_pin'] }}</td>
+                                <td width="50%"><a style="color: blue; text-decoration: underline;" target="_blank" href="{{ $link['collection_url'] }}" >{{ $link['collection_url'] }}</a></td>
+                                <td width="25%">{{ $link['collection_password'] }}</td>
+                                <td width="25%">{{ $link['download_pin'] }}</td>
                             </tr>
                         @endforeach
                         </tbody>
