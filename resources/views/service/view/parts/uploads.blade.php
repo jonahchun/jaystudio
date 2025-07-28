@@ -18,20 +18,38 @@
             </tr>
         </thead>
         <tbody>
-        @if(!$service->uploads()->count())    
+        @if(!$service->uploads()->count())
             <tr>
-                <td class="file"></td>
-                <td class="date"></td>
-                <td class="status"></td>
-                <td class="action"></td>
+                <td class="file">
+                    <span class="label">{{ __('File Name') }}</span>
+                </td>
+                <td class="date">
+                    <span class="label">{{ __('Date Uploaded') }}</span>
+                </td>
+                <td class="status">
+                    <span class="label">{{ __('Status') }}</span>
+                </td>
+                <td class="action">
+                    <span class="label">{{ __('Action') }}</span>
+                </td>
             </tr>
         @else
             @foreach($service->uploads as $upload)
             <tr>
-                <td class="file">{{ $upload->file_title }}</td>
-                <td class="date">{{ $upload->created_at->format('d M Y') }}</td>
-                <td class="status {{ strtolower(str_replace(' ', '-', $upload->status_label )) }}">{{ $upload->status_label }}</td>
+                <td class="file">
+                    <span class="label">{{ __('File Name') }}</span>
+                    {{ $upload->file_title }}
+                </td>
+                <td class="date">
+                    <span class="label">{{ __('Date Uploaded') }}</span>
+                    {{ $upload->created_at->format('d M Y') }}
+                </td>
+                <td class="status {{ strtolower(str_replace(' ', '-', $upload->status_label )) }}">
+                    <span class="label">{{ __('Status') }}</span>
+                    {{ $upload->status_label }}
+                </td>
                 <td class="action">
+                    <span class="label">{{ __('Action') }}</span>
                     <div class="row">
                         <a class="action-download" href="{{ $upload->file_url }}" target="_blank">
                             <svg class="action-download-icon">

@@ -31,15 +31,36 @@
         <tbody>
         @if(!$service->edit_requests()->count())
             <tr>
-                <td class="date"></td><td class="version"></td><td class="status"></td><td class="action"></td>
+                <td class="date">
+                    <span class="label">{{ __('Date') }}</span>
+                </td>
+                <td class="version">
+                    <span class="label">{{ __('Version #') }}</span>
+                </td>
+                <td class="status">
+                    <span class="label">{{ __('Status') }}</span>
+                </td>
+                <td class="action">
+                    <span class="label">{{ __('Action') }}</span>
+                </td>
             </tr>
         @else
             @foreach($service->edit_requests as $iterator => $request)
             <tr>
-                <td class="date">{{ $request->created_at->format('d M Y') }}</td>
-                <td class="version">{{ $iterator + 1 }}</td>
-                <td class="status {{ strtolower(str_replace(' ', '-', $request->status_label)) }}">{{ $request->status_label }}</td>
+                <td class="date">
+                    <span class="label">{{ __('Date') }}</span>
+                    {{ $request->created_at->format('d M Y') }}
+                </td>
+                <td class="version">
+                    <span class="label">{{ __('Version #') }}</span>
+                    {{ $iterator + 1 }}
+                </td>
+                <td class="status {{ strtolower(str_replace(' ', '-', $request->status_label)) }}">
+                    <span class="label">{{ __('Status') }}</span>
+                    {{ $request->status_label }}
+                </td>
                 <td class="action">
+                    <span class="label">{{ __('Action') }}</span>
                     <a class="btn-default--alt" href="{{ route('service.edit-request.view', ['edit_request' => $request, 'service' => $service])}}">
                         {{ __('View') }}
                     </a>
