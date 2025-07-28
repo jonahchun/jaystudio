@@ -12,9 +12,19 @@
                     </thead>
                     <tbody>
                     <tr v-for="gallery in this.online_gallery">
-                        <td width="30%"><a style="color: blue;" target="_blank" :href="gallery.collection_url" >{{ gallery.collection_url }}</a></td>
-                        <td width="20%">{{ gallery.collection_password }}</td>
-                        <td width="20%">{{ gallery.download_pin }}</td>
+                        <td width="30%">
+                            <span class="label">Collection URL:</span>
+
+                            <a style="color: blue;" target="_blank" :href="gallery.collection_url" >{{ gallery.collection_url }}</a>
+                        </td>
+                        <td width="20%">
+                            <span class="label">Collection Password:</span>
+                            {{ gallery.collection_password }}
+                        </td>
+                        <td width="20%">
+                            <span class="label">Download PIN:</span>
+                            {{ gallery.download_pin }}
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -32,9 +42,21 @@
                     </thead>
                     <tbody>
                     <tr v-for="gallery in this.online_gallery">
-                        <td width="50%">{{ gallery.gallery_name }}</td>
-                        <td width="25%">{{ gallery.access_code }}</td>
-                        <td width="25%">{{ gallery.password }}</td>
+                        <td width="50%">
+                            <span class="label">Gallery Name:</span>
+
+                            {{ gallery.gallery_name }}
+                        </td>
+                        <td width="25%">
+                            <span class="label">Access Code:</span>
+
+                            {{ gallery.access_code }}
+                        </td>
+                        <td width="25%">
+                            <span class="label">Password:</span>
+
+                            {{ gallery.password }}
+                        </td>
                     </tr>
                     </tbody>
                 </table>

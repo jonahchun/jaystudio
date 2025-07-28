@@ -12,7 +12,7 @@ use App\Core\Model\OnlineGalleryLink;
             @include('service.view.parts.uploads', ['title' => __('Your Prototype Draft')])
         </div>
         <div class="info-block">
-        @include('service.view.parts.edit_requests')
+            @include('service.view.parts.edit_requests')
         </div>
     </div>
     @if(count($photos) > 0)
@@ -78,9 +78,20 @@ use App\Core\Model\OnlineGalleryLink;
                         <tbody>
                         @foreach($online_gallery as $link)
                             <tr>
-                                <td width="50%"><a style="color: blue; text-decoration: underline;" target="_blank" href="{{ $link['collection_url'] }}" >{{ $link['collection_url'] }}</a></td>
-                                <td width="25%">{{ $link['collection_password'] }}</td>
-                                <td width="25%">{{ $link['download_pin'] }}</td>
+                                <td width="50%">
+                                    <span class="label">Collection URL:</span>
+
+                                    <a style="color: blue; text-decoration: underline;" target="_blank" href="{{ $link['collection_url'] }}" >{{ $link['collection_url'] }}</a></td>
+                                <td width="25%">
+                                    <span class="label">Collection Password:</span>
+
+                                    {{ $link['collection_password'] }}
+                                </td>
+                                <td width="25%">
+                                    <span class="label">Download PIN:</span>
+
+                                    {{ $link['download_pin'] }}
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
