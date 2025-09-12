@@ -1611,16 +1611,9 @@ export default {
             return JSON.stringify(Object.assign({}, fieldInfo));
         },
         back() {
-            if (this.readonly) {
-                this.current_step = Math.max(0, this.current_step - 1);
-                return false;
-            }
-
-            $("#btn_type").val("back");
-            this.form.validate();
-            if (!this.form.valid()) {
-                event.preventDefault();
-            }
+            $('#btn_type').val('back');
+            this.formValidator.settings.ignore = ":not(:hidden)";
+            this.form.submit();
             return false;
         },
         portraitSessionLocation() {

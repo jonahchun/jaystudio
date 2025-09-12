@@ -706,6 +706,10 @@ export default {
         $.validator.addMethod(
             "one-of-answers-required",
             function(value, element) {
+                if ($('#btn_type').val() === 'back' || $('#btn_type').val() === 'gotostep') {
+                    return true;
+                }
+
                 var valid = false;
                 $('#wedding-checklist-form input[type="checkbox"]').each(
                     function() {
@@ -732,10 +736,8 @@ export default {
         },
         back() {
             $('#btn_type').val('back');
-            this.form.validate();
-            if(!this.form.valid()) {
-                event.preventDefault();
-            }
+            this.formValidator.settings.ignore = ":not(:hidden)";
+            this.form.submit();
             return false;
         },
         addSongs() {

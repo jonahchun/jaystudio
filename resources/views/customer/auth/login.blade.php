@@ -20,6 +20,8 @@
 
                             <input id="account_id" type="text" class="form-control-bordered @error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autocomplete="account_id" autofocus>
 
+                            <label id="account_id-error" style="display: block;" class="custom-error fade" for="account_id">Access to the portal requires your Account ID, not your email.</label>
+
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -63,4 +65,22 @@
         </div>
     </div>
 
+
+
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputEl = document.getElementById('account_id');
+        const inputElError = document.getElementById('account_id-error');
+
+        inputEl.addEventListener('input', function() {
+            console.log(inputEl.value.length)
+            if (inputEl.value.length > 0) {
+                inputElError.classList.remove('fade');
+            } else {
+                inputElError.classList.add('fade');
+            }
+        });
+    });
+</script>
