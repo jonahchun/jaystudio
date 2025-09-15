@@ -19,6 +19,8 @@
                         <div class="form-group">
                             <label for="account_id">{{ __('Account ID') }}</label>
                             <input id="account_id" type="text" class="form-control-bordered" value="{{ $customer->account_id }}" disabled="disabled" />
+                            <label id="account_id-error" style="display: block;" class="custom-error " for="account_id">Access to the portal requires your Account ID, not your email.</label>
+
                         </div>
 
                         <div class="form-group">
@@ -48,3 +50,20 @@
         </div>
     </div>
 @endsection
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputEl = document.getElementById('account_id');
+        const inputElError = document.getElementById('account_id-error');
+
+        inputEl.addEventListener('input', function() {
+            console.log(inputEl.value.length)
+            if (inputEl.value.length > 0) {
+                inputElError.classList.remove('fade');
+            } else {
+                inputElError.classList.add('fade');
+            }
+        });
+    });
+</script>
