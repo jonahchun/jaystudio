@@ -3,11 +3,11 @@
 @section('content')
     <?php
         // This wedding form is accessible only before 1 week and In between 4 months from wedding date
-        // If current date between 1 week of wedding date then not accessible and 
+        // If current date between 1 week of wedding date then not accessible and
         // If form is access before 4 month then not accessible
 
         $before_date = date("Y-m-d H:i:s", strtotime ( '-4 month' , strtotime (Auth::user()->wedding_date) )) ;
-        
+
         $readonly_flag = 'false';
         if(Auth::user()->is_disable_update == 'Yes'){
             $readonly_flag = 'true';
@@ -18,10 +18,10 @@
             //     $readonly_flag = 'true';
 
             // }
-            if(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
-                $readonly_flag = 'true';
-
-            }
+//            if(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
+//                $readonly_flag = 'true';
+//
+//            }
         }
     ?>
     <wedding-checklist-form

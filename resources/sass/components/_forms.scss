@@ -748,3 +748,12 @@ input ~ .label {
         }
     }
 }
+
+.custom-error {
+    font-size: 13px;
+    font-weight: normal;
+    color: #fb434c !important;
+    padding: 5px 0 0 2px;
+    margin: 0;
+    text-align: center;
+}

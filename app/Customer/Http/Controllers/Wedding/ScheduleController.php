@@ -111,7 +111,7 @@ class ScheduleController extends \WFN\Customer\Http\Controllers\Controller
             }
 
             if($data['is_final_step'] == 1){
-                Auth::user()->update(['is_disable_update'=>'Yes']);
+//                Auth::user()->update(['is_disable_update'=>'Yes']);
             }
             if($data['is_final_step'] == 1 && $initially_complete == 0){
 

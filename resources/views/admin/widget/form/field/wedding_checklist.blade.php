@@ -1,15 +1,15 @@
-@if($form->getInstance()->wedding_checklist && !empty($form->getInstance()->wedding_checklist->current_step))
+@if($form->getInstance()->wedding_checklist)
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
                 @includeIf('admin::widget.button', [
-                    'jsaction' => 'window.open("' . route('admin.customer.print.wedding-checklist', ['customer' => $form->getInstance()->id]) . '")', 
+                    'jsaction' => 'window.open("' . route('admin.customer.print.wedding-checklist', ['customer' => $form->getInstance()->id]) . '")',
                     'label'    => 'Print',
                     'route'    => 'admin.customer.print.wedding-checklist',
-                ])        
+                ])
             </div>
-            <div class="card-body"> 
+            <div class="card-body">
                 <ul class="nav nav-tabs nav-tabs-info nav-justified">
                     @php
                         $active = 1;
