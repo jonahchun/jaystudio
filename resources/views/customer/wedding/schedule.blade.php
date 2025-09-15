@@ -18,10 +18,10 @@
             //     $readonly_flag = 'true';
 
             // }
-            if(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
-                $readonly_flag = 'true';
-
-            }
+//            if(Auth::user()->wedding_date->subMonth('4')->gt(Illuminate\Support\Carbon::now())){
+//                $readonly_flag = 'true';
+//
+//            }
         }
 
         $is_download_file = 0;
