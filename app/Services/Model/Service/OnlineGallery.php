@@ -4,10 +4,12 @@ namespace App\Services\Model\Service;
 
 use App\Customer\Model\Customer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Storage;
 
 class OnlineGallery extends Model
 {
+    use SoftDeletes;
 
     protected $table = 'service_online_gallery';
 

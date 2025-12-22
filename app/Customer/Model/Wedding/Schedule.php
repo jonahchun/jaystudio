@@ -4,11 +4,13 @@ namespace App\Customer\Model\Wedding;
 
 use App\Core\Model\Traits\HasUploads;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Schedule extends Model
 {
 
     use HasUploads;
+    use SoftDeletes;
 
     const MEDIA_PATH = 'customer-wedding-schedule' . DIRECTORY_SEPARATOR;
 
