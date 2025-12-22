@@ -4,9 +4,12 @@ namespace App\Notification\Model;
 
 use App\Customer\Model\Customer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Notification extends Model
 {
+    use SoftDeletes;
+
     const NEW_CUSTOMER_TYPE         = 'new';
     const OLD_CUSTOMER_TYPE         = 'old';
     const FORM_TYPE_1               = 'detail about you';

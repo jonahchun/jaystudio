@@ -3,11 +3,13 @@
 namespace App\Customer\Model\Wedding;
 
 use App\Core\Model\Traits\HasUploads;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Checklist extends \WFN\Customer\Model\Customer\Detail
 {
 
     use HasUploads;
+    use SoftDeletes;
 
     const MEDIA_PATH = 'customer-wedding-checklist' . DIRECTORY_SEPARATOR;
 

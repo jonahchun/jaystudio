@@ -53,7 +53,7 @@ class TeaserPhotoController extends \WFN\Customer\Http\Controllers\Controller
         }
 
         $headers = ["Content-Type"=>"application/zip"];
-        return response()->download($zipPath,$zipName,$headers);
-
+        return response()->download($zipPath,$zipName,$headers)
+            ->deleteFileAfterSend(true);
     }
 }

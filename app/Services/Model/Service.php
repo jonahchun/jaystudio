@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Services\Model\Service\Link;
 use App\Services\Model\Service\OnlineGallery;
 use App\Services\Model\Service\EngagementSessionDetail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
+    use SoftDeletes;
 
     protected $table = 'services';
 
@@ -156,7 +158,7 @@ class Service extends Model
 
                 $data['customer_id'] = $this->customer_id;
                 $data['service_id'] = $this->id;
-                
+
                 $image->fill($data)->save();
             }
         }

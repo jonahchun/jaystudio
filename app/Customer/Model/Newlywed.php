@@ -2,10 +2,12 @@
 
 namespace App\Customer\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use WFN\Customer\Model\Customer\Detail;
 
 class Newlywed extends Detail
 {
+    use SoftDeletes;
 
     const MEDIA_PATH = 'newlywed' . DIRECTORY_SEPARATOR;
 

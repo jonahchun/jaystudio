@@ -4,12 +4,14 @@ namespace App\Payments\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use PayPal\Api\Invoice as PayPalInvoice;
 
 use Customer;
 
 class Invoice extends Model
 {
+    use SoftDeletes;
 
     protected $table = 'invoices';
 
