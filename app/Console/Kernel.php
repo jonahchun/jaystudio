@@ -37,6 +37,8 @@ class Kernel extends ConsoleKernel
         } else {
             $schedule->command('customer:cleanUpTeaserPhotos')->cron($interval);
         }
+
+        $schedule->command('customer:cleanUpCustomers')->daily();
     }
 
     /**
