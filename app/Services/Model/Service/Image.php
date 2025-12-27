@@ -2,13 +2,15 @@
 namespace App\Services\Model\Service;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Storage;
 
 class Image extends Model
 {
+    use SoftDeletes;
 
 	const MEDIA_PATH = 'teaser_photo' . DIRECTORY_SEPARATOR;
-    
+
     protected $table = 'service_teaser_photos';
 
     protected $fillable = ['customer_id','service_id', 'image'];
@@ -39,7 +41,7 @@ class Image extends Model
     public function imageName($key){
         $value = $this->getAttribute($key);
         if($key == 'image'){
-            $name = explode("\\",$value);  
+            $name = explode("\\",$value);
             return $name[count($name)-1];
         }
         return '';

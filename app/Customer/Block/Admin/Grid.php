@@ -2,6 +2,8 @@
 
 namespace App\Customer\Block\Admin;
 
+use App\Customer\Model\Customer;
+
 class Grid extends \WFN\Customer\Block\Admin\Grid
 {
 

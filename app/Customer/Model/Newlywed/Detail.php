@@ -3,10 +3,12 @@
 namespace App\Customer\Model\Newlywed;
 
 use App\Core\Model\Traits\HasUploads;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Detail extends \WFN\Customer\Model\Customer\Detail
 {
     use HasUploads;
+    use SoftDeletes;
 
     const MEDIA_PATH = 'customer-newlywed-details' . DIRECTORY_SEPARATOR;
 

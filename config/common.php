@@ -57,13 +57,13 @@ return[
 	],
     'cleanPhotosSubDays' => 365,
     'cleanPhotosCron' => '0 3 * * *',
-    'sendNotificationEmailsCron' => '*/10',
+    'sendNotificationEmailsCron' => '*/10 * * * *',
     // * every minute
     // */10: Every 10 minutes
     // @daily: Every day at midnight
     // 0 */6 * * *: Every hour, starting at midnight, ending at 6am
     // 0 3 * * *: Equal at 3am
-    // */5: Every 5 minutes
+    // */5 * * * *: Every 5 minutes
 ];
 
 ?>
