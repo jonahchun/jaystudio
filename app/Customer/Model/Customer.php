@@ -406,9 +406,6 @@ class Customer extends \WFN\Customer\Model\Customer
                 $customer->teaser_photos()->delete();
             }
 
-            if (method_exists($customer, 'onlineGalleryLink')) {
-                $customer->onlineGalleryLink()->delete();
-            }
         });
 
         static::restoring(function($customer) {
@@ -470,10 +467,6 @@ class Customer extends \WFN\Customer\Model\Customer
                     \Log::info('Restoring teaser_photos', ['id' => $customer->id]);
                     $customer->teaser_photos()->restore();
                 }
-                if (method_exists($customer, 'onlineGalleryLink')) {
-                    \Log::info('Restoring onlineGalleryLink', ['id' => $customer->id]);
-                    $customer->onlineGalleryLink()->restore();
-                }
 
                 \Log::info('Customer restoring completed', ['id' => $customer->id]);
 
@@ -514,7 +507,6 @@ class Customer extends \WFN\Customer\Model\Customer
         $this->links()->restore();
         $this->online_gallery()->restore();
         $this->teaser_photos()->restore();
-        $this->onlineGalleryLink()->restore();
 
         return (bool) $result;
     }
