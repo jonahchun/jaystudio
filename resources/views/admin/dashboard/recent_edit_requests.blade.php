@@ -9,30 +9,53 @@
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">
                         <thead>
-                            <tr>
-                                <th>{{ __('Account ID / Email') }}</th>
-                                <th>{{ __('Name') }}</th>
-                                <th>{{ __('Status') }}</th>
-                                <th>{{ __('Initiated') }}</th>
-                                <th>{{ __('Action') }}</th>
-                            </tr>
+                        <tr>
+                            <th>{{ __('Account ID / Email') }}</th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Status') }}</th>
+                            <th>{{ __('Initiated') }}</th>
+                            <th>{{ __('Action') }}</th>
+                        </tr>
                         </thead>
                         <tbody>
-                        @foreach(\App\Services\Model\Service\EditRequest::orderBy('created_at', 'desc')->limit(5)->get() as $editRequest)
-                            <tr>
-                                <td>
-                                    <span class="badge bg-secondary text-white">{{ $editRequest->service->customer->account_id }}</span>
-                                    <p>{{ $editRequest->service->customer->email }}</p>
-                                </td>
-                                <td>
-                                    {{ $editRequest->service->customer->first_newlywed->first_name }} &
-                                    {{ $editRequest->service->customer->second_newlywed->first_name }}
-                                </td>
-                                <td>{{ \App\Services\Model\Source\EditRequest\Status::getInstance()->getOptionLabel($editRequest->status) }}</td>
-                                <td>{{ $editRequest->created_at->format('d F Y') }}</td>
-                                <td><a class="btn btn-light btn-sm" href="{{ route('admin.customer.service.edit_request.edit', ['id' => $editRequest->id]) }}">{{ __('Edit') }}</a></td>
-                            </tr>
+                        @php
+                            $editRequests = \App\Services\Model\Service\EditRequest::with([
+                                'service.customer.first_newlywed',
+                                'service.customer.second_newlywed'
+                            ])->orderBy('created_at', 'desc')->limit(5)->get();
+                        @endphp
+
+                        @foreach($editRequests as $editRequest)
+                            @if($editRequest->service && $editRequest->service->customer)
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-secondary text-white">{{ $editRequest->service->customer->account_id ?? 'N/A' }}</span>
+                                        <p>{{ $editRequest->service->customer->email ?? 'N/A' }}</p>
+                                    </td>
+                                    <td>
+                                        {{ $editRequest->service->customer->first_newlywed->first_name ?? 'N/A' }} &
+                                        {{ $editRequest->service->customer->second_newlywed->first_name ?? 'N/A' }}
+                                    </td>
+                                    <td>{{ \App\Services\Model\Source\EditRequest\Status::getInstance()->getOptionLabel($editRequest->status) }}</td>
+                                    <td>{{ $editRequest->created_at->format('d F Y') }}</td>
+                                    <td><a class="btn btn-light btn-sm" href="{{ route('admin.customer.service.edit_request.edit', ['id' => $editRequest->id]) }}">{{ __('Edit') }}</a></td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td colspan="5" class="text-muted">
+                                        <i>Customer data not available</i>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
+
+                        @if($editRequests->isEmpty())
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">
+                                    {{ __('No edit requests found') }}
+                                </td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
